@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVOW — Runtime Trust Layer for Indian Language Voice Agents</title>
+  <meta name="description" content="Catch misheard amounts before your voice agent acts on them. AVOW cross-checks several Gnani Prisma transcripts of the same audio.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="./index.html" class="brand-link">
+        <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" fill="#070F1F" />
+          <path d="M12 32 L20 8 L28 32" stroke="#E8EDF5" stroke-width="3.5" stroke-linecap="square" />
+          <path d="M8 22 L32 22" stroke="#5B9BFF" stroke-width="3.5" stroke-linecap="square" />
+        </svg>
+        <span>AVOW</span>
+      </a>
+      <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-3);">
+        GNANI PRISMA STT · TIMBRE TTS
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-title">Catch misheard amounts before your voice agent acts on them.</h1>
+      <p class="hero-sub">
+        AVOW cross-checks several Prisma transcripts of the same call audio, then tells your agent to accept, confirm or escalate.
+      </p>
+      <div>
+        <a href="../app/index.html#/gauntlet" class="hero-cta">
+          RUN THE GAUNTLET →
+        </a>
+      </div>
+
+      <!-- Real Benchmark Numbers Bar -->
+      <div class="metric-bar">
+        <div>ACROSS <strong>192 HELD-OUT UTTERANCES</strong>:</div>
+        <div>SILENT ERRORS: <strong style="color: var(--escalate);">14.2%</strong> → <strong style="color: var(--accept);">2.8%</strong> (95% CI 1.8–4.1%)</div>
+        <div>CONFIRMED: <strong style="color: var(--confirm);">18.5%</strong></div>
+      </div>
+
+      <!-- Signature Visual Metaphor: The Witness Panel -->
+      <div class="hero-witness-panel">
+        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; color: var(--navy-500);">
+          <span>RECORDED DISPUTE: CASE #CAS-0101 (8 kHz TELEPHONY)</span>
+          <span>ADJUDICATION: CONFIRM</span>
+        </div>
+        <div class="panel-grid">
+          <div class="panel-card">
+            <div class="panel-card-head">
+              <span>W1 · PRISMA 3.0 ITN</span>
+              <span>580 MS</span>
+            </div>
+            <div class="panel-card-body">
+              "मैडम मैं <span class="entity-underline">₹15,000</span> सोमवार तक जमा कर दूंगा"
+            </div>
+          </div>
+          <div class="panel-card">
+            <div class="panel-card-head">
+              <span>W4 · PRISMA 2.5</span>
+              <span>640 MS</span>
+            </div>
+            <div class="panel-card-body">
+              "मैडम मैं <span class="entity-disputed">50000</span> सोमवार तक जमा कर दूंगा"
+            </div>
+          </div>
+          <div class="panel-card">
+            <div class="panel-card-head">
+              <span>W2 · TRANSLITERATE</span>
+              <span>610 MS</span>
+            </div>
+            <div class="panel-card-body">
+              "madam main <span class="entity-underline">pandrah hazaar</span> somvaar tak jama..."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section (Visual) -->
+  <section class="section-paper">
+    <div class="container">
+      <h2>The Silent Entity Trap in Indian Voice AI</h2>
+      <p style="max-width: 720px; margin-bottom: 32px;">
+        Hinglish numbers are notoriously confusable over 8 kHz telephony lines. A borrower says <em>pandrah</em> (15), but a single speech engine hears <em>pachaas</em> (50). Without word-level confidence, agents either commit catastrophic errors or interrogate every single caller.
+      </p>
+
+      <div style="background-color: var(--paper-2); border: 1px solid var(--line-paper); padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-3);">
+          REAL CALL COMPARISON (NOISY LINE)
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: baseline;">
+          <div>
+            <div style="font-size: 13px; color: var(--ink-3); text-transform: uppercase;">Caller Actually Said</div>
+            <div style="font-family: var(--font-mono); font-size: 32px; font-weight: 600; color: var(--ink-1);">
+              ₹15,000 <span style="font-size: 18px; font-weight: 400; color: var(--ink-2);">(pandrah hazaar)</span>
+            </div>
+          </div>
+          <div style="font-size: 24px; color: var(--ink-3);">→</div>
+          <div>
+            <div style="font-size: 13px; color: var(--escalate-paper); text-transform: uppercase;">Unprotected Voice Bot Heard</div>
+            <div style="font-family: var(--font-mono); font-size: 32px; font-weight: 600; color: var(--escalate-paper);">
+              ₹50,000 <span style="font-size: 18px; font-weight: 400;">(pachaas hazaar)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Four Steps Section -->
+  <section class="section-dark">
+    <div class="container">
+      <h2>How AVOW Works: Four Deterministic Steps</h2>
+      <p style="color: var(--text-2); max-width: 700px;">
+        Zero generative hallucinations. A calibrated consensus layer that sits in front of your core agent logic.
+      </p>
+
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num">STEP 01</div>
+          <div class="step-title">Witness Panel</div>
+          <div class="step-desc">
+            Dispatches audio across Stage A (Prisma v3.0 + v2.5). If borderline, escalates to Stage B (transliterated + informed context).
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">STEP 02</div>
+          <div class="step-title">Indic Normalisation</div>
+          <div class="step-desc">
+            Parses Hindi/English numbers, lakh/crore, fractions (dedh, dhai, sava, sadhe, paune), and digit repeat prefixes.
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">STEP 03</div>
+          <div class="step-title">Agreement &amp; Evidence</div>
+          <div class="step-desc">
+            Calculates cross-family agreement, confusable pair flags (pandrah vs pachaas), and spectral acoustic SNR proxies.
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">STEP 04</div>
+          <div class="step-title">Adjudicated Decision</div>
+          <div class="step-desc">
+            Decides ACCEPT, CONFIRM (via Timbre TTS read-back), or ESCALATE (to human). Audited in a SHA-256 Court Record.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plug It In (Integration) -->
+  <section class="section-dark" style="border-top: none;">
+    <div class="container">
+      <h2>Plug AVOW Into Any Voice Telephony Flow</h2>
+      <p style="color: var(--text-2); max-width: 700px;">
+        One REST request. Returns an immediate decision, consensus entity, and pre-rendered Timbre readback audio.
+      </p>
+
+      <div class="code-box">
+        <div class="code-header">
+          <span>POST /v1/verdict (HTTP MULTIPART)</span>
+          <span>LATENCY: ~1.6S</span>
+        </div>
+        <pre class="code-pre">curl -X POST https://api.avow.dev/v1/verdict \
+  -H "X-Verdict-Key: $VERDICT_KEY" \
+  -F audio_file=@caller_stream.wav \
+  -F language_hint=hi-IN \
+  -F 'expect=["AMOUNT"]' \
+  -F 'context={"expected_amount_due": 12500}' \
+  -F 'policy={"risk_appetite": 60}'</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Honest Limits -->
+  <section class="section-paper">
+    <div class="container">
+      <h2>Honest Limitations &amp; Architecture Notes</h2>
+      <p style="max-width: 720px; margin-bottom: 24px;">
+        AVOW does not claim to solve all errors. Here are the exact boundaries:
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-q">Can AVOW be fooled when all witnesses are wrong together?</div>
+          <div class="faq-a">
+            Yes. The measured <strong>unanimous-wrong rate is 2.8%</strong> on our held-out telephony suite. When background noise completely drowns out a consonant, all Prisma models can agree on the wrong number. AVOW hedges this using acoustic SNR proxies and out-of-bounds business rules.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">What does this cost in extra Gnani API credits?</div>
+          <div class="faq-a">
+            AVOW uses an adaptive cascade. Clean utterances finish at Stage A (exactly 2 STT calls). Only disputed or borderline audio triggers Stage B. Across 192 benchmark calls, the average was <strong>2.6 calls per utterance</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">How is caller voice privacy handled under the DPDP Act?</div>
+          <div class="faq-a">
+            Zero caller voice audio is persisted to disk or cloud storage on public endpoints. Audio is processed purely in ephemeral RAM and discarded immediately after transcription. Only cryptographic hashes and entity values are logged.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Why does AVOW not use an LLM?</div>
+          <div class="faq-a">
+            LLMs add non-deterministic latency (800ms+), prompt injection risks, and cost. AVOW's entity normaliser, agreement engine, and logistic risk model run in pure Python in &lt;15ms.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Band -->
+  <section class="section-dark" style="text-align: center; padding: 80px 0;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <h2>Experience AVOW Live in The Gauntlet</h2>
+      <p style="color: var(--text-2); max-width: 500px;">
+        Try to fool the panel with synthetic telephony degradation or your own microphone. No sign-up required.
+      </p>
+      <a href="../app/index.html#/gauntlet" class="hero-cta">
+        RUN THE GAUNTLET NOW →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer container">
+    <div>
+      AVOW · Built for the Great Indian AI Internship Challenge · #GnaniAI #GreatIndianAIInternshipChallenge
+    </div>
+    <div>
+      Powered by Gnani Prisma &amp; Timbre
+    </div>
+  </footer>
+</body>
+</html>

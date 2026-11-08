@@ -1,0 +1,133 @@
+/* hallmark-overrule: tracked-caps-labels — brand typography; functional use only */
+
+@import './tokens.css';
+@import '@fontsource-variable/inter';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font: 400 16px/24px var(--font-sans);
+  color: var(--text-1);
+  background-color: var(--navy-950);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Headings */
+h1 {
+  font: 600 40px/48px var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+h2 {
+  font: 600 28px/36px var(--font-sans);
+  color: var(--text-1);
+}
+
+h3 {
+  font: 600 20px/28px var(--font-sans);
+  color: var(--text-1);
+}
+
+p {
+  color: var(--text-2);
+}
+
+a {
+  color: var(--navy-500);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--navy-400);
+}
+
+/* Focus styles: 2px solid --navy-500, offset 2px, rectangular (zero radius) */
+:focus-visible {
+  outline: 2px solid var(--navy-500);
+  outline-offset: 2px;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--navy-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--navy-800);
+  border: 1px solid var(--navy-300);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--navy-700);
+}
+
+/* Zero radius enforcement */
+button, input, select, textarea, div {
+  border-radius: 0 !important;
+}
+
+/* Entity underline stroke: signature visual mark */
+.entity-underline {
+  border-bottom: 2px solid var(--navy-500);
+  background: rgba(91, 155, 255, 0.12);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+.entity-disputed {
+  border-bottom: 2px solid var(--confirm);
+  background: rgba(245, 185, 66, 0.12);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--confirm);
+}
+
+.entity-escalated {
+  border-bottom: 2px solid var(--escalate);
+  background: rgba(255, 122, 122, 0.12);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--escalate);
+}
+
+.entity-accepted {
+  border-bottom: 2px solid var(--accept);
+  background: rgba(61, 214, 140, 0.12);
+  padding: 0 2px;
+  font-weight: 500;
+  color: var(--accept);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

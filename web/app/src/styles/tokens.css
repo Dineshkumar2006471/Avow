@@ -1,0 +1,99 @@
+/* hallmark-overrule: tracked-caps-labels — brand typography; functional use only */
+
+:root {
+  /* navy scale */
+  --navy-950: #070F1F;
+  --navy-900: #0A1A33;
+  --navy-850: #0B1830;
+  --navy-800: #12274D;
+  --navy-700: #163F8A;
+  --navy-600: #2A63C8;
+  --navy-500: #5B9BFF;
+  --navy-400: #8EB8FF;
+  --navy-300: #27406F;
+  --navy-250: #4A6AA3;
+
+  /* neutrals */
+  --text-1: #E8EDF5;
+  --text-2: #A9B7CF;
+  --text-3: #8496B5;
+  --paper: #F4F6FA;
+  --paper-2: #FFFFFF;
+  --ink-1: #0A1A33;
+  --ink-2: #44546F;
+  --ink-3: #5E6C86;
+  --line-paper: #D5DCE8;
+
+  /* verdicts (dark) */
+  --accept: #3DD68C;
+  --confirm: #F5B942;
+  --escalate: #FF7A7A;
+
+  /* verdicts (paper) */
+  --accept-paper: #0E7A4B;
+  --confirm-paper: #8A5A00;
+  --escalate-paper: #B3261E;
+
+  /* spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 40px;
+  --s-8: 48px;
+  --s-9: 64px;
+  --s-10: 80px;
+  --s-11: 96px;
+  --s-12: 128px;
+
+  /* shape + motion */
+  --radius: 0px;
+  --border: 1px;
+  --dur-fast: 110ms;
+  --dur-base: 180ms;
+  --dur-slow: 280ms;
+  --ease: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-out: cubic-bezier(0, 0, 0.3, 1);
+
+  /* typography */
+  --font-sans: "Inter", "Noto Sans Devanagari", "Noto Sans Tamil", "Noto Sans Telugu",
+    "Noto Sans Kannada", "Noto Sans Bengali", "Noto Sans Gujarati", "Noto Sans Gurmukhi",
+    "Noto Sans Malayalam", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.label {
+  font: 500 12px/16px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.label-lg {
+  font: 500 14px/20px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.value {
+  font: 400 14px/20px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.value-lg {
+  font: 400 28px/32px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.value-xl {
+  font: 400 48px/52px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
