@@ -9,3 +9,4 @@ services:
     envVars:
       - key: GNANI_API_KEY
         sync: false
+

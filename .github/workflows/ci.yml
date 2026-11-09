@@ -56,3 +56,4 @@ jobs:
         run: |
           cd web/app
           npm run build
+
