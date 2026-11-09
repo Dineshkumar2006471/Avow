@@ -15,7 +15,7 @@
 [![DPDP Act](https://img.shields.io/badge/Compliance-DPDP%20Act%202023-059669.svg)](#security-privacy--dpdp-compliance)
 [![Error Reduction](https://img.shields.io/badge/Silent%20Error%20Reduction-80.3%25-059669.svg)](#empirical-benchmark-results)
 
-**[Explore Live Demo](http://localhost:5173)** · **[The Gauntlet](http://localhost:5173/console/gauntlet)** · **[Benchmark Report](http://localhost:5173/console/benchmark)** · **[API Playground](http://localhost:5173/console/api)**
+**[Explore Live Demo](https://avow-steel.vercel.app)** · **[The Gauntlet](https://avow-steel.vercel.app/console/gauntlet)** · **[1-Page Solution Pitch](SOLUTION_PITCH.md)** · **[Benchmark Report](https://avow-steel.vercel.app/console/benchmark)** · **[API Playground](https://avow-steel.vercel.app/console/api)**
 
 </div>
 
