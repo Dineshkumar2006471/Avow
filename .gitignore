@@ -74,6 +74,7 @@ AVOW.png
 *.sqlite
 *.sqlite3
 data/*.db
+!data/.gitkeep
 
 # Secrets
 *.pem
