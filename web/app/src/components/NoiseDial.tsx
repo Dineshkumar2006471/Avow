@@ -1,4 +1,5 @@
 import React from 'react';
+import { Radio, Sliders } from 'lucide-react';
 
 export type DegradationCondition =
   | 'CLEAN'
@@ -22,20 +23,22 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
   snrDb,
   onSnrChange,
 }) => {
-  const conditions: { id: DegradationCondition; label: string; desc: string }[] = [
-    { id: 'CLEAN', label: 'CLEAN STUDIO', desc: '16 kHz Studio Fidelity' },
-    { id: 'PHONE_8K', label: '8 KHZ TELEPHONY', desc: 'μ-law Bandpass (300-3400Hz)' },
-    { id: 'BABBLE_10', label: 'OFFICE BABBLE', desc: 'Multi-speaker Ambient Noise' },
-    { id: 'TRAFFIC_5', label: 'INDIAN TRAFFIC', desc: 'Engine Rumble + Auto Horns' },
-    { id: 'SPEAKER_REVERB', label: 'SPEAKERPHONE', desc: 'Room Reverb (RT60 ~0.5s)' },
-    { id: 'PACKET_LOSS', label: 'VOIP JITTER', desc: '20-120ms Random Dropouts' },
+  const conditions: { id: DegradationCondition; label: string; desc: string; icon: string }[] = [
+    { id: 'CLEAN', label: 'Clean Studio', desc: '16 kHz Studio Studio Reference', icon: '🎙️' },
+    { id: 'PHONE_8K', label: '8 kHz Telephony', desc: 'μ-law Bandpass (300-3400Hz)', icon: '📞' },
+    { id: 'BABBLE_10', label: 'Office Babble', desc: 'Multi-speaker Ambient Crowds', icon: '👥' },
+    { id: 'TRAFFIC_5', label: 'Indian Traffic', desc: 'Engine Rumble + Auto Horns', icon: '🛺' },
+    { id: 'SPEAKER_REVERB', label: 'Speakerphone', desc: 'Room Reverb (RT60 ~0.5s)', icon: '🔊' },
+    { id: 'PACKET_LOSS', label: 'VoIP Jitter', desc: '20-120ms Random Packet Dropouts', icon: '📶' },
   ];
 
   return (
     <div
       style={{
-        backgroundColor: 'var(--navy-850)',
-        border: '1px solid var(--navy-300)',
+        backgroundColor: 'var(--surface-primary)',
+        border: '1px solid var(--border-default)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-sm)',
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
@@ -47,26 +50,34 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid var(--navy-300)',
-          paddingBottom: '8px',
+          borderBottom: '1px solid var(--border-subtle)',
+          paddingBottom: '10px',
         }}
       >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Radio size={16} color="var(--sapphire-600)" />
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--text-tertiary)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            2. ACOUSTIC STRESS TEST (THE GAUNTLET)
+          </span>
+        </div>
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: 'var(--text-3)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.04em',
-          }}
-        >
-          ACOUSTIC ENVIRONMENT / THE GAUNTLET
-        </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: 'var(--navy-400)',
+            fontSize: '11px',
+            color: 'var(--sapphire-600)',
+            backgroundColor: 'var(--sapphire-50)',
+            padding: '2px 8px',
+            borderRadius: 'var(--radius-full)',
+            fontWeight: 600,
           }}
         >
           PROCEDURAL NOISE
@@ -77,7 +88,7 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
           gap: '8px',
         }}
       >
@@ -89,34 +100,39 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
               type="button"
               onClick={() => onConditionChange(c.id)}
               style={{
-                backgroundColor: isSelected ? 'var(--navy-700)' : 'var(--navy-800)',
-                border: isSelected ? '1px solid var(--navy-500)' : '1px solid var(--navy-300)',
-                color: isSelected ? 'var(--text-1)' : 'var(--text-2)',
-                padding: '10px 12px',
+                backgroundColor: isSelected ? 'var(--sapphire-50)' : 'var(--sky-50)',
+                border: isSelected ? '1.5px solid var(--sapphire-500)' : '1px solid var(--border-default)',
+                color: isSelected ? 'var(--sapphire-900)' : 'var(--text-secondary)',
+                borderRadius: 'var(--radius-md)',
+                padding: '12px 14px',
                 textAlign: 'left',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '4px',
-                transition: 'background-color 110ms var(--ease)',
+                gap: '3px',
+                transition: 'all var(--dur-fast) var(--ease)',
+                boxShadow: isSelected ? '0 2px 8px rgba(15, 82, 186, 0.12)' : 'none',
               }}
             >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ fontSize: '14px' }}>{c.icon}</span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: isSelected ? 'var(--sapphire-700)' : 'var(--text-primary)',
+                  }}
+                >
+                  {c.label}
+                </span>
+              </div>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  letterSpacing: '0.04em',
-                  color: isSelected ? '#FFFFFF' : 'var(--text-1)',
-                }}
-              >
-                {c.label}
-              </span>
-              <span
-                style={{
-                  fontSize: '11px',
-                  color: isSelected ? 'var(--navy-400)' : 'var(--text-3)',
-                  lineHeight: 1.2,
+                  fontSize: '10px',
+                  color: isSelected ? 'var(--sapphire-600)' : 'var(--text-tertiary)',
+                  lineHeight: 1.25,
                 }}
               >
                 {c.desc}
@@ -132,10 +148,11 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '8px',
-            backgroundColor: 'var(--navy-900)',
-            padding: '12px 16px',
-            border: '1px solid var(--navy-300)',
+            gap: '10px',
+            backgroundColor: 'var(--sky-100)',
+            padding: '14px 16px',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div
@@ -145,26 +162,34 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
               alignItems: 'center',
             }}
           >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Sliders size={14} color="var(--sapphire-600)" />
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'var(--text-secondary)',
+                  textTransform: 'uppercase',
+                }}
+              >
+                SIGNAL-TO-NOISE RATIO (SNR)
+              </span>
+            </div>
+
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                color: 'var(--text-2)',
-                textTransform: 'uppercase',
+                fontSize: '13px',
+                fontWeight: 700,
+                color: 'var(--sapphire-700)',
+                backgroundColor: 'var(--surface-primary)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-default)',
               }}
             >
-              SIGNAL-TO-NOISE RATIO (SNR)
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '15px',
-                fontWeight: 600,
-                color: 'var(--navy-400)',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {snrDb} DB ({snrDb > 15 ? 'MILD' : snrDb > 7 ? 'HARSH' : 'EXTREME'})
+              {snrDb} dB · {snrDb > 15 ? 'MILD NOISE' : snrDb > 7 ? 'HARSH REAL-WORLD' : 'EXTREME INTERFERENCE'}
             </span>
           </div>
 
@@ -177,7 +202,7 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
             onChange={(e) => onSnrChange(Number(e.target.value))}
             style={{
               width: '100%',
-              accentColor: 'var(--navy-500)',
+              accentColor: 'var(--sapphire-600)',
               cursor: 'pointer',
             }}
           />
@@ -188,12 +213,12 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
               justifyContent: 'space-between',
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
-              color: 'var(--text-3)',
+              color: 'var(--text-tertiary)',
             }}
           >
-            <span>0 DB (EXTREME NOISE)</span>
-            <span>12 DB (TYPICAL CALL)</span>
-            <span>25 DB (QUIET ROOM)</span>
+            <span>0 dB (Extreme Indian Traffic)</span>
+            <span>8 dB (Noisy Bus/Market)</span>
+            <span>25 dB (Quiet Room)</span>
           </div>
         </div>
       )}

@@ -94,14 +94,31 @@ print("Readback Speech:", verdict["readback"]["text"])`;
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <span className="label" style={{ color: 'var(--navy-500)' }}>
-          INTEGRATION SDK &amp; MIDDLEWARE
-        </span>
-        <h1>API Playground</h1>
-        <p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            INTEGRATION SDK &amp; MIDDLEWARE
+          </span>
+          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+            DEVELOPER PLAYGROUND
+          </span>
+        </div>
+        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>API Playground</h1>
+        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
           Drop AVOW between your voice telephony ingress and downstream LLM/workflow engine.
           Zero LLM prompt injection — deterministic runtime safety in under 2 seconds.
         </p>
@@ -110,20 +127,23 @@ print("Readback Speech:", verdict["readback"]["text"])`;
       {/* Code Snippet Box */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
-        {/* Tabs */}
+        {/* Tabs Bar */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: 'var(--navy-900)',
-            borderBottom: '1px solid var(--navy-300)',
+            backgroundColor: 'var(--sky-100)',
+            borderBottom: '1px solid var(--border-default)',
             padding: '0 16px',
           }}
         >
@@ -131,16 +151,16 @@ print("Readback Speech:", verdict["readback"]["text"])`;
             <button
               onClick={() => setActiveTab('curl')}
               style={{
-                backgroundColor: activeTab === 'curl' ? 'var(--navy-850)' : 'transparent',
-                color: activeTab === 'curl' ? 'var(--text-1)' : 'var(--text-3)',
-                borderLeft: '1px solid var(--navy-300)',
-                borderRight: '1px solid var(--navy-300)',
-                borderTop: activeTab === 'curl' ? '2px solid var(--navy-500)' : 'none',
-                borderBottom: 'none',
-                padding: '12px 20px',
+                backgroundColor: activeTab === 'curl' ? 'var(--surface-primary)' : 'transparent',
+                color: activeTab === 'curl' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                border: 'none',
+                borderBottom: activeTab === 'curl' ? '2px solid var(--sapphire-500)' : '2px solid transparent',
+                padding: '12px 18px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '12px',
+                fontWeight: 600,
                 cursor: 'pointer',
+                transition: 'all var(--dur-fast) var(--ease)',
               }}
             >
               cURL (BASH)
@@ -148,24 +168,25 @@ print("Readback Speech:", verdict["readback"]["text"])`;
             <button
               onClick={() => setActiveTab('python')}
               style={{
-                backgroundColor: activeTab === 'python' ? 'var(--navy-850)' : 'transparent',
-                color: activeTab === 'python' ? 'var(--text-1)' : 'var(--text-3)',
-                borderRight: '1px solid var(--navy-300)',
-                borderTop: activeTab === 'python' ? '2px solid var(--navy-500)' : 'none',
-                borderBottom: 'none',
-                padding: '12px 20px',
+                backgroundColor: activeTab === 'python' ? 'var(--surface-primary)' : 'transparent',
+                color: activeTab === 'python' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                border: 'none',
+                borderBottom: activeTab === 'python' ? '2px solid var(--sapphire-500)' : '2px solid transparent',
+                padding: '12px 18px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '12px',
+                fontWeight: 600,
                 cursor: 'pointer',
+                transition: 'all var(--dur-fast) var(--ease)',
               }}
             >
-              PYTHON SDK / REQUESTS
+              PYTHON SDK (REQUESTS)
             </button>
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
             <Button size="compact" variant="ghost" onClick={handleCopy} icon={copied ? <Check size={14} /> : <Copy size={14} />}>
-              {copied ? 'COPIED TO CLIPBOARD' : 'COPY'}
+              {copied ? 'COPIED' : 'COPY'}
             </Button>
             <Button size="compact" variant="primary" onClick={handleSimulate} disabled={isSimulating} icon={<Play size={14} />}>
               {isSimulating ? 'TRANSMITTING...' : 'TEST INVOCATION'}
@@ -174,13 +195,13 @@ print("Readback Speech:", verdict["readback"]["text"])`;
         </div>
 
         {/* Code display */}
-        <div style={{ padding: '20px', overflowX: 'auto', backgroundColor: 'var(--navy-950)' }}>
+        <div style={{ padding: '24px', overflowX: 'auto', backgroundColor: '#0B1629' }}>
           <pre
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '13px',
               lineHeight: '22px',
-              color: 'var(--text-1)',
+              color: '#E2E8F0',
               margin: 0,
             }}
           >
@@ -193,20 +214,33 @@ print("Readback Speech:", verdict["readback"]["text"])`;
       {responseOutput && (
         <div
           style={{
-            backgroundColor: 'var(--navy-850)',
-            border: '1px solid var(--navy-300)',
-            padding: '20px',
+            backgroundColor: 'var(--surface-primary)',
+            border: '1px solid var(--border-default)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-sm)',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '12px',
+            gap: '14px',
             animation: 'fadeInUp 280ms var(--ease)',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-            <span className="label" style={{ color: 'var(--accept)' }}>
-              HTTP/1.1 200 OK — VERDICT PAYLOAD
-            </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: '#10B981',
+                  display: 'inline-block',
+                }}
+              />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#065F46' }}>
+                HTTP/1.1 200 OK — VERDICT PAYLOAD
+              </span>
+            </div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
               RESPONSE TIME: 2,020 MS
             </span>
           </div>
@@ -216,12 +250,13 @@ print("Readback Speech:", verdict["readback"]["text"])`;
               fontFamily: 'var(--font-mono)',
               fontSize: '13px',
               lineHeight: '20px',
-              color: 'var(--navy-400)',
-              backgroundColor: 'var(--navy-950)',
-              padding: '16px',
-              border: '1px solid var(--navy-300)',
+              color: '#38BDF8',
+              backgroundColor: '#0B1629',
+              padding: '18px',
+              borderRadius: 'var(--radius-md)',
               overflowX: 'auto',
               maxHeight: '400px',
+              margin: 0,
             }}
           >
             {responseOutput}

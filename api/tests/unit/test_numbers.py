@@ -47,3 +47,4 @@ def test_confusable_flagging():
 
     res_50 = parse_amount("pachaas hazaar")
     assert res_50[0].is_confusable is True
+

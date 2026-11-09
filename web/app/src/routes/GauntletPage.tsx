@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mic, MicOff, Play, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Mic, MicOff, Play, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { WitnessCard, WitnessData } from '../components/WitnessCard';
 import { EntityDiff, CandidateValue } from '../components/EntityDiff';
@@ -30,31 +30,35 @@ export const GauntletPage: React.FC = () => {
   const [isResolving, setIsResolving] = useState(false);
   const [resolvedDecision, setResolvedDecision] = useState<string | null>(null);
 
-  // Mock / Benchmark Sample presets
-  const sampleSentences: { id: string; label: string; text: string; entity: string }[] = [
+  // Benchmark Sample presets
+  const sampleSentences: { id: string; label: string; text: string; entity: string; badge: string }[] = [
     {
       id: 'pandrah_hazaar',
-      label: '15,000 vs 50,000 (Pandrah vs Pachaas - Classic BFSI Trap)',
+      label: '₹15,000 vs ₹50,000 (Pandrah vs Pachaas)',
       text: 'मैडम, मैं पंद्रह हज़ार रुपये अगले सोमवार तक जमा कर दूंगा।',
       entity: '15000',
+      badge: 'Classic BFSI Trap',
     },
     {
       id: 'dhai_lakh',
-      label: '2.5 Lakh (Dhai Lakh Fractional Entity)',
+      label: '₹2.5 Lakh (Dhai Lakh Fractional Entity)',
       text: 'अरे भाई ढाई लाख का लोन रीपेमेंट कब ड्यू है?',
       entity: '250000',
+      badge: 'Fractional Multiplier',
     },
     {
       id: 'double_nine',
-      label: 'Digit String: 990001234 (Double Nine Triple Zero)',
+      label: 'Digit String: 990001234',
       text: 'My reference number is double nine triple zero one two three four.',
       entity: '990001234',
+      badge: 'Repeat Word Path',
     },
     {
       id: 'saat_saath',
-      label: '7,000 vs 60,000 (Saat vs Saath Confusable)',
+      label: '₹7,000 vs ₹60,000 (Saat vs Saath)',
       text: 'सात हज़ार रुपये आज ही ट्रांसफर कर दिए हैं।',
       entity: '7000',
+      badge: 'Phonetic Sibilant Trap',
     },
   ];
 
@@ -109,7 +113,7 @@ export const GauntletPage: React.FC = () => {
           },
         ];
       } else {
-        // Degraded 8kHz telephony condition: W4 mishears 50,000!
+        // Degraded telephony condition: W4 mishears 50,000!
         return [
           {
             id: 'W1',
@@ -297,34 +301,47 @@ export const GauntletPage: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-      {/* Title & One-Liner */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
+      {/* Page Title & Breadcrumbs */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span className="label" style={{ color: 'var(--navy-500)' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
             EVIDENTIARY RUNTIME HARNESS
           </span>
-          <span style={{ color: 'var(--text-3)' }}>/</span>
-          <span className="label" style={{ color: 'var(--text-2)' }}>
-            TESTING SUITE
+          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+            INTERACTIVE JURY SUITE
           </span>
         </div>
-        <h1>The Gauntlet</h1>
-        <p style={{ fontSize: '18px', lineHeight: '28px' }}>
+        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>The Gauntlet</h1>
+        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
           Cross-examine multiple independent Gnani Prisma witnesses against synthetic telephony noise.
           Catch silent digit confusions before your voice bot commits.
         </p>
       </div>
 
-      {/* DPDP Privacy Consent Checkbox Banner */}
+      {/* DPDP Privacy Consent Banner */}
       <div
         style={{
-          backgroundColor: 'var(--navy-900)',
-          border: '1px solid var(--navy-300)',
-          padding: '16px 20px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-md)',
+          padding: '14px 18px',
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           gap: '12px',
+          boxShadow: 'var(--shadow-xs)',
         }}
       >
         <input
@@ -332,42 +349,49 @@ export const GauntletPage: React.FC = () => {
           id="consent-check"
           checked={hasConsent}
           onChange={(e) => setHasConsent(e.target.checked)}
-          style={{ width: '18px', height: '18px', marginTop: '3px', cursor: 'pointer', accentColor: 'var(--navy-500)' }}
+          style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--sapphire-600)' }}
         />
-        <label htmlFor="consent-check" style={{ fontSize: '13px', lineHeight: '20px', color: 'var(--text-2)', cursor: 'pointer' }}>
-          <strong style={{ color: 'var(--text-1)' }}>DPDP Act Compliance &amp; Ephemeral Processing:</strong> I consent to processing this voice sample via Gnani Prisma STT and Timbre TTS in memory. No audio is stored. No real Aadhaar, PAN, phone or bank numbers should be spoken.
+        <label htmlFor="consent-check" style={{ fontSize: '13px', lineHeight: '20px', color: 'var(--text-secondary)', cursor: 'pointer' }}>
+          <strong style={{ color: 'var(--text-primary)' }}>DPDP Act Compliance &amp; Ephemeral Processing:</strong> I consent to processing this voice sample via Gnani Prisma STT and Timbre TTS in memory. No audio is persisted. Synthetic numbers only.
         </label>
       </div>
 
-      {/* Grid: Audio Input & Acoustic Environment */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+      {/* Two Column Grid: Spoken Input & Noise Condition */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '20px' }}>
         {/* Panel 1: Spoken Audio Sample */}
         <div
           style={{
-            backgroundColor: 'var(--navy-850)',
-            border: '1px solid var(--navy-300)',
+            backgroundColor: 'var(--surface-primary)',
+            border: '1px solid var(--border-default)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-sm)',
             padding: '20px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-            <span className="label">1. CHOOSE LANGUAGE &amp; TEST UTTERANCE</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '10px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              1. SELECT LANGUAGE &amp; SPOKEN TEST UTTERANCE
+            </span>
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value as any)}
               style={{
-                backgroundColor: 'var(--navy-800)',
-                color: 'var(--text-1)',
-                border: '1px solid var(--navy-300)',
+                backgroundColor: 'var(--sky-100)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-default)',
+                borderRadius: 'var(--radius-sm)',
                 padding: '4px 8px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer',
               }}
             >
               <option value="hi-IN">HINDI (hi-IN)</option>
-              <option value="en-IN">ENGLISH (en-IN)</option>
+              <option value="en-IN">ENGLISH-INDIA (en-IN)</option>
               <option value="ta-IN">TAMIL (ta-IN)</option>
               <option value="te-IN">TELUGU (te-IN)</option>
             </select>
@@ -375,44 +399,65 @@ export const GauntletPage: React.FC = () => {
 
           {/* Preset Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {sampleSentences.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setSelectedPrompt(s.id)}
-                style={{
-                  textAlign: 'left',
-                  padding: '10px 12px',
-                  backgroundColor: selectedPrompt === s.id ? 'var(--navy-800)' : 'transparent',
-                  border: selectedPrompt === s.id ? '1px solid var(--navy-500)' : '1px solid var(--navy-300)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px',
-                }}
-              >
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: selectedPrompt === s.id ? '#FFF' : 'var(--text-2)' }}>
-                  {s.label}
-                </span>
-                <span style={{ fontSize: '14px', color: 'var(--text-1)' }}>
-                  "{s.text}"
-                </span>
-              </button>
-            ))}
+            {sampleSentences.map((s) => {
+              const isSelected = selectedPrompt === s.id;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setSelectedPrompt(s.id)}
+                  style={{
+                    textAlign: 'left',
+                    padding: '12px 14px',
+                    backgroundColor: isSelected ? 'var(--sapphire-50)' : 'var(--sky-50)',
+                    border: isSelected ? '1.5px solid var(--sapphire-500)' : '1px solid var(--border-default)',
+                    borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    transition: 'all var(--dur-fast) var(--ease)',
+                    boxShadow: isSelected ? '0 2px 8px rgba(15, 82, 186, 0.12)' : 'none',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 700, color: isSelected ? 'var(--sapphire-800)' : 'var(--text-primary)' }}>
+                      {s.label}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '9px',
+                        fontWeight: 600,
+                        backgroundColor: isSelected ? 'var(--sapphire-100)' : 'var(--sky-200)',
+                        color: isSelected ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                        padding: '1px 6px',
+                        borderRadius: 'var(--radius-full)',
+                      }}
+                    >
+                      {s.badge}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '13px', color: isSelected ? 'var(--sapphire-900)' : 'var(--text-secondary)', fontStyle: 'italic' }}>
+                    "{s.text}"
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Record button alternative */}
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', paddingTop: '8px' }}>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', paddingTop: '4px' }}>
             <Button
               size="compact"
               variant={isRecording ? 'danger' : 'secondary'}
               onClick={toggleRecording}
-              icon={isRecording ? <MicOff size={16} /> : <Mic size={16} />}
+              icon={isRecording ? <MicOff size={15} /> : <Mic size={15} />}
             >
-              {isRecording ? `RECORDING (${recordingSeconds}s / 12s)` : 'RECORD WITH MIC (12s)'}
+              {isRecording ? `RECORDING (${recordingSeconds}s / 12s)` : 'RECORD WITH MICROPHONE'}
             </Button>
-            <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>
-              or select preset above
+            <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>
+              or use pre-recorded presets
             </span>
           </div>
         </div>
@@ -429,16 +474,16 @@ export const GauntletPage: React.FC = () => {
       </div>
 
       {/* Run CTA Button */}
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '6px 0' }}>
         <Button
-          size="default"
+          size="lg"
           variant="primary"
           onClick={handleRunGauntlet}
           disabled={isRunning || !hasConsent}
-          icon={isRunning ? <RefreshCw className="spin" size={18} /> : <Play size={18} />}
-          style={{ minWidth: '280px', height: '54px', fontSize: '16px' }}
+          icon={isRunning ? <RefreshCw className="spin" size={20} /> : <Play size={20} />}
+          style={{ minWidth: '320px', height: '52px', fontSize: '16px', borderRadius: 'var(--radius-full)' }}
         >
-          {isRunning ? 'CROSS-EXAMINING PRISMA WITNESSES...' : 'RUN THE GAUNTLET'}
+          {isRunning ? 'CROSS-EXAMINING PRISMA WITNESSES...' : 'RUN THE GAUNTLET (ADJUDICATE)'}
         </Button>
       </div>
 
@@ -452,15 +497,27 @@ export const GauntletPage: React.FC = () => {
               flexWrap: 'wrap',
               justifyContent: 'space-between',
               alignItems: 'center',
-              backgroundColor: 'var(--navy-850)',
-              border: '1px solid var(--navy-300)',
+              backgroundColor: 'var(--surface-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-sm)',
               padding: '20px 24px',
-              gap: '16px',
+              gap: '20px',
             }}
           >
             <div>
-              <span className="label" style={{ color: 'var(--text-3)', display: 'block', marginBottom: '4px' }}>
-                ADJUDICATED VERDICT
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'var(--text-tertiary)',
+                  textTransform: 'uppercase',
+                  display: 'block',
+                  marginBottom: '8px',
+                }}
+              >
+                FINAL ADJUDICATED VERDICT
               </span>
               <VerdictStamp
                 verdict={currentVerdict}
@@ -472,7 +529,7 @@ export const GauntletPage: React.FC = () => {
               />
             </div>
 
-            <div style={{ minWidth: '320px', flex: 1, maxWidth: '480px' }}>
+            <div style={{ minWidth: '320px', flex: 1, maxWidth: '440px' }}>
               <RiskMeter riskScore={currentRisk} />
             </div>
           </div>
@@ -482,11 +539,14 @@ export const GauntletPage: React.FC = () => {
 
           {/* The 4 Independent Witnesses Cards */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span className="label" style={{ color: 'var(--text-1)' }}>
-                INDEPENDENT WITNESS TESTIMONY ({witnesses.length} RECEPTORS)
-              </span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={16} color="var(--sapphire-600)" />
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+                  Independent Witness Testimony ({witnesses.length} Receptors)
+                </span>
+              </div>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
                 BLACK-BOX DIVERSITY: PRISMA v3.0 (ITN + LATIN) × PRISMA v2.5
               </span>
             </div>
@@ -513,10 +573,7 @@ export const GauntletPage: React.FC = () => {
 
           {/* Timbre Read-back Loop (if CONFIRM triggered) */}
           {hasDispute && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <span className="label" style={{ color: 'var(--confirm)' }}>
-                AUTONOMOUS RESOLUTION LOOP (TIMBRE v3.0 CLOSED-LOOP)
-              </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <ReadbackBubble
                 text="मैंने पंद्रह हज़ार रुपये सुना। क्या यह सही है? हाँ बोलिए, या सही रकम बताइए।"
                 language="hi-IN"
@@ -527,19 +584,21 @@ export const GauntletPage: React.FC = () => {
               {resolvedDecision && (
                 <div
                   style={{
-                    backgroundColor: 'rgba(61, 214, 140, 0.1)',
-                    border: '1px solid var(--accept)',
-                    padding: '12px 16px',
+                    backgroundColor: '#ECFDF5',
+                    border: '1.5px solid #A7F3D0',
+                    borderRadius: 'var(--radius-md)',
+                    padding: '14px 18px',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '13px',
-                    color: 'var(--accept)',
+                    color: '#065F46',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '10px',
+                    boxShadow: 'var(--shadow-xs)',
                   }}
                 >
-                  <ShieldCheck size={18} />
-                  <span>{resolvedDecision} — STATUS CHANGED TO: ACCEPTED</span>
+                  <CheckCircle2 size={20} color="#10B981" />
+                  <span><strong>{resolvedDecision}</strong> — TRANSACTION COMMITTED SAFELY WITH VERIFIED TRUST</span>
                 </div>
               )}
             </div>

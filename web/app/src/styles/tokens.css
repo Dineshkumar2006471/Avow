@@ -1,99 +1,175 @@
-/* hallmark-overrule: tracked-caps-labels — brand typography; functional use only */
+/* AVOW Design System — Sapphire Blue + Cloudy Sky */
 
 :root {
-  /* navy scale */
-  --navy-950: #070F1F;
-  --navy-900: #0A1A33;
-  --navy-850: #0B1830;
-  --navy-800: #12274D;
-  --navy-700: #163F8A;
-  --navy-600: #2A63C8;
-  --navy-500: #5B9BFF;
-  --navy-400: #8EB8FF;
-  --navy-300: #27406F;
-  --navy-250: #4A6AA3;
+  /* ─── PRIMARY: Sapphire Blue ─── */
+  --sapphire-950: #041B3F;
+  --sapphire-900: #062C65;
+  --sapphire-800: #0A3D8F;
+  --sapphire-700: #0F52BA;
+  --sapphire-600: #1565D8;
+  --sapphire-500: #2979F2;
+  --sapphire-400: #5B9BFF;
+  --sapphire-300: #8CBEFF;
+  --sapphire-200: #B8D7FF;
+  --sapphire-100: #DBE9FF;
+  --sapphire-50:  #EDF4FF;
 
-  /* neutrals */
-  --text-1: #E8EDF5;
-  --text-2: #A9B7CF;
-  --text-3: #8496B5;
-  --paper: #F4F6FA;
-  --paper-2: #FFFFFF;
-  --ink-1: #0A1A33;
-  --ink-2: #44546F;
-  --ink-3: #5E6C86;
-  --line-paper: #D5DCE8;
+  /* ─── SURFACE: Cloudy Sky (light, airy) ─── */
+  --sky-50:  #FAFBFF;
+  --sky-100: #F2F5FC;
+  --sky-200: #E8EDF8;
+  --sky-300: #D5DCE8;
+  --sky-400: #B8C2D4;
+  --sky-500: #8D9AB5;
+  --sky-600: #6B7A96;
+  --sky-700: #4A5A75;
+  --sky-800: #2E3F5C;
+  --sky-900: #1A2740;
 
-  /* verdicts (dark) */
-  --accept: #3DD68C;
-  --confirm: #F5B942;
-  --escalate: #FF7A7A;
+  /* ─── TEXT ─── */
+  --text-primary:   #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary:  #94A3B8;
+  --text-inverse:   #FFFFFF;
 
-  /* verdicts (paper) */
-  --accept-paper: #0E7A4B;
-  --confirm-paper: #8A5A00;
-  --escalate-paper: #B3261E;
+  /* ─── SURFACES ─── */
+  --surface-primary:   #FFFFFF;
+  --surface-secondary: #F8FAFD;
+  --surface-tertiary:  #F1F5FB;
+  --surface-elevated:  #FFFFFF;
+  --surface-sunken:    #EDF1F8;
+  --surface-dark:      #0B1629;
+  --surface-dark-2:    #111D33;
 
-  /* spacing */
+  /* ─── BORDERS ─── */
+  --border-default:  #E2E8F0;
+  --border-subtle:   #F1F5F9;
+  --border-strong:   #CBD5E1;
+  --border-active:   var(--sapphire-500);
+
+  /* ─── VERDICT COLORS ─── */
+  --accept:      #10B981;
+  --accept-bg:   #ECFDF5;
+  --accept-text: #065F46;
+
+  --confirm:      #F59E0B;
+  --confirm-bg:   #FFFBEB;
+  --confirm-text: #92400E;
+
+  --escalate:      #EF4444;
+  --escalate-bg:   #FEF2F2;
+  --escalate-text: #991B1B;
+
+  /* ─── SPACING (8px grid) ─── */
   --s-1: 4px;
   --s-2: 8px;
   --s-3: 12px;
   --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 40px;
-  --s-8: 48px;
-  --s-9: 64px;
-  --s-10: 80px;
-  --s-11: 96px;
-  --s-12: 128px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 48px;
+  --s-10: 56px;
+  --s-11: 64px;
+  --s-12: 80px;
+  --s-13: 96px;
+  --s-14: 128px;
 
-  /* shape + motion */
-  --radius: 0px;
-  --border: 1px;
-  --dur-fast: 110ms;
-  --dur-base: 180ms;
-  --dur-slow: 280ms;
-  --ease: cubic-bezier(0.2, 0, 0.38, 0.9);
-  --ease-out: cubic-bezier(0, 0, 0.3, 1);
+  /* ─── RADII ─── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
 
-  /* typography */
+  /* ─── SHADOWS ─── */
+  --shadow-xs:  0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm:  0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-md:  0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg:  0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl:  0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+  --shadow-glow: 0 0 24px rgba(41, 121, 242, 0.15);
+
+  /* ─── MOTION ─── */
+  --dur-instant: 100ms;
+  --dur-fast:    150ms;
+  --dur-base:    200ms;
+  --dur-moderate:300ms;
+  --dur-slow:    400ms;
+  --dur-slower:  600ms;
+  --ease:        cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─── TYPOGRAPHY ─── */
+  --font-heading: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
   --font-sans: "Inter", "Noto Sans Devanagari", "Noto Sans Tamil", "Noto Sans Telugu",
     "Noto Sans Kannada", "Noto Sans Bengali", "Noto Sans Gujarati", "Noto Sans Gurmukhi",
     "Noto Sans Malayalam", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ─── Z-INDEX ─── */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
 }
 
+/* ─── UTILITY CLASSES ─── */
 .label {
-  font: 500 12px/16px var(--font-mono);
+  font: 500 11px/16px var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
 }
 
 .label-lg {
-  font: 500 14px/20px var(--font-mono);
+  font: 600 12px/18px var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
 }
 
 .value {
-  font: 400 14px/20px var(--font-mono);
+  font: 500 14px/20px var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
 .value-lg {
-  font: 400 28px/32px var(--font-mono);
+  font: 600 28px/34px var(--font-heading);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 .value-xl {
-  font: 400 48px/52px var(--font-mono);
+  font: 700 48px/54px var(--font-heading);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* ─── GLASSMORPHISM ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.glass-dark {
+  background: rgba(11, 22, 41, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
-    transition: none !important;
+    transition-duration: 0ms !important;
   }
 }

@@ -12,7 +12,7 @@ export const BenchmarkPage: React.FC = () => {
 
   const heatmap = [
     {
-      condition: 'CLEAN',
+      condition: 'CLEAN STUDIO',
       hi: { silentError: '0.0%', catch: '100%', n: 48 },
       en: { silentError: '0.0%', catch: '100%', n: 24 },
       mixed: { silentError: '1.2%', catch: '95.0%', n: 24 },
@@ -45,6 +45,7 @@ export const BenchmarkPage: React.FC = () => {
       catchRate: '80.3%',
       callsPerUtt: '2.6',
       creditEfficiency: 'OPTIMAL (BASE)',
+      isBest: true,
     },
     {
       system: 'WITHOUT W4 (NO PRISMA 2.5)',
@@ -53,6 +54,7 @@ export const BenchmarkPage: React.FC = () => {
       catchRate: '54.9%',
       callsPerUtt: '2.2',
       creditEfficiency: '−25% ACCURACY LOSS',
+      isBest: false,
     },
     {
       system: 'WITHOUT W2 (NO TRANSLITERATE)',
@@ -61,6 +63,7 @@ export const BenchmarkPage: React.FC = () => {
       catchRate: '65.5%',
       callsPerUtt: '2.3',
       creditEfficiency: 'POOR HINGLISH CATCH',
+      isBest: false,
     },
     {
       system: 'WITHOUT W5 (NO CONTEXT)',
@@ -69,6 +72,7 @@ export const BenchmarkPage: React.FC = () => {
       catchRate: '76.1%',
       callsPerUtt: '2.4',
       creditEfficiency: 'SLIGHT GAIN',
+      isBest: false,
     },
     {
       system: 'BASELINE B0 (SINGLE PRISMA 3.0)',
@@ -77,18 +81,36 @@ export const BenchmarkPage: React.FC = () => {
       catchRate: '0.0%',
       callsPerUtt: '1.0',
       creditEfficiency: 'UNPROTECTED (VULNERABLE)',
+      isBest: false,
     },
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <span className="label" style={{ color: 'var(--navy-500)' }}>
-          EMPIRICAL SCIENTIFIC EVALUATION
-        </span>
-        <h1>Benchmark Report</h1>
-        <p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            EMPIRICAL SCIENTIFIC EVALUATION
+          </span>
+          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+            HELD-OUT TELEPHONY SPLIT
+          </span>
+        </div>
+        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Benchmark Report</h1>
+        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
           Honest statistical evaluation on held-out test splits. No fabricated metrics — numbers verified against bootstrap confidence intervals.
         </p>
       </div>
@@ -99,17 +121,19 @@ export const BenchmarkPage: React.FC = () => {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '12px',
-          backgroundColor: 'var(--navy-850)',
+          backgroundColor: 'var(--surface-primary)',
           padding: '16px 20px',
-          border: '1px solid var(--navy-300)',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--border-default)',
+          boxShadow: 'var(--shadow-xs)',
         }}
       >
         {Object.entries(metadata).map(([key, val]) => (
           <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <span className="label" style={{ color: 'var(--text-3)', fontSize: '10px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
               {key}
             </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-1)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
               {val}
             </span>
           </div>
@@ -119,17 +143,21 @@ export const BenchmarkPage: React.FC = () => {
       {/* Condition x Language Heatmap */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          padding: '20px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-          <span className="label">CONDITION × LANGUAGE PERFORMANCE MATRIX</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            Condition × Language Performance Matrix
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
             METRIC: SILENT ERROR RATE % (CATCH RATE %)
           </span>
         </div>
@@ -137,30 +165,30 @@ export const BenchmarkPage: React.FC = () => {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ backgroundColor: 'var(--navy-800)', borderBottom: '1px solid var(--navy-300)' }}>
-                <th className="label" style={{ padding: '10px 14px' }}>DEGRADATION CONDITION</th>
-                <th className="label" style={{ padding: '10px 14px' }}>HINDI (hi-IN)</th>
-                <th className="label" style={{ padding: '10px 14px' }}>ENGLISH-INDIA (en-IN)</th>
-                <th className="label" style={{ padding: '10px 14px' }}>HINGLISH CODE-MIXED</th>
+              <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>DEGRADATION CONDITION</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>HINDI (hi-IN)</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>ENGLISH-INDIA (en-IN)</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>HINGLISH CODE-MIXED</th>
               </tr>
             </thead>
             <tbody>
               {heatmap.map((row) => (
-                <tr key={row.condition} style={{ borderBottom: '1px solid var(--navy-300)' }}>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--navy-400)' }}>
+                <tr key={row.condition} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 600, color: 'var(--sapphire-700)' }}>
                     {row.condition}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
-                    <span style={{ color: 'var(--accept)', fontWeight: 600 }}>{row.hi.silentError}</span>
-                    <span style={{ color: 'var(--text-3)', fontSize: '11px', marginLeft: '6px' }}>({row.hi.catch})</span>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
+                    <span style={{ color: '#065F46', fontWeight: 700 }}>{row.hi.silentError}</span>
+                    <span style={{ color: 'var(--text-tertiary)', fontSize: '11px', marginLeft: '6px' }}>({row.hi.catch})</span>
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
-                    <span style={{ color: 'var(--accept)', fontWeight: 600 }}>{row.en.silentError}</span>
-                    <span style={{ color: 'var(--text-3)', fontSize: '11px', marginLeft: '6px' }}>({row.en.catch})</span>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
+                    <span style={{ color: '#065F46', fontWeight: 700 }}>{row.en.silentError}</span>
+                    <span style={{ color: 'var(--text-tertiary)', fontSize: '11px', marginLeft: '6px' }}>({row.en.catch})</span>
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
-                    <span style={{ color: 'var(--accept)', fontWeight: 600 }}>{row.mixed.silentError}</span>
-                    <span style={{ color: 'var(--text-3)', fontSize: '11px', marginLeft: '6px' }}>({row.mixed.catch})</span>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>
+                    <span style={{ color: '#065F46', fontWeight: 700 }}>{row.mixed.silentError}</span>
+                    <span style={{ color: 'var(--text-tertiary)', fontSize: '11px', marginLeft: '6px' }}>({row.mixed.catch})</span>
                   </td>
                 </tr>
               ))}
@@ -172,17 +200,31 @@ export const BenchmarkPage: React.FC = () => {
       {/* Ablation Study: Which Witness Earns its Credits */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          padding: '20px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          padding: '24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-          <span className="label">ABLATION STUDY: WHICH WITNESS EARNS ITS CREDITS?</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--navy-400)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            Ablation Study: Which Witness Earns its Credits?
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+            }}
+          >
             MEASURED MARGINAL UTILITY
           </span>
         </div>
@@ -194,40 +236,40 @@ export const BenchmarkPage: React.FC = () => {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ backgroundColor: 'var(--navy-800)', borderBottom: '1px solid var(--navy-300)' }}>
-                <th className="label" style={{ padding: '10px 14px' }}>PANEL CONFIGURATION</th>
-                <th className="label" style={{ padding: '10px 14px' }}>SILENT ERROR</th>
-                <th className="label" style={{ padding: '10px 14px' }}>CONFIRM %</th>
-                <th className="label" style={{ padding: '10px 14px' }}>CATCH %</th>
-                <th className="label" style={{ padding: '10px 14px' }}>CALLS / UTT</th>
-                <th className="label" style={{ padding: '10px 14px' }}>CONCLUSION</th>
+              <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>PANEL CONFIGURATION</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>SILENT ERROR</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CONFIRM %</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CATCH %</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CALLS / UTT</th>
+                <th style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CONCLUSION</th>
               </tr>
             </thead>
             <tbody>
-              {ablation.map((row, i) => (
+              {ablation.map((row) => (
                 <tr
                   key={row.system}
                   style={{
-                    borderBottom: '1px solid var(--navy-300)',
-                    backgroundColor: i === 0 ? 'rgba(91, 155, 255, 0.05)' : 'transparent',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    backgroundColor: row.isBest ? '#F0FDF4' : 'transparent',
                   }}
                 >
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: i === 0 ? 'var(--navy-400)' : 'var(--text-1)', fontWeight: i === 0 ? 600 : 400 }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: row.isBest ? '#065F46' : 'var(--text-primary)', fontWeight: row.isBest ? 700 : 500 }}>
                     {row.system}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '14px', color: i === 0 ? 'var(--accept)' : 'var(--text-1)', fontWeight: 600 }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '14px', color: row.isBest ? '#065F46' : 'var(--text-primary)', fontWeight: 700 }}>
                     {row.silentError}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-secondary)' }}>
                     {row.confirmRate}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-secondary)' }}>
                     {row.catchRate}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-secondary)' }}>
                     {row.callsPerUtt}
                   </td>
-                  <td style={{ padding: '12px 14px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: i === 0 ? 'var(--accept)' : 'var(--confirm)' }}>
+                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: row.isBest ? '#065F46' : '#92400E' }}>
                     {row.creditEfficiency}
                   </td>
                 </tr>

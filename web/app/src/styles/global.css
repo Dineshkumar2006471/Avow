@@ -1,7 +1,12 @@
-/* hallmark-overrule: tracked-caps-labels — brand typography; functional use only */
+/* AVOW Global Styles — Enterprise-Grade Sapphire + Cloud */
 
 @import './tokens.css';
 @import '@fontsource-variable/inter';
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+@import '@fontsource/plus-jakarta-sans/800.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
 @import '@fontsource/ibm-plex-mono/600.css';
@@ -12,18 +17,23 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   height: 100%;
   width: 100%;
 }
 
 body {
-  font: 400 16px/24px var(--font-sans);
-  color: var(--text-1);
-  background-color: var(--navy-950);
+  font: 400 15px/24px var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--sky-50);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 #root {
@@ -32,102 +42,250 @@ body {
   flex-direction: column;
 }
 
-/* Headings */
+/* ─── HEADINGS ─── */
 h1 {
-  font: 600 40px/48px var(--font-sans);
-  letter-spacing: -0.01em;
-  color: var(--text-1);
+  font: 800 36px/44px var(--font-heading);
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
 }
 
 h2 {
-  font: 600 28px/36px var(--font-sans);
-  color: var(--text-1);
+  font: 700 28px/36px var(--font-heading);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 h3 {
-  font: 600 20px/28px var(--font-sans);
-  color: var(--text-1);
+  font: 600 20px/28px var(--font-heading);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+h4 {
+  font: 600 16px/24px var(--font-heading);
+  color: var(--text-primary);
 }
 
 p {
-  color: var(--text-2);
+  color: var(--text-secondary);
+  line-height: 1.65;
 }
 
 a {
-  color: var(--navy-500);
+  color: var(--sapphire-600);
   text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
 }
 a:hover {
-  color: var(--navy-400);
+  color: var(--sapphire-700);
 }
 
-/* Focus styles: 2px solid --navy-500, offset 2px, rectangular (zero radius) */
+/* ─── FOCUS STATES ─── */
 :focus-visible {
-  outline: 2px solid var(--navy-500);
+  outline: 2px solid var(--sapphire-500);
   outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
-/* Scrollbars */
+/* ─── SELECTION ─── */
+::selection {
+  background: var(--sapphire-100);
+  color: var(--sapphire-900);
+}
+
+/* ─── SCROLLBAR (subtle, modern) ─── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--navy-950);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--navy-800);
-  border: 1px solid var(--navy-300);
+  background: var(--sky-400);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--navy-700);
+  background: var(--sky-500);
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
-/* Zero radius enforcement */
-button, input, select, textarea, div {
-  border-radius: 0 !important;
-}
-
-/* Entity underline stroke: signature visual mark */
+/* ─── ENTITY HIGHLIGHT MARKS ─── */
 .entity-underline {
-  border-bottom: 2px solid var(--navy-500);
-  background: rgba(91, 155, 255, 0.12);
-  padding: 0 2px;
+  border-bottom: 2px solid var(--sapphire-500);
+  background: rgba(41, 121, 242, 0.08);
+  padding: 1px 3px;
   font-weight: 500;
-  color: var(--text-1);
+  color: var(--text-primary);
+  border-radius: 2px;
 }
 
 .entity-disputed {
   border-bottom: 2px solid var(--confirm);
-  background: rgba(245, 185, 66, 0.12);
-  padding: 0 2px;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 1px 3px;
   font-weight: 500;
-  color: var(--confirm);
+  color: var(--confirm-text);
+  border-radius: 2px;
 }
 
 .entity-escalated {
   border-bottom: 2px solid var(--escalate);
-  background: rgba(255, 122, 122, 0.12);
-  padding: 0 2px;
+  background: rgba(239, 68, 68, 0.08);
+  padding: 1px 3px;
   font-weight: 500;
-  color: var(--escalate);
+  color: var(--escalate-text);
+  border-radius: 2px;
 }
 
 .entity-accepted {
   border-bottom: 2px solid var(--accept);
-  background: rgba(61, 214, 140, 0.12);
-  padding: 0 2px;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 1px 3px;
   font-weight: 500;
-  color: var(--accept);
+  color: var(--accept-text);
+  border-radius: 2px;
 }
 
+/* ─── ANIMATIONS ─── */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(41, 121, 242, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(41, 121, 242, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(41, 121, 242, 0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ─── GRADIENT BACKGROUNDS ─── */
+.bg-gradient-hero {
+  background: linear-gradient(
+    135deg,
+    #EDF4FF 0%,
+    #F8FAFD 30%,
+    #FFFFFF 50%,
+    #F2F5FC 70%,
+    #DBE9FF 100%
+  );
+}
+
+.bg-gradient-sapphire {
+  background: linear-gradient(135deg, #0F52BA 0%, #2979F2 50%, #5B9BFF 100%);
+}
+
+.bg-gradient-dark {
+  background: linear-gradient(180deg, #0B1629 0%, #111D33 100%);
+}
+
+/* ─── CARD STYLES ─── */
+.card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-elevated {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── BADGE ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 500 11px/16px var(--font-mono);
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.badge-accept {
+  background: var(--accept-bg);
+  color: var(--accept-text);
+}
+
+.badge-confirm {
+  background: var(--confirm-bg);
+  color: var(--confirm-text);
+}
+
+.badge-escalate {
+  background: var(--escalate-bg);
+  color: var(--escalate-text);
+}
+
+.badge-info {
+  background: var(--sapphire-50);
+  color: var(--sapphire-700);
 }

@@ -12,3 +12,4 @@ def generate_id(prefix: str = "vd") -> str:
     timestamp_ms = int(time.time() * 1000)
     random_suffix = secrets.token_hex(6)
     return f"{prefix}_{timestamp_ms:x}{random_suffix}"
+

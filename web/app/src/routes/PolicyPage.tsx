@@ -32,7 +32,6 @@ export const PolicyPage: React.FC = () => {
   }, [riskAppetite, maxLoanAmount, defaultExpectedAmount]);
 
   // Derived projections based on Risk Appetite (0 to 100)
-  // Higher appetite = lower confirmations, but slightly higher silent error rate
   const projectedConfirmRate = (28 - (riskAppetite / 100) * 16).toFixed(1);
   const projectedSilentError = (1.2 + (riskAppetite / 100) * 2.8).toFixed(1);
   const acceptThreshold = (0.05 + (riskAppetite / 100) * 0.25).toFixed(2);
@@ -45,15 +44,32 @@ export const PolicyPage: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span className="label" style={{ color: 'var(--navy-500)' }}>
-            ENTERPRISE RISK GOVERNANCE
-          </span>
-          <h1>Risk Appetite &amp; Business Rules</h1>
-          <p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 700,
+                color: 'var(--sapphire-600)',
+                backgroundColor: 'var(--sapphire-50)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-full)',
+                letterSpacing: '0.04em',
+              }}
+            >
+              ENTERPRISE RISK GOVERNANCE
+            </span>
+            <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+              BUSINESS POLICY DIAL
+            </span>
+          </div>
+          <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Risk Appetite &amp; Business Rules</h1>
+          <p style={{ fontSize: '16px', lineHeight: '24px' }}>
             Tune the operating point of AVOW. The customer chooses their tolerance; the model computes the exact telephony confirmation cost.
           </p>
         </div>
@@ -66,10 +82,12 @@ export const PolicyPage: React.FC = () => {
               gap: '6px',
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
-              color: 'var(--accept)',
-              backgroundColor: 'rgba(61, 214, 140, 0.1)',
-              padding: '6px 12px',
-              border: '1px solid var(--accept)',
+              fontWeight: 600,
+              color: '#065F46',
+              backgroundColor: '#ECFDF5',
+              padding: '6px 14px',
+              borderRadius: 'var(--radius-full)',
+              border: '1px solid #A7F3D0',
             }}
           >
             <Check size={14} />
@@ -78,38 +96,41 @@ export const PolicyPage: React.FC = () => {
         )}
       </div>
 
-      {/* Main Operating Point Slider */}
+      {/* Main Operating Point Slider Card */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          padding: '24px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          padding: '28px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '20px',
+          gap: '24px',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ fontSize: '18px' }}>Risk Appetite Dial (Operating Point)</h3>
-            <p style={{ fontSize: '13px', color: 'var(--text-3)' }}>
-              0 = Zero Tolerance (confirm aggressively) · 100 = Maximum Automation (confirm only severe conflicts)
+            <h3 style={{ fontSize: '20px', fontWeight: 700 }}>Risk Appetite Operating Point</h3>
+            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '2px' }}>
+              0 = Zero Tolerance (read-back aggressively) · 100 = Maximum Automation (read-back only on severe conflicts)
             </p>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
             <span
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '36px',
-                fontWeight: 600,
-                color: 'var(--navy-500)',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '44px',
+                fontWeight: 800,
+                color: 'var(--sapphire-600)',
                 fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '-0.02em',
               }}
             >
               {riskAppetite}
             </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-3)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-tertiary)' }}>
               / 100
             </span>
           </div>
@@ -122,10 +143,10 @@ export const PolicyPage: React.FC = () => {
           step={5}
           value={riskAppetite}
           onChange={(e) => setRiskAppetite(Number(e.target.value))}
-          style={{ width: '100%', accentColor: 'var(--navy-500)', height: '8px', cursor: 'pointer' }}
+          style={{ width: '100%', accentColor: 'var(--sapphire-600)', height: '8px', cursor: 'pointer' }}
         />
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
           <span>CONSERVATIVE (BFSI / PAYMENTS)</span>
           <span>BALANCED (COLLECTIONS)</span>
           <span>AGGRESSIVE (LOW-VALUE SURVEYS)</span>
@@ -137,40 +158,41 @@ export const PolicyPage: React.FC = () => {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: '16px',
-            backgroundColor: 'var(--navy-900)',
-            padding: '16px',
-            border: '1px solid var(--navy-300)',
+            backgroundColor: 'var(--sky-50)',
+            padding: '20px',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <div>
-            <span className="label" style={{ color: 'var(--text-3)', fontSize: '11px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
               PROJECTED CONFIRM RATE
             </span>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 600, color: 'var(--confirm)' }}>
-              {projectedConfirmRate}% of calls
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '28px', fontWeight: 800, color: '#D97706', marginTop: '4px' }}>
+              {projectedConfirmRate}%
             </div>
-            <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
               Will trigger Timbre read-back
             </span>
           </div>
 
           <div>
-            <span className="label" style={{ color: 'var(--text-3)', fontSize: '11px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
               RESIDUAL SILENT ERROR RATE
             </span>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 600, color: 'var(--accept)' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '28px', fontWeight: 800, color: '#065F46', marginTop: '4px' }}>
               {projectedSilentError}%
             </div>
-            <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
               Expected misheard commitments
             </span>
           </div>
 
           <div>
-            <span className="label" style={{ color: 'var(--text-3)', fontSize: '11px' }}>
-              DYNAMIC THRESHOLDS
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+              CALIBRATED THRESHOLDS
             </span>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-1)', marginTop: '4px' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-primary)', marginTop: '8px' }}>
               τ_accept = <strong>{acceptThreshold}</strong> · τ_escalate = <strong>{escalateThreshold}</strong>
             </div>
           </div>
@@ -180,18 +202,32 @@ export const PolicyPage: React.FC = () => {
       {/* Business Rules Context Guardrails */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          padding: '24px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          padding: '28px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px',
+          gap: '20px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-          <span className="label">FORWARD-DEPLOYED BUSINESS RULES</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--navy-400)' }}>
-            OUT-OF-BOUNDS AUTO-ESCALATION
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            Forward-Deployed Business Guardrails
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+            }}
+          >
+            AUTO-ESCALATION LOGIC
           </span>
         </div>
 
@@ -199,49 +235,57 @@ export const PolicyPage: React.FC = () => {
           Even if all speech witnesses agree unanimously on a number, if it violates physical business reality (e.g. 10x the loan due), AVOW will override and doubt the number.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label className="label">MAXIMUM ALLOWABLE AMOUNT (₹ INR)</label>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
+              MAXIMUM ALLOWABLE AMOUNT (₹ INR)
+            </label>
             <input
               type="number"
               value={maxLoanAmount}
               onChange={(e) => setMaxLoanAmount(Number(e.target.value))}
               style={{
-                backgroundColor: 'var(--navy-800)',
-                border: '1px solid var(--navy-300)',
-                color: 'var(--text-1)',
-                padding: '10px 12px',
+                backgroundColor: 'var(--sky-50)',
+                border: '1.5px solid var(--border-default)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--text-primary)',
+                padding: '12px 14px',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '15px',
+                fontSize: '16px',
+                fontWeight: 600,
               }}
             />
-            <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
               Any single commitment above this automatically ESCALATES to human supervisor.
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label className="label">DEFAULT EXPECTED AMOUNT DUE (₹ INR)</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <label style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
+              DEFAULT EXPECTED AMOUNT DUE (₹ INR)
+            </label>
             <input
               type="number"
               value={defaultExpectedAmount}
               onChange={(e) => setDefaultExpectedAmount(Number(e.target.value))}
               style={{
-                backgroundColor: 'var(--navy-800)',
-                border: '1px solid var(--navy-300)',
-                color: 'var(--text-1)',
-                padding: '10px 12px',
+                backgroundColor: 'var(--sky-50)',
+                border: '1.5px solid var(--border-default)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--text-primary)',
+                padding: '12px 14px',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '15px',
+                fontSize: '16px',
+                fontWeight: 600,
               }}
             />
-            <span style={{ fontSize: '12px', color: 'var(--text-3)' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
               Spoken values deviating &gt;10× or &lt;0.1× trigger business violation penalty.
             </span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '8px' }}>
           <Button size="compact" variant="ghost" onClick={handleReset} icon={<RotateCcw size={14} />}>
             RESET TO RECOMMENDED DEFAULTS
           </Button>

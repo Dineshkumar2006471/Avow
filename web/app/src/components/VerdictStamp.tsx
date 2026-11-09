@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckSquare, HelpCircle, XSquare } from 'lucide-react';
+import { CheckCircle2, AlertCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { VerdictType } from './ui/Tag';
 
 interface VerdictStampProps {
@@ -10,40 +10,48 @@ interface VerdictStampProps {
 export const VerdictStamp: React.FC<VerdictStampProps> = ({ verdict, reason }) => {
   const configs = {
     ACCEPT: {
-      color: 'var(--accept)',
-      bg: 'rgba(61, 214, 140, 0.08)',
-      border: '2px solid var(--accept)',
-      Icon: CheckSquare,
+      color: '#065F46',
+      bg: '#ECFDF5',
+      border: '1.5px solid #A7F3D0',
+      shadow: '0 4px 12px rgba(16, 185, 129, 0.12)',
+      Icon: CheckCircle2,
       title: 'ACCEPT',
-      desc: 'All witnesses agree with high acoustic confidence',
+      badgeText: 'VERIFIED TRUST',
+      desc: 'All independent Prisma witnesses reach unanimous consensus. Safe to commit transaction.',
     },
     CONFIRM: {
-      color: 'var(--confirm)',
-      bg: 'rgba(245, 185, 66, 0.08)',
-      border: '2px solid var(--confirm)',
-      Icon: HelpCircle,
+      color: '#92400E',
+      bg: '#FFFBEB',
+      border: '1.5px solid #FDE68A',
+      shadow: '0 4px 12px rgba(245, 158, 11, 0.12)',
+      Icon: AlertCircle,
       title: 'CONFIRM',
-      desc: reason || 'Witnesses disagree on numerical entity — readback required',
+      badgeText: 'READ-BACK REQUIRED',
+      desc: reason || 'Witnesses disagree on numerical entity. Timbre TTS verification loop triggered.',
     },
     ESCALATE: {
-      color: 'var(--escalate)',
-      bg: 'rgba(255, 122, 122, 0.08)',
-      border: '2px solid var(--escalate)',
-      Icon: XSquare,
+      color: '#991B1B',
+      bg: '#FEF2F2',
+      border: '1.5px solid #FECACA',
+      shadow: '0 4px 12px rgba(239, 68, 68, 0.12)',
+      Icon: AlertTriangle,
       title: 'ESCALATE',
-      desc: reason || 'Unresolvable conflict or business rule violation',
+      badgeText: 'HUMAN INTERVENTION',
+      desc: reason || 'Severe phonetic conflict or confusable entity pair detected. Route to human agent.',
     },
     INFO: {
-      color: 'var(--navy-500)',
-      bg: 'rgba(91, 155, 255, 0.08)',
-      border: '2px solid var(--navy-500)',
-      Icon: HelpCircle,
+      color: '#1E40AF',
+      bg: '#EFF6FF',
+      border: '1.5px solid #BFDBFE',
+      shadow: '0 4px 12px rgba(59, 130, 246, 0.12)',
+      Icon: ShieldCheck,
       title: 'PENDING',
-      desc: 'Awaiting witness examination',
+      badgeText: 'INSPECTING',
+      desc: 'Awaiting witness examination.',
     },
   };
 
-  const config = configs[verdict];
+  const config = configs[verdict] || configs.INFO;
   const Icon = config.Icon;
 
   return (
@@ -53,32 +61,65 @@ export const VerdictStamp: React.FC<VerdictStampProps> = ({ verdict, reason }) =
         display: 'inline-flex',
         alignItems: 'center',
         gap: '16px',
-        padding: '16px 24px',
+        padding: '16px 20px',
         backgroundColor: config.bg,
         border: config.border,
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: config.shadow,
         color: config.color,
-        animation: 'stampLand 180ms cubic-bezier(0.2, 0, 0.38, 0.9) forwards',
+        transition: 'all var(--dur-base) var(--ease)',
       }}
     >
-      <Icon size={28} strokeWidth={2} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '22px',
-            fontWeight: 600,
-            letterSpacing: '0.06em',
-            lineHeight: 1.1,
-          }}
-        >
-          {config.title}
-        </span>
+      <div
+        style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: 'var(--radius-md)',
+          backgroundColor: '#FFFFFF',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: 'var(--shadow-xs)',
+          flexShrink: 0,
+        }}
+      >
+        <Icon size={26} color={config.color} strokeWidth={2.2} />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: '20px',
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+            }}
+          >
+            {config.title}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '10px',
+              fontWeight: 700,
+              backgroundColor: '#FFFFFF',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            {config.badgeText}
+          </span>
+        </div>
         <span
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: '13px',
-            color: 'var(--text-2)',
-            lineHeight: 1.3,
+            color: 'var(--text-secondary)',
+            lineHeight: 1.35,
+            maxWidth: '480px',
           }}
         >
           {config.desc}

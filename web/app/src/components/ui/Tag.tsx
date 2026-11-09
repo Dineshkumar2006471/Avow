@@ -1,71 +1,102 @@
 import React from 'react';
-import { CheckSquare, HelpCircle, XSquare, Info } from 'lucide-react';
+import { CheckCircle2, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 
 export type VerdictType = 'ACCEPT' | 'CONFIRM' | 'ESCALATE' | 'INFO';
 
 interface TagProps {
   verdict: VerdictType;
   label?: string;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const Tag: React.FC<TagProps> = ({ verdict, label, size = 'md' }) => {
   const configs = {
     ACCEPT: {
-      color: 'var(--accept)',
-      bg: 'rgba(61, 214, 140, 0.12)',
-      border: '1px solid var(--accept)',
-      Icon: CheckSquare,
+      color: '#065F46',
+      bg: '#ECFDF5',
+      border: '1px solid #A7F3D0',
+      dotColor: '#10B981',
+      Icon: CheckCircle2,
       defaultLabel: 'ACCEPT',
     },
     CONFIRM: {
-      color: 'var(--confirm)',
-      bg: 'rgba(245, 185, 66, 0.12)',
-      border: '1px solid var(--confirm)',
-      Icon: HelpCircle,
+      color: '#92400E',
+      bg: '#FFFBEB',
+      border: '1px solid #FDE68A',
+      dotColor: '#F59E0B',
+      Icon: AlertCircle,
       defaultLabel: 'CONFIRM',
     },
     ESCALATE: {
-      color: 'var(--escalate)',
-      bg: 'rgba(255, 122, 122, 0.12)',
-      border: '1px solid var(--escalate)',
-      Icon: XSquare,
+      color: '#991B1B',
+      bg: '#FEF2F2',
+      border: '1px solid #FECACA',
+      dotColor: '#EF4444',
+      Icon: AlertTriangle,
       defaultLabel: 'ESCALATE',
     },
     INFO: {
-      color: 'var(--navy-500)',
-      bg: 'rgba(91, 155, 255, 0.12)',
-      border: '1px solid var(--navy-300)',
+      color: '#1E40AF',
+      bg: '#EFF6FF',
+      border: '1px solid #BFDBFE',
+      dotColor: '#3B82F6',
       Icon: Info,
       defaultLabel: 'INFO',
     },
   };
 
-  const config = configs[verdict];
+  const config = configs[verdict] || configs.INFO;
   const Icon = config.Icon;
-  const iconSize = size === 'sm' ? 12 : 14;
+  const iconSize = size === 'sm' ? 12 : size === 'lg' ? 16 : 14;
+
+  const heights = {
+    sm: '22px',
+    md: '26px',
+    lg: '30px',
+  };
+
+  const paddings = {
+    sm: '0 8px',
+    md: '0 10px',
+    lg: '0 12px',
+  };
+
+  const fontSizes = {
+    sm: '11px',
+    md: '12px',
+    lg: '13px',
+  };
 
   return (
     <span
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '4px',
-        height: size === 'sm' ? '20px' : '24px',
-        padding: '0 8px',
+        gap: '6px',
+        height: heights[size],
+        padding: paddings[size],
         backgroundColor: config.bg,
         border: config.border,
         color: config.color,
+        borderRadius: 'var(--radius-full)',
         fontFamily: 'var(--font-mono)',
-        fontSize: size === 'sm' ? '11px' : '12px',
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        letterSpacing: '0.04em',
+        fontSize: fontSizes[size],
+        fontWeight: 600,
+        letterSpacing: '0.02em',
         lineHeight: 1,
         whiteSpace: 'nowrap',
       }}
     >
-      <Icon size={iconSize} strokeWidth={1.5} />
+      <span
+        style={{
+          width: size === 'sm' ? '6px' : '7px',
+          height: size === 'sm' ? '6px' : '7px',
+          borderRadius: '50%',
+          backgroundColor: config.dotColor,
+          display: 'inline-block',
+        }}
+      />
+      <Icon size={iconSize} strokeWidth={2} />
       <span>{label || config.defaultLabel}</span>
     </span>
   );

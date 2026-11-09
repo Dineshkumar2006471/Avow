@@ -67,3 +67,4 @@ async def synthesize_speech(
             return resp.content  # Binary WAV audio
 
     return await gate.execute(_call, call_type="tts", cache_key=cache_key)
+

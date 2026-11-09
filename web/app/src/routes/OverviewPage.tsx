@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tag } from '../components/ui/Tag';
-import { Shield, AlertTriangle, Clock, PhoneIncoming, Layers } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, Clock, PhoneIncoming, Layers, TrendingDown } from 'lucide-react';
 
 export const OverviewPage: React.FC = () => {
   const kpis = [
@@ -9,36 +9,41 @@ export const OverviewPage: React.FC = () => {
       before: '14.2%',
       after: '2.8%',
       delta: '−80.3% REDUCTION',
-      color: 'var(--accept)',
-      icon: <Shield size={18} />,
+      color: '#10B981',
+      bg: '#ECFDF5',
+      icon: <ShieldCheck size={20} color="#10B981" />,
     },
     {
       label: 'CATCH RATE (WRONG FLAGGED)',
       value: '80.3%',
       sub: '95% CI [74.1% – 86.5%]',
-      color: 'var(--navy-500)',
-      icon: <AlertTriangle size={18} />,
+      color: 'var(--sapphire-600)',
+      bg: 'var(--sapphire-50)',
+      icon: <AlertTriangle size={20} color="var(--sapphire-600)" />,
     },
     {
       label: 'CALLS CONFIRMED (FRICTION)',
       value: '18.5%',
       sub: 'Target confirm envelope',
-      color: 'var(--confirm)',
-      icon: <PhoneIncoming size={18} />,
+      color: '#D97706',
+      bg: '#FFFBEB',
+      icon: <PhoneIncoming size={20} color="#D97706" />,
     },
     {
       label: 'AVG PRISMA CALLS / UTTERANCE',
       value: '2.6',
       sub: 'Stage A: 2 · Stage B: 4',
-      color: 'var(--text-1)',
-      icon: <Layers size={18} />,
+      color: 'var(--text-primary)',
+      bg: 'var(--sky-100)',
+      icon: <Layers size={20} color="var(--text-secondary)" />,
     },
     {
       label: 'p95 END-TO-END LATENCY',
       value: '1.82s',
-      sub: 'Under 1-concurrency gate',
-      color: 'var(--text-1)',
-      icon: <Clock size={18} />,
+      sub: 'Single-concurrency gate',
+      color: 'var(--text-primary)',
+      bg: 'var(--sky-100)',
+      icon: <Clock size={20} color="var(--text-secondary)" />,
     },
   ];
 
@@ -91,15 +96,32 @@ export const OverviewPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Page Header */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <span className="label" style={{ color: 'var(--navy-500)' }}>
-          SYSTEM DASHBOARD · HELD-OUT BENCHMARK
-        </span>
-        <h1>Executive Overview</h1>
-        <p>
-          Performance metrics across 192 held-out telephony utterances (tested on unseen speaker voices and procedural acoustic degradation).
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            SYSTEM DASHBOARD
+          </span>
+          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+            HELD-OUT BENCHMARK
+          </span>
+        </div>
+        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Executive Overview</h1>
+        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
+          Real-time performance metrics across 192 held-out telephony utterances (tested on unseen speaker voices and procedural acoustic degradation).
         </p>
       </div>
 
@@ -115,29 +137,52 @@ export const OverviewPage: React.FC = () => {
           <div
             key={idx}
             style={{
-              backgroundColor: 'var(--navy-850)',
-              border: '1px solid var(--navy-300)',
+              backgroundColor: 'var(--surface-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-sm)',
               padding: '20px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: '12px',
+              transition: 'all var(--dur-base) var(--ease)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="label" style={{ color: 'var(--text-3)', fontSize: '11px' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: 'var(--text-tertiary)',
+                  letterSpacing: '0.05em',
+                }}
+              >
                 {kpi.label}
               </span>
-              <span style={{ color: kpi.color }}>{kpi.icon}</span>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: kpi.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {kpi.icon}
+              </div>
             </div>
 
             {kpi.before ? (
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '18px',
-                    color: 'var(--escalate)',
+                    color: '#991B1B',
                     textDecoration: 'line-through',
                   }}
                 >
@@ -145,10 +190,11 @@ export const OverviewPage: React.FC = () => {
                 </span>
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '32px',
-                    fontWeight: 600,
-                    color: 'var(--accept)',
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '36px',
+                    fontWeight: 800,
+                    color: '#065F46',
+                    letterSpacing: '-0.02em',
                   }}
                 >
                   {kpi.after}
@@ -157,10 +203,11 @@ export const OverviewPage: React.FC = () => {
             ) : (
               <div
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '32px',
-                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '36px',
+                  fontWeight: 800,
                   color: kpi.color,
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {kpi.value}
@@ -171,97 +218,133 @@ export const OverviewPage: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
-                color: kpi.delta ? 'var(--accept)' : 'var(--text-3)',
-                borderTop: '1px solid var(--navy-800)',
+                fontWeight: 600,
+                color: kpi.delta ? '#065F46' : 'var(--text-tertiary)',
+                borderTop: '1px solid var(--border-subtle)',
                 paddingTop: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
-              {kpi.delta || kpi.sub}
+              {kpi.delta && <TrendingDown size={13} color="#10B981" />}
+              <span>{kpi.delta || kpi.sub}</span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Two Column Layout: Reliability & Recent Adjudications */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
-        {/* Left: Trade-off & Calibration Overview */}
+      {/* Two Column Layout: Calibration Curve & Recent Court Records */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '20px' }}>
+        {/* Left: Calibration Chart */}
         <div
           style={{
-            backgroundColor: 'var(--navy-850)',
-            border: '1px solid var(--navy-300)',
-            padding: '20px',
+            backgroundColor: 'var(--surface-primary)',
+            border: '1px solid var(--border-default)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-sm)',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-            <span className="label">RELIABILITY &amp; ERROR TRADEOFF CURVE</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accept)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+            <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+              Reliability &amp; Calibration Curve
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#065F46',
+                backgroundColor: '#ECFDF5',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
               ECE = 0.041 (WELL-CALIBRATED)
             </span>
           </div>
 
           <p style={{ fontSize: '14px', lineHeight: '22px' }}>
-            In traditional ASR, black-box confidence is missing. AVOW's multi-witness consensus produces an empirically calibrated risk metric:
+            In traditional single-ASR setups, black-box confidence scores are uncalibrated. AVOW's multi-witness consensus produces an empirically calibrated risk probability:
           </p>
 
           <div
             style={{
-              height: '180px',
-              backgroundColor: 'var(--navy-900)',
-              border: '1px solid var(--navy-300)',
+              height: '190px',
+              backgroundColor: 'var(--sky-50)',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-subtle)',
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: 'space-around',
-              padding: '16px 8px 8px 8px',
+              padding: '20px 16px 12px',
             }}
           >
             {[
-              { risk: '0-20%', observed: 2.1, color: 'var(--accept)' },
-              { risk: '20-40%', observed: 24.3, color: 'var(--confirm)' },
-              { risk: '40-60%', observed: 48.7, color: 'var(--confirm)' },
-              { risk: '60-80%', observed: 71.2, color: 'var(--escalate)' },
-              { risk: '80-100%', observed: 93.5, color: 'var(--escalate)' },
+              { risk: '0-20%', observed: 2.1, color: '#10B981' },
+              { risk: '20-40%', observed: 24.3, color: '#F59E0B' },
+              { risk: '40-60%', observed: 48.7, color: '#F59E0B' },
+              { risk: '60-80%', observed: 71.2, color: '#EF4444' },
+              { risk: '80-100%', observed: 93.5, color: '#EF4444' },
             ].map((bin, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', height: '100%', justifyContent: 'flex-end' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-2)' }}>
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: 'var(--text-secondary)' }}>
                   {bin.observed}%
                 </span>
                 <div
                   style={{
-                    width: '32px',
+                    width: '36px',
                     height: `${bin.observed * 1.3}px`,
                     backgroundColor: bin.color,
+                    borderRadius: '4px 4px 0 0',
+                    boxShadow: 'var(--shadow-xs)',
                   }}
                 />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-3)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-tertiary)' }}>
                   {bin.risk}
                 </span>
               </div>
             ))}
           </div>
 
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)', display: 'flex', justifyContent: 'space-between' }}>
-            <span>X: PREDICTED RISK BIN</span>
-            <span>Y: OBSERVED EMPIRICAL ERROR RATE</span>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)', display: 'flex', justifyContent: 'space-between' }}>
+            <span>X: PREDICTED RISK PROBABILITY</span>
+            <span>Y: EMPIRICAL ERROR RATE</span>
           </div>
         </div>
 
         {/* Right: Recent Adjudications */}
         <div
           style={{
-            backgroundColor: 'var(--navy-850)',
-            border: '1px solid var(--navy-300)',
-            padding: '20px',
+            backgroundColor: 'var(--surface-primary)',
+            border: '1px solid var(--border-default)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-sm)',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '8px' }}>
-            <span className="label">RECENT COURT RECORDS (LIVE / HELD-OUT)</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--navy-400)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+            <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+              Recent Court Records
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--sapphire-600)',
+                backgroundColor: 'var(--sapphire-50)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
               HASH-CHAIN AUDITED
             </span>
           </div>
@@ -274,22 +357,24 @@ export const OverviewPage: React.FC = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  backgroundColor: 'var(--navy-800)',
-                  padding: '8px 12px',
-                  border: '1px solid var(--navy-300)',
+                  backgroundColor: 'var(--sky-50)',
+                  padding: '10px 14px',
+                  borderRadius: 'var(--radius-md)',
+                  border: '1px solid var(--border-subtle)',
+                  transition: 'background-color var(--dur-fast) var(--ease)',
                 }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--navy-400)' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)' }}>
                       {c.id}
                     </span>
-                    <span style={{ fontSize: '13px', color: 'var(--text-1)' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
                       {c.spoke}
                     </span>
                   </div>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)' }}>
-                    W1: {c.w1} · W4: {c.w4} · {c.condition}
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-tertiary)' }}>
+                    W1: {c.w1} · W4: {c.w4} · {c.condition} ({c.latency})
                   </span>
                 </div>
 

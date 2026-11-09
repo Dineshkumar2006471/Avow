@@ -1,4 +1,5 @@
 import React from 'react';
+import { GitCompare, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 export interface CandidateValue {
   value: string | number;
@@ -21,12 +22,14 @@ export const EntityDiff: React.FC<EntityDiffProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'var(--navy-850)',
-        border: '1px solid var(--navy-300)',
+        backgroundColor: 'var(--surface-primary)',
+        border: '1px solid var(--border-default)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-sm)',
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
+        gap: '14px',
       }}
     >
       <div
@@ -34,42 +37,61 @@ export const EntityDiff: React.FC<EntityDiffProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid var(--navy-300)',
-          paddingBottom: '8px',
+          borderBottom: '1px solid var(--border-subtle)',
+          paddingBottom: '10px',
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: 'var(--text-3)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.04em',
-          }}
-        >
-          CROSS-EXAMINATION: {entityType}
-        </span>
-        {consensusValue !== undefined && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <GitCompare size={16} color="var(--sapphire-600)" />
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
-              color: 'var(--navy-400)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--text-tertiary)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
             }}
           >
-            ADJUDICATED: <strong style={{ color: 'var(--text-1)' }}>{consensusValue}</strong>
+            CROSS-EXAMINATION MATRIX: {entityType}
           </span>
+        </div>
+
+        {consensusValue !== undefined && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                color: 'var(--text-secondary)',
+              }}
+            >
+              ADJUDICATED:
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '14px',
+                fontWeight: 700,
+                color: 'var(--sapphire-700)',
+                backgroundColor: 'var(--sapphire-50)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-sm)',
+              }}
+            >
+              {consensusValue}
+            </span>
+          </div>
         )}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {candidates.map((cand, idx) => {
-          const barColor =
-            cand.isMajority
-              ? 'var(--navy-500)'
-              : cand.status === 'disputed'
-              ? 'var(--confirm)'
-              : 'var(--escalate)';
+          const isMajority = cand.isMajority;
+          const isDisputed = cand.status === 'disputed';
+
+          const borderColor = isMajority ? 'var(--sapphire-500)' : isDisputed ? '#F59E0B' : '#EF4444';
+          const bgColor = isMajority ? '#F8FAFF' : isDisputed ? '#FFFDF8' : '#FEF8F8';
 
           return (
             <div
@@ -78,49 +100,88 @@ export const EntityDiff: React.FC<EntityDiffProps> = ({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                backgroundColor: 'var(--navy-800)',
-                borderLeft: `3px solid ${barColor}`,
-                padding: '10px 16px',
+                backgroundColor: bgColor,
+                border: '1px solid var(--border-default)',
+                borderLeft: `4px solid ${borderColor}`,
+                borderRadius: 'var(--radius-md)',
+                padding: '12px 16px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono)',
+                    fontFamily: 'var(--font-heading)',
                     fontSize: '18px',
-                    fontWeight: 600,
-                    color: cand.isMajority ? 'var(--text-1)' : barColor,
+                    fontWeight: 700,
+                    color: isMajority ? 'var(--text-primary)' : borderColor,
                     fontVariantNumeric: 'tabular-nums',
                   }}
                 >
                   {cand.value}
                 </span>
-                {cand.isMajority && (
+
+                {isMajority ? (
                   <span
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      color: 'var(--navy-400)',
-                      backgroundColor: 'rgba(91, 155, 255, 0.1)',
-                      padding: '2px 6px',
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      color: 'var(--sapphire-700)',
+                      backgroundColor: 'var(--sapphire-100)',
+                      padding: '2px 8px',
+                      borderRadius: 'var(--radius-full)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
                     }}
                   >
+                    <CheckCircle2 size={11} />
                     MAJORITY CONSENSUS
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      color: '#92400E',
+                      backgroundColor: '#FEF3C7',
+                      padding: '2px 8px',
+                      borderRadius: 'var(--radius-full)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    <AlertTriangle size={11} />
+                    CONTESTED VALUE
                   </span>
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    color: 'var(--text-tertiary)',
+                    marginRight: '4px',
+                  }}
+                >
+                  SUPPORTING JURY:
+                </span>
                 {cand.witnesses.map((wId) => (
                   <span
                     key={wId}
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '11px',
-                      color: 'var(--text-2)',
-                      backgroundColor: 'var(--navy-900)',
-                      border: '1px solid var(--navy-300)',
+                      fontWeight: 600,
+                      color: 'var(--text-secondary)',
+                      backgroundColor: 'var(--surface-primary)',
+                      border: '1px solid var(--border-default)',
                       padding: '2px 8px',
+                      borderRadius: 'var(--radius-sm)',
                     }}
                   >
                     {wId}

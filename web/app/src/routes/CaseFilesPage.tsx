@@ -151,15 +151,32 @@ export const CaseFilesPage: React.FC = () => {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <span className="label" style={{ color: 'var(--navy-500)' }}>
-          RECORDED ADJUDICATIONS · AUDIT REPOSITORY
-        </span>
-        <h1>Case Files</h1>
-        <p>
-          Inspect full court records of past utterances, witness transcripts, acoustic conditions, and risk evaluations.
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-600)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            RECORDED ADJUDICATIONS
+          </span>
+          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+            AUDIT REPOSITORY
+          </span>
+        </div>
+        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Case Files</h1>
+        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
+          Inspect historical court records of past utterances, witness transcripts, acoustic conditions, and calibrated risk evaluations.
         </p>
       </div>
 
@@ -168,15 +185,17 @@ export const CaseFilesPage: React.FC = () => {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '12px',
+          gap: '14px',
           alignItems: 'center',
-          backgroundColor: 'var(--navy-850)',
-          padding: '12px 16px',
-          border: '1px solid var(--navy-300)',
+          backgroundColor: 'var(--surface-primary)',
+          padding: '14px 18px',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--border-default)',
+          boxShadow: 'var(--shadow-xs)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: '240px' }}>
-          <Search size={16} color="var(--text-3)" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1, minWidth: '260px' }}>
+          <Search size={16} color="var(--text-tertiary)" />
           <input
             type="text"
             placeholder="Search by Case ID, spoken phrase, or entity..."
@@ -185,7 +204,7 @@ export const CaseFilesPage: React.FC = () => {
             style={{
               backgroundColor: 'transparent',
               border: 'none',
-              color: 'var(--text-1)',
+              color: 'var(--text-primary)',
               fontFamily: 'var(--font-sans)',
               fontSize: '14px',
               width: '100%',
@@ -195,19 +214,22 @@ export const CaseFilesPage: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <span className="label" style={{ color: 'var(--text-3)' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: 'var(--text-tertiary)' }}>
             CONDITION:
           </span>
           <select
             value={filterCondition}
             onChange={(e) => setFilterCondition(e.target.value)}
             style={{
-              backgroundColor: 'var(--navy-800)',
-              color: 'var(--text-1)',
-              border: '1px solid var(--navy-300)',
+              backgroundColor: 'var(--sky-100)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-sm)',
               padding: '6px 10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
+              fontSize: '11px',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             <option value="ALL">ALL CONDITIONS</option>
@@ -220,19 +242,22 @@ export const CaseFilesPage: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <span className="label" style={{ color: 'var(--text-3)' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: 'var(--text-tertiary)' }}>
             DECISION:
           </span>
           <select
             value={filterDecision}
             onChange={(e) => setFilterDecision(e.target.value)}
             style={{
-              backgroundColor: 'var(--navy-800)',
-              color: 'var(--text-1)',
-              border: '1px solid var(--navy-300)',
+              backgroundColor: 'var(--sky-100)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-sm)',
               padding: '6px 10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
+              fontSize: '11px',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
             <option value="ALL">ALL DECISIONS</option>
@@ -246,22 +271,24 @@ export const CaseFilesPage: React.FC = () => {
       {/* Table */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          overflowX: 'auto',
+          backgroundColor: 'var(--surface-primary)',
+          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--border-default)',
+          boxShadow: 'var(--shadow-sm)',
+          overflow: 'hidden',
         }}
       >
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ backgroundColor: 'var(--navy-800)', borderBottom: '1px solid var(--navy-300)' }}>
-              <th className="label" style={{ padding: '12px 16px' }}>CASE ID</th>
-              <th className="label" style={{ padding: '12px 16px' }}>SPOKEN UTTERANCE</th>
-              <th className="label" style={{ padding: '12px 16px' }}>GROUND TRUTH</th>
-              <th className="label" style={{ padding: '12px 16px' }}>CONDITION</th>
-              <th className="label" style={{ padding: '12px 16px' }}>W1 (PRISMA 3)</th>
-              <th className="label" style={{ padding: '12px 16px' }}>W4 (PRISMA 2.5)</th>
-              <th className="label" style={{ padding: '12px 16px' }}>RISK</th>
-              <th className="label" style={{ padding: '12px 16px' }}>DECISION</th>
+            <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CASE ID</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>SPOKEN UTTERANCE</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>GROUND TRUTH</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CONDITION</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>W1 (PRISMA 3)</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>W4 (PRISMA 2.5)</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>RISK</th>
+              <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>DECISION</th>
             </tr>
           </thead>
           <tbody>
@@ -272,43 +299,43 @@ export const CaseFilesPage: React.FC = () => {
                   key={c.id}
                   onClick={() => setSelectedCase(c)}
                   style={{
-                    borderBottom: '1px solid var(--navy-300)',
+                    borderBottom: '1px solid var(--border-subtle)',
                     cursor: 'pointer',
-                    transition: 'background-color 110ms var(--ease)',
+                    transition: 'background-color var(--dur-fast) var(--ease)',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--navy-800)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--sky-50)')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                 >
-                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--navy-400)' }}>
+                  <td style={{ padding: '14px 18px', fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: 'var(--sapphire-700)' }}>
                     {c.id}
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: '14px', color: 'var(--text-1)', maxWidth: '280px' }}>
+                  <td style={{ padding: '14px 18px', fontSize: '14px', color: 'var(--text-primary)', maxWidth: '300px' }}>
                     "{c.utterance}"
                   </td>
-                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 600, color: 'var(--text-1)' }}>
+                  <td style={{ padding: '14px 18px', fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
                     {c.groundTruth}
                   </td>
-                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-3)' }}>
+                  <td style={{ padding: '14px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
                     {c.condition}
                   </td>
-                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-1)' }}>
+                  <td style={{ padding: '14px 18px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-primary)' }}>
                     {c.w1}
                   </td>
                   <td
                     style={{
-                      padding: '14px 16px',
+                      padding: '14px 18px',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '13px',
-                      color: isDisputed ? 'var(--confirm)' : 'var(--text-1)',
-                      fontWeight: isDisputed ? 600 : 400,
+                      color: isDisputed ? '#D97706' : 'var(--text-primary)',
+                      fontWeight: isDisputed ? 700 : 400,
                     }}
                   >
                     {c.w4}
                   </td>
-                  <td style={{ padding: '14px 16px', fontFamily: 'var(--font-mono)', fontSize: '13px', color: c.risk > 0.5 ? 'var(--confirm)' : 'var(--accept)' }}>
+                  <td style={{ padding: '14px 18px', fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 600, color: c.risk > 0.5 ? '#D97706' : '#10B981' }}>
                     {(c.risk * 100).toFixed(0)}%
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
+                  <td style={{ padding: '14px 18px' }}>
                     <Tag verdict={c.decision} size="sm" />
                   </td>
                 </tr>
@@ -324,33 +351,36 @@ export const CaseFilesPage: React.FC = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(7, 15, 31, 0.85)',
+            backgroundColor: 'rgba(15, 23, 42, 0.5)',
+            backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: '20px',
+            padding: '24px',
           }}
           onClick={() => setSelectedCase(null)}
         >
           <div
             style={{
-              backgroundColor: 'var(--navy-850)',
-              border: '1px solid var(--navy-300)',
+              backgroundColor: 'var(--surface-primary)',
+              borderRadius: 'var(--radius-xl)',
+              boxShadow: 'var(--shadow-xl)',
+              border: '1px solid var(--border-default)',
               width: '100%',
-              maxWidth: '800px',
+              maxWidth: '820px',
               maxHeight: '90vh',
               overflowY: 'auto',
-              padding: '24px',
+              padding: '28px',
               display: 'flex',
               flexDirection: 'column',
               gap: '20px',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--navy-300)', paddingBottom: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="label" style={{ color: 'var(--navy-500)', fontSize: '14px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', fontWeight: 700, color: 'var(--sapphire-700)' }}>
                   {selectedCase.id}
                 </span>
                 <Tag verdict={selectedCase.decision} />
@@ -358,23 +388,25 @@ export const CaseFilesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedCase(null)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-2)', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer', padding: '4px' }}
               >
                 <X size={20} />
               </button>
             </div>
 
             <div>
-              <span className="label" style={{ color: 'var(--text-3)' }}>SPOKEN GROUND TRUTH:</span>
-              <h2 style={{ fontSize: '20px', marginTop: '4px' }}>"{selectedCase.utterance}"</h2>
-              <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--navy-400)', marginTop: '4px' }}>
-                EXPECTED ENTITY: {selectedCase.groundTruth} ({selectedCase.entityType})
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+                SPOKEN GROUND TRUTH:
+              </span>
+              <h2 style={{ fontSize: '22px', fontWeight: 700, marginTop: '4px' }}>"{selectedCase.utterance}"</h2>
+              <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--sapphire-600)', fontSize: '13px', marginTop: '6px' }}>
+                EXPECTED ENTITY: <strong>{selectedCase.groundTruth}</strong> ({selectedCase.entityType})
               </div>
             </div>
 
             <WaveformPlayer hasDegradedVersion={selectedCase.condition !== 'CLEAN'} />
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
               <WitnessCard
                 witness={{
                   id: 'W1',
@@ -401,7 +433,7 @@ export const CaseFilesPage: React.FC = () => {
 
             <RiskMeter riskScore={selectedCase.risk} />
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '8px' }}>
               <Button size="compact" variant="secondary" onClick={() => setSelectedCase(null)}>
                 CLOSE CASE FILE
               </Button>

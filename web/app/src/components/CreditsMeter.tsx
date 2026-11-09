@@ -1,4 +1,5 @@
 import React from 'react';
+import { Zap } from 'lucide-react';
 
 interface CreditsMeterProps {
   usedRuns?: number;
@@ -7,42 +8,45 @@ interface CreditsMeterProps {
 }
 
 export const CreditsMeter: React.FC<CreditsMeterProps> = ({
-  usedRuns = 42,
+  usedRuns = 18,
   maxRuns = 150,
   environment = 'LIVE',
 }) => {
   const percentage = Math.min(100, Math.round((usedRuns / maxRuns) * 100));
   const isHigh = percentage >= 80;
 
-  const barColor = isHigh ? 'var(--confirm)' : 'var(--navy-500)';
+  const barColor = isHigh ? 'var(--confirm)' : 'var(--sapphire-500)';
 
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
-        backgroundColor: 'var(--navy-900)',
-        border: '1px solid var(--navy-300)',
-        padding: '4px 12px',
-        height: '32px',
+        gap: '10px',
+        backgroundColor: 'var(--sky-100)',
+        border: '1px solid var(--border-default)',
+        borderRadius: 'var(--radius-full)',
+        padding: '4px 14px',
+        height: '34px',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
         <span
           style={{
-            width: '6px',
-            height: '6px',
+            width: '7px',
+            height: '7px',
+            borderRadius: '50%',
             backgroundColor: environment === 'LIVE' ? 'var(--accept)' : 'var(--confirm)',
             display: 'inline-block',
+            boxShadow: environment === 'LIVE' ? '0 0 8px rgba(16, 185, 129, 0.5)' : 'none',
           }}
         />
         <span
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            fontWeight: 500,
-            color: 'var(--text-1)',
+            fontWeight: 700,
+            color: 'var(--text-primary)',
             letterSpacing: '0.04em',
           }}
         >
@@ -50,25 +54,25 @@ export const CreditsMeter: React.FC<CreditsMeterProps> = ({
         </span>
       </div>
 
-      <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--navy-300)' }} />
+      <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--border-strong)' }} />
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <Zap size={13} style={{ color: 'var(--sapphire-600)' }} />
         <span
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            color: 'var(--text-3)',
-            letterSpacing: '0.04em',
+            color: 'var(--text-secondary)',
           }}
         >
-          LIVE RUNS TODAY:
+          RUNS:
         </span>
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            color: isHigh ? 'var(--confirm)' : 'var(--text-1)',
-            fontWeight: 500,
+            fontSize: '12px',
+            color: isHigh ? 'var(--confirm)' : 'var(--text-primary)',
+            fontWeight: 700,
             fontVariantNumeric: 'tabular-nums',
           }}
         >
@@ -79,9 +83,11 @@ export const CreditsMeter: React.FC<CreditsMeterProps> = ({
       {/* Mini Progress Bar */}
       <div
         style={{
-          width: '48px',
+          width: '52px',
           height: '6px',
-          backgroundColor: 'var(--navy-800)',
+          backgroundColor: 'var(--sky-300)',
+          borderRadius: 'var(--radius-full)',
+          overflow: 'hidden',
           display: 'flex',
         }}
       >
@@ -90,6 +96,7 @@ export const CreditsMeter: React.FC<CreditsMeterProps> = ({
             width: `${percentage}%`,
             height: '100%',
             backgroundColor: barColor,
+            borderRadius: 'var(--radius-full)',
             transition: 'width 280ms var(--ease)',
           }}
         />

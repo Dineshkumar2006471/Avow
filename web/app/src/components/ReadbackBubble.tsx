@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, Play, Pause, Mic, ArrowRight } from 'lucide-react';
+import { Volume2, Play, Pause, Mic, CheckCircle2 } from 'lucide-react';
 import { Button } from './ui/Button';
 
 interface ReadbackBubbleProps {
@@ -19,7 +19,6 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
 
   const toggleSpeech = () => {
-    // If Web Speech API is available or real audio is linked
     if ('speechSynthesis' in window) {
       if (isPlaying) {
         window.speechSynthesis.cancel();
@@ -42,12 +41,14 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'var(--navy-900)',
-        border: '1px solid var(--confirm)',
-        padding: '16px 20px',
+        backgroundColor: '#FFFBEB',
+        border: '1.5px solid #FDE68A',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: '0 4px 12px rgba(245, 158, 11, 0.08)',
+        padding: '18px 20px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
+        gap: '14px',
       }}
     >
       <div
@@ -55,32 +56,35 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          borderBottom: '1px solid #FEF3C7',
+          paddingBottom: '10px',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Volume2 size={16} color="var(--confirm)" />
+          <Volume2 size={16} color="#D97706" />
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
-              color: 'var(--confirm)',
-              fontWeight: 500,
+              fontSize: '11px',
+              color: '#92400E',
+              fontWeight: 700,
               textTransform: 'uppercase',
-              letterSpacing: '0.04em',
+              letterSpacing: '0.05em',
             }}
           >
-            GNANI TIMBRE READ-BACK SYNTHESIS
+            GNANI TIMBRE READ-BACK SYNTHESIS (CLOSED-LOOP)
           </span>
         </div>
 
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            color: 'var(--text-3)',
-            backgroundColor: 'var(--navy-800)',
+            fontSize: '10px',
+            fontWeight: 600,
+            color: '#92400E',
+            backgroundColor: '#FEF3C7',
             padding: '2px 8px',
-            border: '1px solid var(--navy-300)',
+            borderRadius: 'var(--radius-full)',
           }}
         >
           TARGET: {language}
@@ -90,10 +94,10 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
       <div
         style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: '18px',
+          fontSize: '17px',
           lineHeight: '26px',
-          color: 'var(--text-1)',
-          fontStyle: 'italic',
+          color: '#78350F',
+          fontWeight: 500,
         }}
       >
         "{text}"
@@ -104,8 +108,8 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderTop: '1px solid var(--navy-800)',
-          paddingTop: '10px',
+          borderTop: '1px solid #FEF3C7',
+          paddingTop: '12px',
         }}
       >
         <Button
@@ -113,8 +117,13 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
           variant="secondary"
           onClick={toggleSpeech}
           icon={isPlaying ? <Pause size={14} /> : <Play size={14} />}
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #FDE68A',
+            color: '#92400E',
+          }}
         >
-          {isPlaying ? 'PAUSE SPEECH' : 'LISTEN TO TIMBRE'}
+          {isPlaying ? 'PAUSE SPEECH' : 'LISTEN TO TIMBRE SYNTHESIS'}
         </Button>
 
         {onRecordReply && (
@@ -123,9 +132,13 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
             variant="primary"
             onClick={onRecordReply}
             disabled={isResolving}
-            icon={isResolving ? <ArrowRight size={14} /> : <Mic size={14} />}
+            icon={isResolving ? <CheckCircle2 size={14} /> : <Mic size={14} />}
+            style={{
+              backgroundColor: '#D97706',
+              boxShadow: '0 2px 8px rgba(217, 119, 6, 0.25)',
+            }}
           >
-            {isResolving ? 'RESOLVING REPEAT...' : 'REPLY: YES / CORRECT VALUE'}
+            {isResolving ? 'ADJUDICATING RESPONSE...' : 'SIMULATE CALLER: "HAAN, SAHI HAI"'}
           </Button>
         )}
       </div>

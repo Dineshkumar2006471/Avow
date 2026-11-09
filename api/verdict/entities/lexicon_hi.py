@@ -155,3 +155,4 @@ REPEAT_PREFIXES: dict[str, int] = {
     "double": 2, "dabal": 2, "डबल": 2,
     "triple": 3, "tripal": 3, "ट्रिपल": 3,
 }
+

@@ -36,3 +36,4 @@ def are_confusable_numbers(n1: int, n2: int) -> bool:
         if (n1 == val1 and n2 == val2) or (n1 == val2 and n2 == val1):
             return True
     return False
+

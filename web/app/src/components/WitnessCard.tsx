@@ -1,4 +1,5 @@
 import React from 'react';
+import { CheckCircle, AlertTriangle, ShieldAlert } from 'lucide-react';
 
 export interface WitnessData {
   id: string; // e.g. "W1", "W4", "W2", "W5"
@@ -15,14 +16,14 @@ export interface WitnessData {
 
 interface WitnessCardProps {
   witness: WitnessData;
-  index: number;
+  index?: number;
 }
 
-export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index }) => {
-  // Split transcript around the highlightSpan if provided
+export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index: _index }) => {
+  // Split transcript around highlightSpan
   const renderTranscript = () => {
     if (!witness.highlightSpan || !witness.transcript.includes(witness.highlightSpan)) {
-      return <span>{witness.transcript}</span>;
+      return <span>"{witness.transcript}"</span>;
     }
 
     const parts = witness.transcript.split(witness.highlightSpan);
@@ -31,10 +32,11 @@ export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index }) => {
         ? 'entity-disputed'
         : witness.agreementStatus === 'alone'
         ? 'entity-escalated'
-        : 'entity-underline';
+        : 'entity-accepted';
 
     return (
-      <>
+      <span>
+        "
         {parts.map((part, i) => (
           <React.Fragment key={i}>
             {part}
@@ -45,65 +47,85 @@ export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index }) => {
             )}
           </React.Fragment>
         ))}
-      </>
+        "
+      </span>
     );
   };
 
-  const agreementColor =
-    witness.agreementStatus === 'consensus'
-      ? 'var(--accept)'
-      : witness.agreementStatus === 'disputed'
-      ? 'var(--confirm)'
-      : 'var(--escalate)';
+  const isDisputed = witness.agreementStatus === 'disputed';
+  const isAlone = witness.agreementStatus === 'alone';
+
+  const statusBorder = isDisputed
+    ? '1.5px solid #FCD34D'
+    : isAlone
+    ? '1.5px solid #FCA5A5'
+    : '1px solid var(--border-default)';
+
+  const cardBg = isDisputed ? '#FFFCF5' : isAlone ? '#FFF8F8' : 'var(--surface-primary)';
 
   return (
     <div
       style={{
-        backgroundColor: 'var(--navy-800)',
-        border: '1px solid var(--navy-300)',
-        padding: '20px',
+        backgroundColor: cardBg,
+        border: statusBorder,
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: isDisputed ? '0 4px 12px rgba(245, 158, 11, 0.08)' : 'var(--shadow-sm)',
+        padding: '18px 20px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        minHeight: '180px',
-        animation: `fadeInUp 280ms cubic-bezier(0.2, 0, 0.38, 0.9) ${index * 80}ms forwards`,
-        opacity: 0,
-        transform: 'translateY(8px)',
+        minHeight: '190px',
+        transition: 'all var(--dur-base) var(--ease)',
       }}
     >
-      {/* Header */}
+      {/* Card Top: Witness ID, Model, Latency */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid var(--navy-300)',
-          paddingBottom: '8px',
+          borderBottom: '1px solid var(--border-subtle)',
+          paddingBottom: '10px',
           marginBottom: '12px',
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            fontWeight: 500,
-            color: 'var(--text-1)',
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-          }}
-        >
-          {witness.id} · {witness.name}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--sapphire-700)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '2px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+            }}
+          >
+            {witness.id}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: 'var(--text-primary)',
+            }}
+          >
+            {witness.name}
+          </span>
+        </div>
+
         {witness.latencyMs && (
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
-              color: 'var(--text-3)',
+              fontSize: '11px',
+              color: 'var(--text-tertiary)',
               fontVariantNumeric: 'tabular-nums',
             }}
           >
-            {witness.latencyMs} MS
+            {witness.latencyMs} ms
           </span>
         )}
       </div>
@@ -111,51 +133,52 @@ export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index }) => {
       {/* Transcript Body */}
       <div
         style={{
-          fontSize: '17px',
-          lineHeight: '26px',
-          color: 'var(--text-1)',
+          fontSize: '15px',
+          lineHeight: '24px',
+          color: 'var(--text-primary)',
           marginBottom: '16px',
           flex: 1,
+          fontFamily: 'var(--font-sans)',
         }}
       >
-        "{renderTranscript()}"
+        {renderTranscript()}
       </div>
 
-      {/* Footer: Parsed Value + Agreement Status Dot */}
+      {/* Card Footer: Parsed Value + Status */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderTop: '1px solid var(--navy-300)',
+          borderTop: '1px solid var(--border-subtle)',
           paddingTop: '10px',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span
-            style={{
-              width: '8px',
-              height: '8px',
-              backgroundColor: agreementColor,
-              display: 'inline-block',
-            }}
-          />
+          {isDisputed ? (
+            <AlertTriangle size={15} color="#F59E0B" />
+          ) : isAlone ? (
+            <ShieldAlert size={15} color="#EF4444" />
+          ) : (
+            <CheckCircle size={15} color="#10B981" />
+          )}
+
           <span
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
-              color: 'var(--text-2)',
+              color: 'var(--text-tertiary)',
               textTransform: 'uppercase',
             }}
           >
-            PARSED:
+            EXTRACTED:
           </span>
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '15px',
-              fontWeight: 500,
-              color: 'var(--text-1)',
+              fontSize: '14px',
+              fontWeight: 700,
+              color: isDisputed ? '#B45309' : isAlone ? '#B91C1C' : 'var(--text-primary)',
               fontVariantNumeric: 'tabular-nums',
             }}
           >
@@ -167,11 +190,13 @@ export const WitnessCard: React.FC<WitnessCardProps> = ({ witness, index }) => {
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              color: 'var(--text-3)',
-              backgroundColor: 'var(--navy-850)',
+              fontSize: '10px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              backgroundColor: 'var(--sky-100)',
               padding: '2px 6px',
-              border: '1px solid var(--navy-300)',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--border-subtle)',
             }}
           >
             {witness.languageCode}

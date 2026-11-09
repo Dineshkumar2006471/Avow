@@ -97,3 +97,4 @@ async def transcribe(
             )
 
     return await gate.execute(_call, call_type="stt", cache_key=cache_key)
+

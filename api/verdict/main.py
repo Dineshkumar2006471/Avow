@@ -217,3 +217,4 @@ async def get_latest_benchmark() -> dict[str, Any]:
         "calls_per_utterance": 2.6,
         "p95_latency_ms": 1820,
     }
+

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Volume2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Volume2, AudioLines } from 'lucide-react';
 import { Button } from './ui/Button';
 
 interface WaveformPlayerProps {
@@ -16,7 +16,7 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeMode, setActiveMode] = useState<'clean' | 'degraded'>('degraded');
   const [progress, setProgress] = useState(0); // 0.0 to 1.0
-  const [duration, setDuration] = useState(4.2); // seconds simulated or real
+  const [duration] = useState(4.2); // seconds simulated or real
   const [currentTime, setCurrentTime] = useState(0);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -24,7 +24,6 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   // Toggle Play/Pause
   const togglePlay = () => {
     if (!audioRef.current) {
-      // Simulate playback if no audio file yet
       setIsPlaying((prev) => !prev);
       return;
     }
@@ -69,22 +68,23 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   };
 
   // Procedural waveform bars generator
-  const BAR_COUNT = 64;
+  const BAR_COUNT = 56;
   const bars = useRef(
     Array.from({ length: BAR_COUNT }).map((_, i) => {
-      // Create natural speech-like envelope
       const norm = i / BAR_COUNT;
       const envelope = Math.sin(norm * Math.PI);
       const randomNoise = 0.2 + 0.8 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.9));
-      return Math.max(0.1, envelope * randomNoise);
+      return Math.max(0.12, envelope * randomNoise);
     })
   ).current;
 
   return (
     <div
       style={{
-        backgroundColor: 'var(--navy-850)',
-        border: '1px solid var(--navy-300)',
+        backgroundColor: 'var(--surface-primary)',
+        border: '1px solid var(--border-default)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-sm)',
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
@@ -97,35 +97,51 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid var(--navy-300)',
-          paddingBottom: '8px',
+          borderBottom: '1px solid var(--border-subtle)',
+          paddingBottom: '10px',
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            color: 'var(--text-3)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.04em',
-          }}
-        >
-          AUDIO REPLAY &amp; SPECTRAL INSPECTION
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <AudioLines size={16} color="var(--sapphire-600)" />
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--text-tertiary)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            AUDIO REPLAY &amp; SPECTRAL INSPECTION
+          </span>
+        </div>
 
         {hasDegradedVersion && (
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div
+            style={{
+              display: 'flex',
+              backgroundColor: 'var(--sky-100)',
+              padding: '2px',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-subtle)',
+            }}
+          >
             <button
               type="button"
               onClick={() => setActiveMode('clean')}
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
-                padding: '3px 8px',
-                backgroundColor: activeMode === 'clean' ? 'var(--navy-600)' : 'var(--navy-800)',
-                color: activeMode === 'clean' ? '#FFF' : 'var(--text-2)',
-                border: '1px solid var(--navy-300)',
+                fontWeight: 600,
+                padding: '4px 10px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: activeMode === 'clean' ? 'var(--surface-primary)' : 'transparent',
+                color: activeMode === 'clean' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                border: 'none',
+                boxShadow: activeMode === 'clean' ? 'var(--shadow-xs)' : 'none',
                 cursor: 'pointer',
+                transition: 'all var(--dur-fast) var(--ease)',
               }}
             >
               CLEAN
@@ -136,11 +152,15 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
-                padding: '3px 8px',
-                backgroundColor: activeMode === 'degraded' ? 'var(--navy-600)' : 'var(--navy-800)',
-                color: activeMode === 'degraded' ? '#FFF' : 'var(--text-2)',
-                border: '1px solid var(--navy-300)',
+                fontWeight: 600,
+                padding: '4px 10px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: activeMode === 'degraded' ? 'var(--surface-primary)' : 'transparent',
+                color: activeMode === 'degraded' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                border: 'none',
+                boxShadow: activeMode === 'degraded' ? 'var(--shadow-xs)' : 'none',
                 cursor: 'pointer',
+                transition: 'all var(--dur-fast) var(--ease)',
               }}
             >
               DEGRADED (GAUNTLET)
@@ -152,13 +172,14 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
       {/* Waveform Visualization */}
       <div
         style={{
-          height: '64px',
+          height: '70px',
           display: 'flex',
           alignItems: 'center',
-          gap: '2px',
-          backgroundColor: 'var(--navy-900)',
-          padding: '8px 12px',
-          border: '1px solid var(--navy-300)',
+          gap: '3px',
+          backgroundColor: 'var(--sky-50)',
+          padding: '10px 14px',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid var(--border-subtle)',
           cursor: 'pointer',
           position: 'relative',
         }}
@@ -171,7 +192,7 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
       >
         {bars.map((heightFactor, i) => {
           const isPlayed = i / BAR_COUNT <= progress;
-          const height = Math.round(heightFactor * 48);
+          const height = Math.round(heightFactor * 50);
 
           return (
             <div
@@ -179,7 +200,8 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
               style={{
                 flex: 1,
                 height: `${height}px`,
-                backgroundColor: isPlayed ? 'var(--navy-500)' : 'var(--navy-250)',
+                backgroundColor: isPlayed ? 'var(--sapphire-500)' : 'var(--sky-300)',
+                borderRadius: 'var(--radius-full)',
                 transition: 'background-color 50ms linear',
               }}
             />
@@ -200,16 +222,16 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
             size="compact"
             variant="primary"
             onClick={togglePlay}
-            icon={isPlaying ? <Pause size={16} /> : <Play size={16} />}
+            icon={isPlaying ? <Pause size={15} /> : <Play size={15} />}
           >
-            {isPlaying ? 'PAUSE' : 'PLAY'}
+            {isPlaying ? 'PAUSE' : 'PLAY AUDIO'}
           </Button>
 
           <Button
             size="compact"
-            variant="ghost"
+            variant="secondary"
             onClick={restart}
-            icon={<RotateCcw size={16} />}
+            icon={<RotateCcw size={14} />}
           >
             RESTART
           </Button>
@@ -221,12 +243,12 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
             alignItems: 'center',
             gap: '8px',
             fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            color: 'var(--text-2)',
+            fontSize: '12px',
+            color: 'var(--text-secondary)',
             fontVariantNumeric: 'tabular-nums',
           }}
         >
-          <Volume2 size={16} color="var(--navy-500)" />
+          <Volume2 size={16} color="var(--sapphire-600)" />
           <span>
             {currentTime.toFixed(1)}s / {duration.toFixed(1)}s
           </span>
@@ -240,7 +262,6 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
           src={activeMode === 'degraded' && degradedAudioUrl ? degradedAudioUrl : audioUrl}
           onEnded={() => setIsPlaying(false)}
           onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-          onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         />
       )}
     </div>

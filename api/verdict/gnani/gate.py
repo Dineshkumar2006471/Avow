@@ -104,3 +104,4 @@ class GnaniGate:
 
 # Process-wide singleton gate
 gate = GnaniGate(concurrency=settings.GNANI_MAX_CONCURRENCY)
+

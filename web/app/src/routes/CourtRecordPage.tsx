@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, CheckCircle2, RefreshCw } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, RefreshCw, Lock } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
 export const CourtRecordPage: React.FC = () => {
@@ -55,15 +55,32 @@ export const CourtRecordPage: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span className="label" style={{ color: 'var(--navy-500)' }}>
-            CRYPTOGRAPHIC TAMPER-EVIDENT AUDIT TRAIL
-          </span>
-          <h1>Court Record</h1>
-          <p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 700,
+                color: 'var(--sapphire-600)',
+                backgroundColor: 'var(--sapphire-50)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-full)',
+                letterSpacing: '0.04em',
+              }}
+            >
+              CRYPTOGRAPHIC TAMPER-EVIDENT AUDIT TRAIL
+            </span>
+            <span style={{ color: 'var(--text-tertiary)' }}>/</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+              DPDP ACT COMPLIANT
+            </span>
+          </div>
+          <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Court Record</h1>
+          <p style={{ fontSize: '16px', lineHeight: '24px' }}>
             Every verdict, readback, and caller resolution is appended to an immutable SHA-256 hash chain.
             This provides non-repudiation and proof of compliance under DPDP regulations.
           </p>
@@ -83,28 +100,32 @@ export const CourtRecordPage: React.FC = () => {
       {verifiedSuccess && (
         <div
           style={{
-            backgroundColor: 'rgba(61, 214, 140, 0.1)',
-            border: '1px solid var(--accept)',
-            padding: '12px 16px',
-            color: 'var(--accept)',
+            backgroundColor: '#ECFDF5',
+            border: '1.5px solid #A7F3D0',
+            borderRadius: 'var(--radius-md)',
+            padding: '14px 18px',
+            color: '#065F46',
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
+            boxShadow: 'var(--shadow-xs)',
           }}
         >
-          <CheckCircle2 size={18} />
-          <span>CRYPTOGRAPHIC VERIFICATION PASSED: 904 blocks validated back to genesis. Zero tampering detected.</span>
+          <CheckCircle2 size={18} color="#10B981" />
+          <span>CRYPTOGRAPHIC INTEGRITY VERIFIED: 904 blocks validated back to genesis. Zero tampering detected.</span>
         </div>
       )}
 
       {/* Timeline */}
       <div
         style={{
-          backgroundColor: 'var(--navy-850)',
-          border: '1px solid var(--navy-300)',
-          padding: '24px',
+          backgroundColor: 'var(--surface-primary)',
+          border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-sm)',
+          padding: '28px',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -124,11 +145,11 @@ export const CourtRecordPage: React.FC = () => {
               <div
                 style={{
                   position: 'absolute',
-                  left: '11px',
-                  top: '24px',
+                  left: '15px',
+                  top: '32px',
                   bottom: '-24px',
                   width: '2px',
-                  backgroundColor: 'var(--navy-300)',
+                  backgroundColor: 'var(--sky-300)',
                 }}
               />
             )}
@@ -136,10 +157,11 @@ export const CourtRecordPage: React.FC = () => {
             {/* Dot */}
             <div
               style={{
-                width: '24px',
-                height: '24px',
-                backgroundColor: 'var(--navy-800)',
-                border: '2px solid var(--navy-500)',
+                width: '32px',
+                height: '32px',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: 'var(--sapphire-50)',
+                border: '2px solid var(--sapphire-500)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -147,37 +169,39 @@ export const CourtRecordPage: React.FC = () => {
                 zIndex: 1,
               }}
             >
-              <div style={{ width: '6px', height: '6px', backgroundColor: '#FFF' }} />
+              <Lock size={14} color="var(--sapphire-600)" />
             </div>
 
             {/* Content Card */}
             <div
               style={{
-                backgroundColor: 'var(--navy-800)',
-                border: '1px solid var(--navy-300)',
-                padding: '16px 20px',
+                backgroundColor: 'var(--sky-50)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-md)',
+                padding: '18px 20px',
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '8px',
+                transition: 'background-color var(--dur-fast) var(--ease)',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 600, color: 'var(--text-1)' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>
                     {item.event}
                   </span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--navy-400)', backgroundColor: 'var(--navy-900)', padding: '2px 6px' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: 'var(--sapphire-700)', backgroundColor: 'var(--sapphire-100)', padding: '2px 8px', borderRadius: 'var(--radius-sm)' }}>
                     {item.caseId}
                   </span>
                 </div>
 
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-3)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
                   {item.time}
                 </span>
               </div>
 
-              <div style={{ fontSize: '14px', color: 'var(--text-2)' }}>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
                 {item.details}
               </div>
 
@@ -187,14 +211,14 @@ export const CourtRecordPage: React.FC = () => {
                   gap: '16px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '11px',
-                  color: 'var(--text-3)',
-                  borderTop: '1px solid var(--navy-300)',
+                  color: 'var(--text-tertiary)',
+                  borderTop: '1px solid var(--border-subtle)',
                   paddingTop: '8px',
                   marginTop: '4px',
                 }}
               >
-                <span>PREV_HASH: <code style={{ color: 'var(--text-2)' }}>{item.prevHash}</code></span>
-                <span>BLOCK_HASH: <code style={{ color: 'var(--navy-500)' }}>{item.hash}</code></span>
+                <span>PREV_HASH: <code style={{ color: 'var(--text-secondary)' }}>{item.prevHash}</code></span>
+                <span>BLOCK_HASH: <code style={{ color: 'var(--sapphire-600)', fontWeight: 600 }}>{item.hash}</code></span>
               </div>
             </div>
           </div>
