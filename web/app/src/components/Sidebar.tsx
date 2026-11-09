@@ -108,54 +108,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     alignItems: 'center',
                     gap: '12px',
                     width: '100%',
-                    padding: collapsed ? '10px 0' : '9px 12px',
+                    padding: collapsed ? '10px 0' : '10px 16px',
                     justifyContent: collapsed ? 'center' : 'flex-start',
-                    backgroundColor: isActive ? 'var(--sapphire-50)' : 'transparent',
+                    backgroundColor: isActive ? '#0A0A0A' : 'transparent',
                     border: 'none',
-                    borderRadius: 'var(--radius-md)',
-                    color: isActive ? 'var(--sapphire-700)' : 'var(--text-secondary)',
+                    borderRadius: '9999px',
+                    color: isActive ? '#FFFFFF' : '#4A5568',
                     fontFamily: 'var(--font-sans)',
                     fontSize: '13px',
-                    fontWeight: isActive ? 600 : 500,
+                    fontWeight: isActive ? 700 : 500,
                     cursor: 'pointer',
                     textAlign: 'left',
-                    transition: 'all var(--dur-fast) var(--ease)',
-                    position: 'relative',
-                    marginBottom: '2px',
+                    transition: 'all 120ms ease',
+                    marginBottom: '4px',
+                    boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.14)' : 'none',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.backgroundColor = 'var(--sky-200)';
-                      e.currentTarget.style.color = 'var(--text-primary)';
+                      e.currentTarget.style.backgroundColor = '#F4F4F0';
+                      e.currentTarget.style.color = '#0A0A0A';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = 'var(--text-secondary)';
+                      e.currentTarget.style.color = '#4A5568';
                     }
                   }}
                 >
-                  {/* Active indicator bar */}
-                  {isActive && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: '0',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        width: '3px',
-                        height: '20px',
-                        backgroundColor: 'var(--sapphire-500)',
-                        borderRadius: '0 var(--radius-full) var(--radius-full) 0',
-                      }}
-                    />
-                  )}
-
                   <span style={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: isActive ? 'var(--sapphire-600)' : 'inherit',
+                    color: isActive ? '#FFFFFF' : 'inherit',
                     flexShrink: 0,
                   }}>
                     {item.icon}
@@ -170,11 +154,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                             marginLeft: 'auto',
                             fontFamily: 'var(--font-mono)',
                             fontSize: '9px',
-                            fontWeight: 600,
-                            backgroundColor: 'var(--accept-bg)',
-                            color: 'var(--accept-text)',
-                            padding: '2px 6px',
-                            borderRadius: 'var(--radius-full)',
+                            fontWeight: 700,
+                            backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : '#FEF3C7',
+                            color: isActive ? '#FFFFFF' : '#D97706',
+                            padding: '2px 7px',
+                            borderRadius: '9999px',
                             letterSpacing: '0.04em',
                           }}
                         >
@@ -190,86 +174,106 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         ))}
       </div>
 
-      {/* Footer: Models Connected */}
+      {/* Footer: Models Connected + Sign Out */}
       <div
         style={{
           padding: collapsed ? '12px 8px' : '16px',
-          borderTop: '1px solid var(--border-default)',
+          borderTop: '1px solid #E5E5E0',
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px',
+          gap: '12px',
         }}
       >
         {!collapsed && (
           <>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                fontWeight: 600,
-                color: 'var(--text-tertiary)',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}
-            >
-              CONNECTED MODELS
-            </div>
-            {[
-              { name: 'Prisma v3.0', type: 'STT', color: 'var(--accept)' },
-              { name: 'Prisma v2.5', type: 'STT', color: 'var(--accept)' },
-              { name: 'Timbre v3.0', type: 'TTS', color: 'var(--sapphire-500)' },
-            ].map((model, i) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <div
-                key={i}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '12px',
-                  color: 'var(--text-secondary)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: '#718096',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
                 }}
               >
-                <span
+                CONNECTED MODELS
+              </div>
+              {[
+                { name: 'Prisma v3.0', type: 'STT' },
+                { name: 'Prisma v2.5', type: 'STT' },
+                { name: 'Timbre v3.0', type: 'TTS' },
+              ].map((model, i) => (
+                <div
+                  key={i}
                   style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: 'var(--radius-full)',
-                    backgroundColor: model.color,
-                    flexShrink: 0,
-                  }}
-                />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px' }}>
-                  {model.name}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '9px',
-                    color: 'var(--text-tertiary)',
-                    backgroundColor: 'var(--sky-200)',
-                    padding: '1px 5px',
-                    borderRadius: 'var(--radius-full)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '12px',
+                    color: '#4A5568',
                   }}
                 >
-                  {model.type}
-                </span>
-              </div>
-            ))}
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: '#10B981',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, color: '#0A0A0A' }}>
+                    {model.name}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '9px',
+                      color: '#718096',
+                      backgroundColor: '#F4F4F0',
+                      padding: '1px 5px',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {model.type}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-            <div
+            {/* Deal Forge Style Exit Button */}
+            <button
+              onClick={() => navigate('/')}
               style={{
-                marginTop: '8px',
+                width: '100%',
+                padding: '9px 14px',
+                borderRadius: '9999px',
+                border: '1.5px solid #0A0A0A',
+                backgroundColor: '#FFFFFF',
+                color: '#0A0A0A',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                color: 'var(--text-tertiary)',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'all 120ms ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#0A0A0A';
+                e.currentTarget.style.color = '#FFFFFF';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#FFFFFF';
+                e.currentTarget.style.color = '#0A0A0A';
               }}
             >
-              <Cpu size={12} />
-              <span>Powered by Gnani.ai</span>
-            </div>
+              <span>[→ SIGN OUT]</span>
+            </button>
           </>
         )}
 

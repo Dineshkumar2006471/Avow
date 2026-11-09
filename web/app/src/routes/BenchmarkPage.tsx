@@ -88,31 +88,25 @@ export const BenchmarkPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'var(--sapphire-600)',
-              backgroundColor: 'var(--sapphire-50)',
-              padding: '2px 8px',
-              borderRadius: 'var(--radius-full)',
-              letterSpacing: '0.04em',
-            }}
-          >
-            EMPIRICAL SCIENTIFIC EVALUATION
-          </span>
-          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
-            HELD-OUT TELEPHONY SPLIT
-          </span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0F52BA', display: 'inline-block' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#0A0A0A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              SCIENTIFIC EVALUATION
+            </span>
+          </div>
+          <h1 style={{ fontSize: '32px', fontWeight: 900, fontFamily: 'var(--font-heading)', color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+            Benchmark Report
+          </h1>
+          <p style={{ fontSize: '15px', color: '#4A5568', marginTop: '6px' }}>
+            Statistically verified on 192 held-out telephony calls against bootstrap confidence intervals.
+          </p>
         </div>
-        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Benchmark Report</h1>
-        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
-          Honest statistical evaluation on held-out test splits. No fabricated metrics — numbers verified against bootstrap confidence intervals.
-        </p>
+
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '9999px', backgroundColor: '#FFFFFF', border: '1px solid #E5E5E0', fontSize: '12px', fontFamily: 'var(--font-mono)', color: '#4A5568' }}>
+          <span>BOOTSTRAP N=10,000 · SEED 42</span>
+        </div>
       </div>
 
       {/* Meta Box */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, CheckCircle2, RefreshCw, Lock } from 'lucide-react';
-import { Button } from '../components/ui/Button';
+
 
 export const CourtRecordPage: React.FC = () => {
   const [isVerifying, setIsVerifying] = useState(false);
@@ -59,42 +59,47 @@ export const CourtRecordPage: React.FC = () => {
       {/* Title */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                fontWeight: 700,
-                color: 'var(--sapphire-600)',
-                backgroundColor: 'var(--sapphire-50)',
-                padding: '2px 8px',
-                borderRadius: 'var(--radius-full)',
-                letterSpacing: '0.04em',
-              }}
-            >
-              CRYPTOGRAPHIC TAMPER-EVIDENT AUDIT TRAIL
-            </span>
-            <span style={{ color: 'var(--text-tertiary)' }}>/</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
-              DPDP ACT COMPLIANT
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#0A0A0A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              IMMUTABLE AUDIT TRAIL
             </span>
           </div>
-          <h1 style={{ fontSize: '32px', fontWeight: 800 }}>Court Record</h1>
-          <p style={{ fontSize: '16px', lineHeight: '24px' }}>
-            Every verdict, readback, and caller resolution is appended to an immutable SHA-256 hash chain.
-            This provides non-repudiation and proof of compliance under DPDP regulations.
+          <h1 style={{ fontSize: '32px', fontWeight: 900, fontFamily: 'var(--font-heading)', color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+            Court Record
+          </h1>
+          <p style={{ fontSize: '15px', color: '#4A5568', marginTop: '6px' }}>
+            Every verdict, readback, and caller resolution is anchored to a local SHA-256 hash chain.
           </p>
         </div>
 
-        <Button
-          size="compact"
-          variant="secondary"
+        <button
           onClick={handleVerify}
           disabled={isVerifying}
-          icon={isVerifying ? <RefreshCw className="spin" size={14} /> : <ShieldCheck size={14} />}
+          style={{
+            height: '42px',
+            padding: '0 22px',
+            borderRadius: '9999px',
+            backgroundColor: '#0A0A0A',
+            color: '#FFFFFF',
+            border: 'none',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '12px',
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            cursor: isVerifying ? 'not-allowed' : 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 120ms ease',
+          }}
+          onMouseEnter={(e) => { if (!isVerifying) e.currentTarget.style.backgroundColor = '#1E293B'; }}
+          onMouseLeave={(e) => { if (!isVerifying) e.currentTarget.style.backgroundColor = '#0A0A0A'; }}
         >
-          {isVerifying ? 'RECOMPUTING HASHES...' : 'VERIFY FULL CHAIN INTEGRITY'}
-        </Button>
+          {isVerifying ? <RefreshCw className="spin" size={14} /> : <ShieldCheck size={14} />}
+          <span>{isVerifying ? 'RECOMPUTING HASHES...' : 'VERIFY FULL CHAIN INTEGRITY'}</span>
+        </button>
       </div>
 
       {verifiedSuccess && (

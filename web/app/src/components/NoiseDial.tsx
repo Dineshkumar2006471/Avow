@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, Sliders } from 'lucide-react';
+import { Sliders } from 'lucide-react';
 
 export type DegradationCondition =
   | 'CLEAN'
@@ -55,33 +55,20 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Radio size={16} color="var(--sapphire-600)" />
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#D97706' }} />
           <span
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
               fontWeight: 700,
-              color: 'var(--text-tertiary)',
+              color: '#0A0A0A',
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
             }}
           >
-            2. ACOUSTIC STRESS TEST (THE GAUNTLET)
+            ACOUSTIC ENVIRONMENT
           </span>
         </div>
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            color: 'var(--sapphire-600)',
-            backgroundColor: 'var(--sapphire-50)',
-            padding: '2px 8px',
-            borderRadius: 'var(--radius-full)',
-            fontWeight: 600,
-          }}
-        >
-          PROCEDURAL NOISE
-        </span>
       </div>
 
       {/* Environment Grid Buttons */}
@@ -100,18 +87,18 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
               type="button"
               onClick={() => onConditionChange(c.id)}
               style={{
-                backgroundColor: isSelected ? 'var(--sapphire-50)' : 'var(--sky-50)',
-                border: isSelected ? '1.5px solid var(--sapphire-500)' : '1px solid var(--border-default)',
-                color: isSelected ? 'var(--sapphire-900)' : 'var(--text-secondary)',
-                borderRadius: 'var(--radius-md)',
+                backgroundColor: isSelected ? '#FFFFFF' : '#F4F4F0',
+                border: isSelected ? '2px solid #0A0A0A' : '1px solid #E5E5E0',
+                color: isSelected ? '#0A0A0A' : '#4A5568',
+                borderRadius: '12px',
                 padding: '12px 14px',
                 textAlign: 'left',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '3px',
-                transition: 'all var(--dur-fast) var(--ease)',
-                boxShadow: isSelected ? '0 2px 8px rgba(15, 82, 186, 0.12)' : 'none',
+                transition: 'all 120ms ease',
+                boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -121,7 +108,7 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
                     fontFamily: 'var(--font-sans)',
                     fontSize: '13px',
                     fontWeight: 700,
-                    color: isSelected ? 'var(--sapphire-700)' : 'var(--text-primary)',
+                    color: isSelected ? '#0A0A0A' : '#1E293B',
                   }}
                 >
                   {c.label}
@@ -131,7 +118,7 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '10px',
-                  color: isSelected ? 'var(--sapphire-600)' : 'var(--text-tertiary)',
+                  color: isSelected ? '#4A5568' : '#718096',
                   lineHeight: 1.25,
                 }}
               >
@@ -149,10 +136,10 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
             display: 'flex',
             flexDirection: 'column',
             gap: '10px',
-            backgroundColor: 'var(--sky-100)',
+            backgroundColor: '#F4F4F0',
             padding: '14px 16px',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-subtle)',
+            borderRadius: '12px',
+            border: '1px solid #E5E5E0',
           }}
         >
           <div

@@ -93,23 +93,6 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
               objectFit: 'contain',
             }}
           />
-
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '10px',
-              fontWeight: 600,
-              color: 'var(--sapphire-700)',
-              backgroundColor: 'var(--sapphire-50)',
-              padding: '3px 8px',
-              borderRadius: 'var(--radius-full)',
-              letterSpacing: '0.04em',
-              lineHeight: '1',
-              border: '1px solid var(--sapphire-100)',
-            }}
-          >
-            TRUST LAYER v1.0
-          </span>
         </button>
       </div>
 
@@ -118,19 +101,19 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
         <div
           style={{
             position: 'relative',
-            width: '340px',
-            maxWidth: '40%',
+            width: '320px',
+            maxWidth: '35%',
           }}
         >
           <Search
-            size={16}
+            size={15}
             style={{
               position: 'absolute',
               left: '12px',
               top: '50%',
               transform: 'translateY(-50%)',
-              color: searchFocused ? 'var(--sapphire-500)' : 'var(--text-tertiary)',
-              transition: 'color var(--dur-fast) var(--ease)',
+              color: searchFocused ? '#0A0A0A' : '#718096',
+              transition: 'color 120ms ease',
             }}
           />
           <input
@@ -140,32 +123,31 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
             onBlur={() => setSearchFocused(false)}
             style={{
               width: '100%',
-              height: '38px',
-              padding: '0 12px 0 38px',
+              height: '36px',
+              padding: '0 12px 0 36px',
               fontFamily: 'var(--font-sans)',
               fontSize: '13px',
-              color: 'var(--text-primary)',
-              backgroundColor: searchFocused ? 'var(--surface-primary)' : 'var(--sky-100)',
-              border: `1.5px solid ${searchFocused ? 'var(--sapphire-300)' : 'var(--border-default)'}`,
-              borderRadius: 'var(--radius-lg)',
+              color: '#0A0A0A',
+              backgroundColor: searchFocused ? '#FFFFFF' : '#F4F4F0',
+              border: `1.5px solid ${searchFocused ? '#0A0A0A' : '#E5E5E0'}`,
+              borderRadius: '9999px',
               outline: 'none',
-              transition: 'all var(--dur-fast) var(--ease)',
-              boxShadow: searchFocused ? '0 0 0 3px rgba(41, 121, 242, 0.1)' : 'none',
+              transition: 'all 120ms ease',
             }}
           />
           <kbd
             style={{
               position: 'absolute',
-              right: '10px',
+              right: '12px',
               top: '50%',
               transform: 'translateY(-50%)',
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
-              color: 'var(--text-tertiary)',
-              backgroundColor: 'var(--surface-secondary)',
+              color: '#718096',
+              backgroundColor: '#FFFFFF',
               padding: '2px 5px',
               borderRadius: '4px',
-              border: '1px solid var(--border-default)',
+              border: '1px solid #E5E5E0',
               lineHeight: '1',
             }}
           >
@@ -244,14 +226,14 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
             style={{
               width: '32px',
               height: '32px',
-              borderRadius: 'var(--radius-full)',
-              background: 'linear-gradient(135deg, #2979F2 0%, #0F52BA 100%)',
+              borderRadius: '9999px',
+              backgroundColor: '#0A0A0A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#FFF',
-              fontFamily: 'var(--font-heading)',
-              fontSize: '14px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '13px',
               fontWeight: 700,
             }}
           >

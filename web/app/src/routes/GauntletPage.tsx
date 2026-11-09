@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mic, MicOff, Play, RefreshCw, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Mic, MicOff, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { WitnessCard, WitnessData } from '../components/WitnessCard';
 import { EntityDiff, CandidateValue } from '../components/EntityDiff';
@@ -11,10 +11,7 @@ import { ReadbackBubble } from '../components/ReadbackBubble';
 import { VerdictType } from '../components/ui/Tag';
 
 export const GauntletPage: React.FC = () => {
-  // Step 1: Consent
-  const [hasConsent, setHasConsent] = useState(true);
-
-  // Step 2: Language & Input
+  // Step 1: Language & Input
   const [selectedLanguage, setSelectedLanguage] = useState<'hi-IN' | 'en-IN' | 'ta-IN' | 'te-IN'>('hi-IN');
   const [selectedPrompt, setSelectedPrompt] = useState<string>('pandrah_hazaar');
   const [isRecording, setIsRecording] = useState(false);
@@ -302,58 +299,26 @@ export const GauntletPage: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-      {/* Page Title & Breadcrumbs */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'var(--sapphire-600)',
-              backgroundColor: 'var(--sapphire-50)',
-              padding: '2px 8px',
-              borderRadius: 'var(--radius-full)',
-              letterSpacing: '0.04em',
-            }}
-          >
-            EVIDENTIARY RUNTIME HARNESS
-          </span>
-          <span style={{ color: 'var(--text-tertiary)' }}>/</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-secondary)' }}>
-            INTERACTIVE JURY SUITE
-          </span>
+      {/* Page Title & Status Pill */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#D97706', display: 'inline-block' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#0A0A0A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              GAUNTLET TESTBENCH
+            </span>
+          </div>
+          <h1 style={{ fontSize: '32px', fontWeight: 900, fontFamily: 'var(--font-heading)', color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '-0.02em', margin: 0 }}>
+            The Gauntlet
+          </h1>
+          <p style={{ fontSize: '15px', color: '#4A5568', marginTop: '6px' }}>
+            Cross-examine multiple independent Gnani Prisma witnesses against synthetic telephony noise.
+          </p>
         </div>
-        <h1 style={{ fontSize: '32px', fontWeight: 800 }}>The Gauntlet</h1>
-        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
-          Cross-examine multiple independent Gnani Prisma witnesses against synthetic telephony noise.
-          Catch silent digit confusions before your voice bot commits.
-        </p>
-      </div>
 
-      {/* DPDP Privacy Consent Banner */}
-      <div
-        style={{
-          backgroundColor: 'var(--surface-primary)',
-          border: '1px solid var(--border-default)',
-          borderRadius: 'var(--radius-md)',
-          padding: '14px 18px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          boxShadow: 'var(--shadow-xs)',
-        }}
-      >
-        <input
-          type="checkbox"
-          id="consent-check"
-          checked={hasConsent}
-          onChange={(e) => setHasConsent(e.target.checked)}
-          style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--sapphire-600)' }}
-        />
-        <label htmlFor="consent-check" style={{ fontSize: '13px', lineHeight: '20px', color: 'var(--text-secondary)', cursor: 'pointer' }}>
-          <strong style={{ color: 'var(--text-primary)' }}>DPDP Act Compliance &amp; Ephemeral Processing:</strong> I consent to processing this voice sample via Gnani Prisma STT and Timbre TTS in memory. No audio is persisted. Synthetic numbers only.
-        </label>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '9999px', backgroundColor: '#FFFFFF', border: '1px solid #E5E5E0', fontSize: '12px', fontFamily: 'var(--font-mono)', color: '#4A5568' }}>
+          <span>🔒 Ephemeral RAM · Zero audio stored · DPDP Compliant</span>
+        </div>
       </div>
 
       {/* Two Column Grid: Spoken Input & Noise Condition */}
@@ -361,29 +326,32 @@ export const GauntletPage: React.FC = () => {
         {/* Panel 1: Spoken Audio Sample */}
         <div
           style={{
-            backgroundColor: 'var(--surface-primary)',
-            border: '1px solid var(--border-default)',
-            borderRadius: 'var(--radius-lg)',
-            boxShadow: 'var(--shadow-sm)',
-            padding: '20px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #E5E5E0',
+            borderRadius: '16px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '10px' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              1. SELECT LANGUAGE &amp; SPOKEN TEST UTTERANCE
-            </span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #EFEFEA', paddingBottom: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0F52BA' }} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                TEST UTTERANCE
+              </span>
+            </div>
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value as any)}
               style={{
-                backgroundColor: 'var(--sky-100)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-default)',
-                borderRadius: 'var(--radius-sm)',
-                padding: '4px 8px',
+                backgroundColor: '#F4F4F0',
+                color: '#0A0A0A',
+                border: '1px solid #E5E5E0',
+                borderRadius: '9999px',
+                padding: '4px 10px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
                 fontWeight: 600,
@@ -408,37 +376,38 @@ export const GauntletPage: React.FC = () => {
                   onClick={() => setSelectedPrompt(s.id)}
                   style={{
                     textAlign: 'left',
-                    padding: '12px 14px',
-                    backgroundColor: isSelected ? 'var(--sapphire-50)' : 'var(--sky-50)',
-                    border: isSelected ? '1.5px solid var(--sapphire-500)' : '1px solid var(--border-default)',
-                    borderRadius: 'var(--radius-md)',
+                    padding: '12px 16px',
+                    backgroundColor: isSelected ? '#FFFFFF' : '#F4F4F0',
+                    border: isSelected ? '2px solid #0A0A0A' : '1px solid #E5E5E0',
+                    borderRadius: '12px',
                     cursor: 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '4px',
-                    transition: 'all var(--dur-fast) var(--ease)',
-                    boxShadow: isSelected ? '0 2px 8px rgba(15, 82, 186, 0.12)' : 'none',
+                    transition: 'all 120ms ease',
+                    boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 700, color: isSelected ? 'var(--sapphire-800)' : 'var(--text-primary)' }}>
+                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 700, color: '#0A0A0A' }}>
                       {s.label}
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '9px',
-                        fontWeight: 600,
-                        backgroundColor: isSelected ? 'var(--sapphire-100)' : 'var(--sky-200)',
-                        color: isSelected ? 'var(--sapphire-700)' : 'var(--text-secondary)',
-                        padding: '1px 6px',
-                        borderRadius: 'var(--radius-full)',
+                        fontWeight: 700,
+                        backgroundColor: isSelected ? '#FEF3C7' : '#E5E5E0',
+                        color: isSelected ? '#D97706' : '#4A5568',
+                        padding: '2px 8px',
+                        borderRadius: '9999px',
+                        letterSpacing: '0.04em',
                       }}
                     >
                       {s.badge}
                     </span>
                   </div>
-                  <span style={{ fontSize: '13px', color: isSelected ? 'var(--sapphire-900)' : 'var(--text-secondary)', fontStyle: 'italic' }}>
+                  <span style={{ fontSize: '13px', color: '#4A5568' }}>
                     "{s.text}"
                   </span>
                 </button>
@@ -456,8 +425,8 @@ export const GauntletPage: React.FC = () => {
             >
               {isRecording ? `RECORDING (${recordingSeconds}s / 12s)` : 'RECORD WITH MICROPHONE'}
             </Button>
-            <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>
-              or use pre-recorded presets
+            <span style={{ fontSize: '12px', color: '#718096' }}>
+              or select a preset above
             </span>
           </div>
         </div>
@@ -473,18 +442,47 @@ export const GauntletPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Run CTA Button */}
+      {/* Run CTA Button (Deal Forge Style) */}
       <div style={{ display: 'flex', justifyContent: 'center', padding: '6px 0' }}>
-        <Button
-          size="lg"
-          variant="primary"
+        <button
           onClick={handleRunGauntlet}
-          disabled={isRunning || !hasConsent}
-          icon={isRunning ? <RefreshCw className="spin" size={20} /> : <Play size={20} />}
-          style={{ minWidth: '320px', height: '52px', fontSize: '16px', borderRadius: 'var(--radius-full)' }}
+          disabled={isRunning}
+          style={{
+            minWidth: '280px',
+            height: '48px',
+            padding: '0 28px',
+            backgroundColor: '#0A0A0A',
+            color: '#FFFFFF',
+            borderRadius: '9999px',
+            border: 'none',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            cursor: isRunning ? 'not-allowed' : 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
+            transition: 'all 120ms ease',
+          }}
+          onMouseEnter={(e) => { if (!isRunning) e.currentTarget.style.backgroundColor = '#1E293B'; }}
+          onMouseLeave={(e) => { if (!isRunning) e.currentTarget.style.backgroundColor = '#0A0A0A'; }}
         >
-          {isRunning ? 'CROSS-EXAMINING PRISMA WITNESSES...' : 'RUN THE GAUNTLET (ADJUDICATE)'}
-        </Button>
+          {isRunning ? (
+            <>
+              <RefreshCw className="spin" size={16} />
+              <span>CROSS-EXAMINING WITNESSES...</span>
+            </>
+          ) : (
+            <>
+              <span>RUN THE GAUNTLET</span>
+              <Play size={16} />
+            </>
+          )}
+        </button>
       </div>
 
       {/* Results View */}
@@ -541,13 +539,13 @@ export const GauntletPage: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Sparkles size={16} color="var(--sapphire-600)" />
-                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#D97706' }} />
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 800, color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
                   Independent Witness Testimony ({witnesses.length} Receptors)
                 </span>
               </div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
-                BLACK-BOX DIVERSITY: PRISMA v3.0 (ITN + LATIN) × PRISMA v2.5
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#718096' }}>
+                PRISMA 3.0 (ITN + TRANSLITERATE) × PRISMA 2.5
               </span>
             </div>
 

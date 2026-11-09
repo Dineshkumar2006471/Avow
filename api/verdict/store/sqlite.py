@@ -179,3 +179,4 @@ def get_all_records(limit: int = 50) -> list[dict[str, Any]]:
 
 # Initialize on import
 init_db()
+

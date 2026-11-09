@@ -196,3 +196,4 @@ You will receive:
 > *On our held-out test suite across 192 telephony calls, AVOW reduces silent misheard errors from 14.2% down to 2.8% — an 80.3% relative error reduction, in under 1.8 seconds, with zero generative hallucinations.*  
 >  
 > *AVOW gives voice bots the power to doubt — before they commit."*
+

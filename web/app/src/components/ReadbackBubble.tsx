@@ -127,19 +127,34 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
         </Button>
 
         {onRecordReply && (
-          <Button
-            size="compact"
-            variant="primary"
+          <button
             onClick={onRecordReply}
             disabled={isResolving}
-            icon={isResolving ? <CheckCircle2 size={14} /> : <Mic size={14} />}
             style={{
-              backgroundColor: '#D97706',
-              boxShadow: '0 2px 8px rgba(217, 119, 6, 0.25)',
+              height: '38px',
+              padding: '0 20px',
+              borderRadius: '9999px',
+              backgroundColor: '#0A0A0A',
+              color: '#FFFFFF',
+              border: 'none',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              cursor: isResolving ? 'not-allowed' : 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+              transition: 'all 120ms ease',
             }}
+            onMouseEnter={(e) => { if (!isResolving) e.currentTarget.style.backgroundColor = '#1E293B'; }}
+            onMouseLeave={(e) => { if (!isResolving) e.currentTarget.style.backgroundColor = '#0A0A0A'; }}
           >
-            {isResolving ? 'ADJUDICATING RESPONSE...' : 'SIMULATE CALLER: "HAAN, SAHI HAI"'}
-          </Button>
+            {isResolving ? <CheckCircle2 size={14} /> : <Mic size={14} />}
+            <span>{isResolving ? 'ADJUDICATING RESPONSE...' : 'SIMULATE CALLER: "HAAN, SAHI HAI"'}</span>
+          </button>
         )}
       </div>
     </div>

@@ -14,38 +14,38 @@
   --sapphire-100: #DBE9FF;
   --sapphire-50:  #EDF4FF;
 
-  /* ─── SURFACE: Cloudy Sky (light, airy) ─── */
-  --sky-50:  #FAFBFF;
-  --sky-100: #F2F5FC;
-  --sky-200: #E8EDF8;
-  --sky-300: #D5DCE8;
-  --sky-400: #B8C2D4;
-  --sky-500: #8D9AB5;
-  --sky-600: #6B7A96;
-  --sky-700: #4A5A75;
-  --sky-800: #2E3F5C;
-  --sky-900: #1A2740;
+  /* ─── WARM EDITORIAL PALETTE (ZERO AI-SLOP, DEAL FORGE FIGMA PRECISION) ─── */
+  --sky-50:  #FFFFFF;
+  --sky-100: #FAF9F5;
+  --sky-200: #F4F4F0;
+  --sky-300: #E5E5E0;
+  --sky-400: #D4D4CD;
+  --sky-500: #A8A8A0;
+  --sky-600: #71716A;
+  --sky-700: #4A4A45;
+  --sky-800: #262624;
+  --sky-900: #0A0A0A;
 
   /* ─── TEXT ─── */
-  --text-primary:   #0F172A;
-  --text-secondary: #475569;
-  --text-tertiary:  #94A3B8;
+  --text-primary:   #0A0A0A;
+  --text-secondary: #4A5568;
+  --text-tertiary:  #718096;
   --text-inverse:   #FFFFFF;
 
   /* ─── SURFACES ─── */
   --surface-primary:   #FFFFFF;
-  --surface-secondary: #F8FAFD;
-  --surface-tertiary:  #F1F5FB;
+  --surface-secondary: #F4F4F0;
+  --surface-tertiary:  #EDECE6;
   --surface-elevated:  #FFFFFF;
-  --surface-sunken:    #EDF1F8;
-  --surface-dark:      #0B1629;
-  --surface-dark-2:    #111D33;
+  --surface-sunken:    #EBEBE5;
+  --surface-dark:      #0A0A0A;
+  --surface-dark-2:    #171717;
 
   /* ─── BORDERS ─── */
-  --border-default:  #E2E8F0;
-  --border-subtle:   #F1F5F9;
-  --border-strong:   #CBD5E1;
-  --border-active:   var(--sapphire-500);
+  --border-default:  #E5E5E0;
+  --border-subtle:   #EFEFEA;
+  --border-strong:   #0A0A0A;
+  --border-active:   #0A0A0A;
 
   /* ─── VERDICT COLORS ─── */
   --accept:      #10B981;
