@@ -14,6 +14,8 @@ from verdict.ids import generate_id
 from verdict.panel.orchestrator import run_panel
 from verdict.gnani.tts import synthesize_speech
 from verdict.gnani.gate import gate
+from verdict.entities.numbers import parse_amount
+from verdict.store.sqlite import save_verdict, get_all_records, get_latest_hash
 
 logger = structlog.get_logger(__name__)
 
@@ -118,6 +120,33 @@ async def create_verdict(
                 "audio_url": None,
             }
 
+    witness_list = [
+        {
+            "id": w.witness_id,
+            "model": w.model,
+            "format": w.format_mode,
+            "transcript": w.transcript,
+            "detected_language_code": w.detected_lang,
+            "latency_ms": w.latency_ms,
+        }
+        for w in panel_verdict.witness_results
+    ]
+
+    # Cryptographic Court Record Persistence (SQLite + SHA-256)
+    prev_h = get_latest_hash()
+    block_h = save_verdict(
+        verdict_id=verdict_id,
+        decision=panel_verdict.decision,
+        reason=panel_verdict.reason,
+        consensus_value=str(panel_verdict.consensus_value) if panel_verdict.consensus_value else None,
+        risk_score=panel_verdict.risk_score,
+        is_confusable=panel_verdict.is_confusable,
+        stt_calls=panel_verdict.stt_calls_count,
+        language_hint=language_hint,
+        witnesses=witness_list,
+        readback_text=readback_info.get("text") if readback_info else None,
+    )
+
     return {
         "verdict_id": verdict_id,
         "decision": panel_verdict.decision,
@@ -135,21 +164,15 @@ async def create_verdict(
                 },
             }
         ],
-        "witnesses": [
-            {
-                "id": w.witness_id,
-                "model": w.model,
-                "format": w.format_mode,
-                "transcript": w.transcript,
-                "detected_language_code": w.detected_lang,
-                "latency_ms": w.latency_ms,
-            }
-            for w in panel_verdict.witness_results
-        ],
+        "witnesses": witness_list,
         "readback": readback_info,
         "cost": {
             "stt_calls": panel_verdict.stt_calls_count,
             "tts_calls": 1 if readback_info and readback_info.get("audio_url") else 0,
+        },
+        "audit": {
+            "block_hash": block_h,
+            "prev_hash": prev_h,
         },
     }
 
@@ -202,6 +225,13 @@ async def resolve_verdict(
         "final_decision": final_decision,
         "reply_transcript": resp.transcript,
     }
+
+
+@app.get("/v1/records")
+async def list_records(limit: int = 50) -> dict[str, Any]:
+    """Retrieve all persisted court records from SQLite database."""
+    records = get_all_records(limit=limit)
+    return {"count": len(records), "records": records}
 
 
 @app.get("/v1/benchmark/latest")

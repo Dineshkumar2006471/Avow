@@ -75,66 +75,37 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: '12px',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            padding: '4px',
+            padding: '2px 4px',
           }}
         >
-          {/* Logo — Geometric A with sapphire crossbar */}
-          <div
+          {/* Official AVOW Logo */}
+          <img
+            src="/avow-logo-dark.png"
+            alt="AVOW Logo"
             style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, #0F52BA 0%, #2979F2 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(15, 82, 186, 0.25)',
+              height: '28px',
+              width: 'auto',
+              display: 'block',
+              objectFit: 'contain',
             }}
-          >
-            <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
-              <path
-                d="M12 32 L20 8 L28 32"
-                stroke="#FFFFFF"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M14 24 L26 24"
-                stroke="rgba(255,255,255,0.7)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '20px',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-              color: 'var(--text-primary)',
-            }}
-          >
-            AVOW
-          </span>
+          />
 
           <span
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
-              fontWeight: 500,
-              color: 'var(--sapphire-600)',
+              fontWeight: 600,
+              color: 'var(--sapphire-700)',
               backgroundColor: 'var(--sapphire-50)',
               padding: '3px 8px',
               borderRadius: 'var(--radius-full)',
               letterSpacing: '0.04em',
               lineHeight: '1',
+              border: '1px solid var(--sapphire-100)',
             }}
           >
             TRUST LAYER v1.0

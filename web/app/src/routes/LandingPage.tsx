@@ -10,12 +10,16 @@ import {
   Layers,
   Sparkles,
   GitCompare,
+  Lock,
+  Cpu,
+  Server,
+  Zap,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const [, setIsPlayingAudio] = useState(false);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   const simulateSpeech = () => {
     setIsPlayingAudio(true);
@@ -33,59 +37,148 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', color: 'var(--text-primary)', overflowX: 'hidden' }}>
-      {/* ─── NAVIGATION BAR ─── */}
+      {/* ─── NAVIGATION BAR (CENTERED BUTTONS + OFFICIAL LOGO) ─── */}
       <nav
         style={{
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          backgroundColor: 'rgba(255, 255, 255, 0.92)',
           backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
           borderBottom: '1px solid var(--border-default)',
-          height: '68px',
+          height: '70px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 36px',
+          padding: '0 40px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => navigate('/')}>
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #0F52BA 0%, #2979F2 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(15, 82, 186, 0.25)',
-              }}
-            >
-              <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
-                <path d="M12 32 L20 8 L28 32" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M14 24 L26 24" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-            </div>
-            <span style={{ fontFamily: 'var(--font-heading)', fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em' }}>
-              AVOW
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <a href="#problem" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>The Problem</a>
-            <a href="#how-it-works" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>How it Works</a>
-            <a href="#benchmark" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Benchmarks</a>
-            <a href="#architecture" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Architecture</a>
-          </div>
+        {/* Top-Left: Official AVOW Logo Adjusted for Light Background */}
+        <div
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+          onClick={() => navigate('/')}
+        >
+          <img
+            src="/avow-logo-dark.png"
+            alt="AVOW Official Logo"
+            style={{
+              height: '32px',
+              width: 'auto',
+              display: 'block',
+              objectFit: 'contain',
+            }}
+          />
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '10px',
+              fontWeight: 700,
+              color: 'var(--sapphire-700)',
+              backgroundColor: 'var(--sapphire-50)',
+              padding: '3px 8px',
+              borderRadius: 'var(--radius-full)',
+              letterSpacing: '0.04em',
+              border: '1px solid var(--sapphire-100)',
+            }}
+          >
+            TRUST LAYER v1.0
+          </span>
         </div>
 
+        {/* Center-Middle: Navigation Items Strictly Centered */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '32px',
+          }}
+        >
+          <a
+            href="#hero"
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              transition: 'color var(--dur-fast) var(--ease)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sapphire-700)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            Overview
+          </a>
+          <a
+            href="#problem"
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              transition: 'color var(--dur-fast) var(--ease)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sapphire-700)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            The Problem
+          </a>
+          <a
+            href="#how-it-works"
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              transition: 'color var(--dur-fast) var(--ease)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sapphire-700)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            How it Works
+          </a>
+          <a
+            href="#benchmark"
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              transition: 'color var(--dur-fast) var(--ease)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sapphire-700)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            Benchmarks
+          </a>
+          <a
+            href="#architecture"
+            style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              transition: 'color var(--dur-fast) var(--ease)',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sapphire-700)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            Architecture
+          </a>
+        </div>
+
+        {/* Top-Right: CTAs */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Button variant="ghost" size="compact" onClick={() => navigate('/console/api')}>
             API Docs
           </Button>
-          <Button variant="primary" size="compact" onClick={() => navigate('/console/gauntlet')} icon={<Flame size={16} />}>
+          <Button
+            variant="primary"
+            size="compact"
+            onClick={() => navigate('/console/gauntlet')}
+            icon={<Flame size={16} />}
+            style={{
+              borderRadius: 'var(--radius-full)',
+              padding: '0 18px',
+            }}
+          >
             Launch The Gauntlet
           </Button>
         </div>
@@ -93,6 +186,7 @@ export const LandingPage: React.FC = () => {
 
       {/* ─── SECTION 1: HERO (THE 3-SECOND ZONE) ─── */}
       <section
+        id="hero"
         style={{
           position: 'relative',
           padding: '80px 32px 100px',
@@ -101,7 +195,7 @@ export const LandingPage: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle decorative background glow circles */}
+        {/* Subtle decorative glow circles */}
         <div
           style={{
             position: 'absolute',
@@ -137,7 +231,7 @@ export const LandingPage: React.FC = () => {
               backgroundColor: '#FFFFFF',
               border: '1.5px solid var(--sapphire-200)',
               borderRadius: 'var(--radius-full)',
-              padding: '6px 16px',
+              padding: '6px 18px',
               marginBottom: '24px',
               boxShadow: '0 2px 8px rgba(15, 82, 186, 0.08)',
             }}
@@ -156,7 +250,7 @@ export const LandingPage: React.FC = () => {
               fontWeight: 800,
               lineHeight: 1.15,
               letterSpacing: '-0.03em',
-              maxWidth: '920px',
+              maxWidth: '940px',
               color: '#0F172A',
               marginBottom: '20px',
             }}
@@ -178,7 +272,7 @@ export const LandingPage: React.FC = () => {
           </p>
 
           {/* Primary CTA + Secondary Link */}
-          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px' }}>
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Button
               size="lg"
               variant="primary"
@@ -192,7 +286,7 @@ export const LandingPage: React.FC = () => {
                 boxShadow: '0 8px 24px rgba(15, 82, 186, 0.3)',
               }}
             >
-              Try The Gauntlet (Live Demo)
+              Try The Gauntlet (Live Interactive Console)
             </Button>
             <Button
               size="lg"
@@ -217,19 +311,19 @@ export const LandingPage: React.FC = () => {
               gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '24px',
               width: '100%',
-              maxWidth: '960px',
+              maxWidth: '980px',
               backgroundColor: '#FFFFFF',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-xl)',
-              padding: '24px 32px',
+              padding: '28px 32px',
               boxShadow: 'var(--shadow-md)',
             }}
           >
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: '#065F46' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#065F46' }}>
                 −80.3%
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                 Silent Error Reduction
               </div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
@@ -238,11 +332,11 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: 'var(--sapphire-600)' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: 'var(--sapphire-600)' }}>
                 &lt; 1.82s
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
-                p95 End-to-End Latency
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
+                p95 Adjudication Latency
               </div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
                 Multi-witness jury adjudication
@@ -250,10 +344,10 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: '#D97706' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#D97706' }}>
                 192
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                 Held-Out Telephony Tests
               </div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
@@ -262,10 +356,10 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: '#0F172A' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#0F172A' }}>
                 100%
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                 Deterministic &amp; Auditable
               </div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
@@ -276,7 +370,7 @@ export const LandingPage: React.FC = () => {
         </div>
 
         {/* ─── VISUAL METAPHOR: The Prism Cross-Examination Machine ─── */}
-        <div style={{ maxWidth: '1060px', margin: '64px auto 0', position: 'relative' }}>
+        <div style={{ maxWidth: '1080px', margin: '64px auto 0', position: 'relative' }}>
           <div
             style={{
               backgroundColor: '#FFFFFF',
@@ -316,7 +410,7 @@ export const LandingPage: React.FC = () => {
                   borderRadius: 'var(--radius-full)',
                 }}
               >
-                GATE ACTIVE
+                GATE ACTIVE · SEMAPHORE 1
               </span>
             </div>
 
@@ -331,20 +425,21 @@ export const LandingPage: React.FC = () => {
                       width: '42px',
                       height: '42px',
                       borderRadius: '50%',
-                      backgroundColor: 'var(--sapphire-600)',
+                      backgroundColor: isPlayingAudio ? '#10B981' : 'var(--sapphire-600)',
                       color: '#FFF',
                       border: 'none',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 2px 8px rgba(15, 82, 186, 0.3)',
+                      boxShadow: isPlayingAudio ? '0 0 16px rgba(16, 185, 129, 0.6)' : '0 2px 8px rgba(15, 82, 186, 0.3)',
+                      transition: 'all var(--dur-fast) var(--ease)',
                     }}
-                    title="Listen to audio"
+                    title="Click to hear speech synthesis"
                   >
-                    <Volume2 size={20} />
+                    <Volume2 size={20} className={isPlayingAudio ? 'spin' : ''} />
                   </button>
-                  <div>
+                  <div style={{ textAlign: 'left' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
                       INCOMING CALLER AUDIO (8 kHz TELEPHONY)
                     </span>
@@ -366,7 +461,7 @@ export const LandingPage: React.FC = () => {
 
               {/* Witnesses Cross-Examination Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '14px' }}>
+                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)' }}>W1 · PRISMA 3.0 ITN</span>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>580ms</span>
@@ -377,7 +472,7 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ backgroundColor: '#FFFDF5', border: '1.5px solid #FCD34D', borderRadius: 'var(--radius-md)', padding: '14px' }}>
+                <div style={{ backgroundColor: '#FFFDF5', border: '1.5px solid #FCD34D', borderRadius: 'var(--radius-md)', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#D97706' }}>W4 · PRISMA 2.5 (NOISE)</span>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>640ms</span>
@@ -388,7 +483,7 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '14px' }}>
+                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)' }}>W2 · TRANSLITERATED</span>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>610ms</span>
@@ -399,7 +494,7 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '14px' }}>
+                <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)' }}>W5 · CONTEXT GUARD</span>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>690ms</span>
@@ -417,17 +512,18 @@ export const LandingPage: React.FC = () => {
                   backgroundColor: '#FFFBEB',
                   border: '1.5px solid #FDE68A',
                   borderRadius: 'var(--radius-lg)',
-                  padding: '16px 20px',
+                  padding: '18px 24px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.08)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', textAlign: 'left' }}>
                   <AlertTriangle size={24} color="#D97706" />
                   <div>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#92400E' }}>
-                      DISPUTE CAUGHT (RISK: 62% · PANDRAH VS PACHAAS)
+                      DISPUTE CAUGHT (RISK: 62% · PANDRAH VS PACHAAS CONFUSABLE)
                     </span>
                     <div style={{ fontSize: '14px', color: '#78350F', fontWeight: 500 }}>
                       AVOW triggered Timbre TTS read-back: <em>"Maine pandrah hazaar suna, kya yeh sahi hai?"</em>
@@ -442,7 +538,7 @@ export const LandingPage: React.FC = () => {
                     fontWeight: 700,
                     backgroundColor: '#D97706',
                     color: '#FFF',
-                    padding: '6px 14px',
+                    padding: '6px 16px',
                     borderRadius: 'var(--radius-full)',
                   }}
                 >
@@ -454,9 +550,9 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── SECTION 2: THE PROBLEM (THE PAIN POINT) ─── */}
-      <section id="problem" style={{ padding: '96px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {/* ─── SECTION 2: THE PROBLEM (STORYTELLING VECTOR DIAGRAM) ─── */}
+      <section id="problem" style={{ padding: '100px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#DC2626', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               THE INDIAN TELEPHONY BLINDSPOT
@@ -464,101 +560,126 @@ export const LandingPage: React.FC = () => {
             <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               A ₹35,000 Mistake in One Syllable
             </h2>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
-              Over 8 kHz narrowband mobile networks with Mumbai street horns or Bangalore bus engines, standard speech models silently mishear Indian numerals.
+            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '720px', margin: '12px auto 0' }}>
+              Over 8 kHz narrowband telephony lines with Mumbai traffic or ambient chatter, single speech recognition engines silently confuse Indian numerals.
             </p>
           </div>
 
-          {/* Visual Problem Comparison Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '32px' }}>
-            {/* Bad Way: Single ASR Bot */}
-            <div
-              style={{
-                backgroundColor: '#FEF2F2',
-                border: '1.5px solid #FECACA',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px',
-              }}
-            >
+          {/* Visual Problem Narrative Diagram */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gap: '24px',
+              backgroundColor: 'var(--sky-50)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-2xl)',
+              padding: '36px',
+              marginBottom: '36px',
+            }}
+          >
+            {/* Step 1: Spoken Voice */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#991B1B' }}>
-                  WITHOUT AVOW (TYPICAL SINGLE-ASR SETUP)
+                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: 'var(--sapphire-600)', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                  1
+                </span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700 }}>
+                  Caller Speaks in Hindi
                 </span>
               </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ backgroundColor: '#FFFFFF', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1px solid #FECACA' }}>
-                  <div style={{ fontSize: '12px', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>CALLER SPOKE:</div>
-                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#0F172A' }}>"Pandrah hazaar rupaye" (₹15,000)</div>
+              <div style={{ backgroundColor: '#FFFFFF', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-default)' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>ORIGINAL INTENT:</div>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--sapphire-700)', marginTop: '4px' }}>
+                  "पंद्रह हज़ार रुपये" (₹15,000)
                 </div>
-
-                <div style={{ textAlign: 'center', color: '#EF4444', fontWeight: 700 }}>↓ Telephony 8kHz Narrowband Noise ↓</div>
-
-                <div style={{ backgroundColor: '#FFFFFF', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1.5px solid #EF4444' }}>
-                  <div style={{ fontSize: '12px', color: '#EF4444', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>SINGLE ASR HEARD (SILENT CATASTROPHE):</div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: '#B91C1C' }}>"Pachaas hazaar rupaye" (₹50,000)</div>
-                </div>
-
-                <div style={{ textAlign: 'center', color: '#EF4444', fontWeight: 700 }}>↓ Bot commits blindly to Banking DB ↓</div>
-
-                <div style={{ backgroundColor: '#991B1B', color: '#FFFFFF', padding: '16px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-                  <strong>CATASTROPHIC ESCALATION:</strong> Caller debited ₹50,000 instead of ₹15,000. Customer disputes charge, churns, and files RBI ombudsman complaint.
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                  A borrower agreeing to an EMI payment schedule.
                 </div>
               </div>
             </div>
 
-            {/* Good Way: AVOW Trust Layer */}
-            <div
-              style={{
-                backgroundColor: '#ECFDF5',
-                border: '1.5px solid #A7F3D0',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px',
-              }}
-            >
+            {/* Step 2: Telephony Corruption */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#065F46' }}>
-                  WITH AVOW RUNTIME TRUST LAYER
+                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#EF4444', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                  2
+                </span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700 }}>
+                  Acoustic Distortion (8 kHz)
                 </span>
               </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ backgroundColor: '#FFFFFF', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1px solid #A7F3D0' }}>
-                  <div style={{ fontSize: '12px', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>CALLER SPOKE:</div>
-                  <div style={{ fontSize: '16px', fontWeight: 600, color: '#0F172A' }}>"Pandrah hazaar rupaye" (₹15,000)</div>
+              <div style={{ backgroundColor: '#FEF2F2', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1px solid #FECACA' }}>
+                <div style={{ fontSize: '12px', color: '#991B1B', fontFamily: 'var(--font-mono)' }}>HARSH AMBIENCE:</div>
+                <div style={{ fontSize: '16px', fontWeight: 700, color: '#991B1B', marginTop: '4px' }}>
+                  Bandpass Filter + Auto Horns
                 </div>
-
-                <div style={{ textAlign: 'center', color: '#10B981', fontWeight: 700 }}>↓ AVOW Multi-Witness Cross-Examination ↓</div>
-
-                <div style={{ backgroundColor: '#FFFFFF', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1.5px solid #10B981' }}>
-                  <div style={{ fontSize: '12px', color: '#065F46', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>CONFUSABLE DETECTED (Pandrah vs Pachaas):</div>
-                  <div style={{ fontSize: '15px', color: '#0F172A' }}>
-                    W1: ₹15,000 · W4: ₹50,000 · W2: 15,000 → <strong>Decision: CONFIRM</strong>
-                  </div>
-                </div>
-
-                <div style={{ textAlign: 'center', color: '#10B981', fontWeight: 700 }}>↓ Timbre TTS Read-back Verification Loop ↓</div>
-
-                <div style={{ backgroundColor: '#065F46', color: '#FFFFFF', padding: '16px', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-                  <strong>SAFE ADJUDICATION:</strong> Bot reads back: <em>"Maine ₹15,000 suna, kya yeh sahi hai?"</em> Caller affirms. Ledger commits ₹15,000 with 100% verified trust.
+                <div style={{ fontSize: '12px', color: '#7F1D1D', marginTop: '4px' }}>
+                  The phonemes /p-n-d-r-h/ and /p-ch-a-s/ lose high-frequency distinction.
                 </div>
               </div>
+            </div>
+
+            {/* Step 3: Single Bot Hallucination */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#B91C1C', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                  3
+                </span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700 }}>
+                  Single ASR Commits Error
+                </span>
+              </div>
+              <div style={{ backgroundColor: '#FEF2F2', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1.5px solid #EF4444' }}>
+                <div style={{ fontSize: '12px', color: '#EF4444', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>DISASTER:</div>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: '#B91C1C', marginTop: '4px' }}>
+                  ₹50,000 debited instead!
+                </div>
+                <div style={{ fontSize: '12px', color: '#991B1B', marginTop: '4px' }}>
+                  ₹35,000 discrepancy causes chargebacks and customer churn.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Toggle: Compare Before vs After */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '24px' }}>
+            <div style={{ backgroundColor: '#FEF2F2', border: '1.5px solid #FECACA', borderRadius: 'var(--radius-xl)', padding: '28px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#991B1B' }}>
+                  WITHOUT AVOW: UNPROTECTED BOT
+                </span>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px', color: '#7F1D1D' }}>
+                <li>❌ Relies on a single black-box speech-to-text engine.</li>
+                <li>❌ 0 confidence calibration: cannot differentiate 15 from 50.</li>
+                <li>❌ Either interrogates every caller or makes silent financial mistakes.</li>
+                <li>❌ 14.2% uncorrected error rate in real telephony conditions.</li>
+              </ul>
+            </div>
+
+            <div style={{ backgroundColor: '#ECFDF5', border: '1.5px solid #A7F3D0', borderRadius: 'var(--radius-xl)', padding: '28px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#065F46' }}>
+                  WITH AVOW: EVIDENTIARY TRUST LAYER
+                </span>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px', color: '#065F46' }}>
+                <li>✓ Multi-witness cross-examination across Prisma 3.0 &amp; 2.5.</li>
+                <li>✓ Calibrated risk formula: triggers read-back only when ambiguous.</li>
+                <li>✓ Timbre TTS closed-loop read-back safely verifies disputed amounts.</li>
+                <li>✓ Drops silent error down to 2.8% (−80.3% reduction).</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 3: THE 4-STEP CONVERSION PROCESS ─── */}
-      <section id="how-it-works" style={{ padding: '96px 32px', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {/* ─── SECTION 3: THE 4-STEP PROCESS (HOW IT WORKS) ─── */}
+      <section id="how-it-works" style={{ padding: '100px 32px', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               HOW AVOW WORKS
@@ -576,19 +697,19 @@ export const LandingPage: React.FC = () => {
               {
                 step: '01',
                 title: 'Capture & Degrade',
-                desc: 'Receives caller audio and simulates real Indian mobile degradation (8kHz bandpass, ambient babble, vehicular horns).',
+                desc: 'Receives caller audio and tests against realistic Indian mobile noise (8kHz μ-law bandpass, traffic, babble).',
                 icon: <Volume2 size={24} color="var(--sapphire-600)" />,
               },
               {
                 step: '02',
-                title: 'Multi-Witness Panel',
-                desc: 'Cross-examines across Prisma 3.0 ITN, Prisma 3.0 Transliterate, and decorrelated Prisma 2.5 in parallel.',
+                title: 'Multi-Witness Jury',
+                desc: 'Dispatches audio across Prisma 3.0 ITN, Prisma 3.0 Transliterate, and decorrelated Prisma 2.5 simultaneously.',
                 icon: <Layers size={24} color="var(--sapphire-600)" />,
               },
               {
                 step: '03',
                 title: 'Phonetic & Risk Check',
-                desc: 'Applies Indian numeral grammar rules (lakh, crore, dedh, dhai) and checks confusable pairs (pandrah/pachaas).',
+                desc: 'Applies Indic numeral rules (lakh, crore, dedh, dhai) and checks confusable pairs (pandrah/pachaas).',
                 icon: <GitCompare size={24} color="var(--sapphire-600)" />,
               },
               {
@@ -604,10 +725,10 @@ export const LandingPage: React.FC = () => {
                   backgroundColor: '#FFFFFF',
                   border: '1px solid var(--border-default)',
                   borderRadius: 'var(--radius-xl)',
-                  padding: '28px',
+                  padding: '32px 24px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '14px',
+                  gap: '16px',
                   boxShadow: 'var(--shadow-sm)',
                   position: 'relative',
                 }}
@@ -619,8 +740,8 @@ export const LandingPage: React.FC = () => {
                     fontWeight: 700,
                     color: 'var(--sapphire-600)',
                     backgroundColor: 'var(--sapphire-50)',
-                    width: '36px',
-                    height: '36px',
+                    width: '38px',
+                    height: '38px',
                     borderRadius: '8px',
                     display: 'flex',
                     alignItems: 'center',
@@ -637,9 +758,91 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── SECTION 4: SCIENTIFIC BENCHMARK & EVIDENCE ─── */}
-      <section id="benchmark" style={{ padding: '96px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {/* ─── SECTION 4: ARCHITECTURE & REQUEST FLOW (NARRATIVE DEEP DIVE) ─── */}
+      <section id="architecture" style={{ padding: '100px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              TECHNICAL SPECIFICATION
+            </span>
+            <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+              System Architecture &amp; Data Pipeline
+            </h2>
+            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
+              How AVOW delivers deterministic runtime safety without generative LLM hallucination risks.
+            </p>
+          </div>
+
+          {/* Interactive Pipeline Visual */}
+          <div
+            style={{
+              backgroundColor: '#0B1629',
+              borderRadius: 'var(--radius-2xl)',
+              padding: '40px',
+              color: '#FFFFFF',
+              boxShadow: 'var(--shadow-xl)',
+            }}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+              {/* Box 1 */}
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#38BDF8' }}>
+                  <Server size={18} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
+                    1. INGRESS API
+                  </span>
+                </div>
+                <div style={{ fontSize: '13px', color: '#CBD5E1', lineHeight: '20px' }}>
+                  FastAPI endpoint <code>/v1/verdict</code> accepts multipart audio, language hint, and context.
+                </div>
+              </div>
+
+              {/* Box 2 */}
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#34D399' }}>
+                  <Zap size={18} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
+                    2. GNANI GATE
+                  </span>
+                </div>
+                <div style={{ fontSize: '13px', color: '#CBD5E1', lineHeight: '20px' }}>
+                  Single-concurrency semaphore (1 flight at a time) protects your 5,000 credit allocation.
+                </div>
+              </div>
+
+              {/* Box 3 */}
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#FBBF24' }}>
+                  <Cpu size={18} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
+                    3. ADAPTIVE JURY
+                  </span>
+                </div>
+                <div style={{ fontSize: '13px', color: '#CBD5E1', lineHeight: '20px' }}>
+                  Stage A: Prisma 3.0 ITN + Prisma 2.5. Stage B triggered only if consensus is contested.
+                </div>
+              </div>
+
+              {/* Box 4 */}
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#A78BFA' }}>
+                  <Lock size={18} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
+                    4. COURT RECORD
+                  </span>
+                </div>
+                <div style={{ fontSize: '13px', color: '#CBD5E1', lineHeight: '20px' }}>
+                  Every verdict and caller response appended to an immutable SHA-256 tamper-evident chain.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SECTION 5: BENCHMARKS ─── */}
+      <section id="benchmark" style={{ padding: '100px 32px', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               SCIENTIFIC INTEGRITY
@@ -648,23 +851,24 @@ export const LandingPage: React.FC = () => {
               Empirical Held-Out Benchmark Results
             </h2>
             <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
-              We never fabricate metrics. All figures come from 192 held-out telephony audio evaluations with bootstrap 95% confidence intervals.
+              Zero fabricated metrics. All figures come from 192 held-out telephony audio evaluations with bootstrap 95% confidence intervals.
             </p>
           </div>
 
           <div
             style={{
-              backgroundColor: 'var(--sky-50)',
+              backgroundColor: '#FFFFFF',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-2xl)',
               padding: '36px',
               display: 'flex',
               flexDirection: 'column',
               gap: '24px',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-              <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-default)' }}>
+              <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
                   UNCORRECTED SILENT ERROR
                 </span>
@@ -677,7 +881,7 @@ export const LandingPage: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-default)' }}>
+              <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
                   WRONG VALUE CATCH RATE
                 </span>
@@ -689,7 +893,7 @@ export const LandingPage: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-default)' }}>
+              <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
                   CALLER FRICTION OVERHEAD
                 </span>
@@ -702,7 +906,7 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '12px' }}>
               <Button variant="secondary" size="default" onClick={() => navigate('/console/benchmark')} icon={<ArrowRight size={16} />}>
                 View Full Breakdown by Noise Condition (Clean, 8kHz, Traffic, Babble)
               </Button>
@@ -711,7 +915,7 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── SECTION 5: FINAL CTA (THE CONVERSION ZONE) ─── */}
+      {/* ─── SECTION 6: FINAL CTA (THE CONVERSION ZONE) ─── */}
       <section
         style={{
           padding: '100px 32px',
@@ -772,38 +976,30 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
+      {/* ─── FOOTER (OFFICIAL WHITE LOGO ON DARK BACKGROUND) ─── */}
       <footer
         style={{
           backgroundColor: '#070F1F',
           color: 'var(--text-tertiary)',
-          padding: '64px 36px 36px',
+          padding: '64px 40px 36px',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '32px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '340px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '340px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div
+                {/* Official Logo with white typography on dark footer */}
+                <img
+                  src="/avow-logo.png"
+                  alt="AVOW Logo"
                   style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #0F52BA 0%, #2979F2 100%)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    height: '36px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    display: 'block',
                   }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
-                    <path d="M12 32 L20 8 L28 32" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M14 24 L26 24" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
-                  </svg>
-                </div>
-                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 800, color: '#FFFFFF' }}>
-                  AVOW
-                </span>
+                />
               </div>
               <p style={{ fontSize: '13px', lineHeight: '20px', color: 'rgba(255, 255, 255, 0.6)' }}>
                 Runtime Trust Layer &amp; Benchmark for Indian Language Voice Agents. Built for the Great Indian AI Internship Challenge.
@@ -856,6 +1052,8 @@ export const LandingPage: React.FC = () => {
               alignItems: 'center',
               fontSize: '12px',
               fontFamily: 'var(--font-mono)',
+              flexWrap: 'wrap',
+              gap: '12px',
             }}
           >
             <div>© 2026 AVOW. Forward-deployed for Great Indian AI Internship Challenge.</div>
