@@ -27,14 +27,24 @@ export const GauntletPage: React.FC = () => {
   const [isResolving, setIsResolving] = useState(false);
   const [resolvedDecision, setResolvedDecision] = useState<string | null>(null);
 
-  // Benchmark Sample presets
-  const sampleSentences: { id: string; label: string; text: string; entity: string; badge: string }[] = [
+  // Benchmark Sample presets with real playable audio assets
+  const sampleSentences: {
+    id: string;
+    label: string;
+    text: string;
+    entity: string;
+    badge: string;
+    audioClean: string;
+    audioDegraded?: string;
+  }[] = [
     {
       id: 'pandrah_hazaar',
       label: '₹15,000 vs ₹50,000 (Pandrah vs Pachaas)',
       text: 'मैडम, मैं पंद्रह हज़ार रुपये अगले सोमवार तक जमा कर दूंगा।',
       entity: '15000',
       badge: 'Classic BFSI Trap',
+      audioClean: '/audio/pandrah_clean.mp3',
+      audioDegraded: '/audio/pandrah_degraded.mp3',
     },
     {
       id: 'dhai_lakh',
@@ -42,6 +52,7 @@ export const GauntletPage: React.FC = () => {
       text: 'अरे भाई ढाई लाख का लोन रीपेमेंट कब ड्यू है?',
       entity: '250000',
       badge: 'Fractional Multiplier',
+      audioClean: '/audio/dhai_lakh.mp3',
     },
     {
       id: 'double_nine',
@@ -49,6 +60,7 @@ export const GauntletPage: React.FC = () => {
       text: 'My reference number is double nine triple zero one two three four.',
       entity: '990001234',
       badge: 'Repeat Word Path',
+      audioClean: '/audio/double_nine.mp3',
     },
     {
       id: 'saat_saath',
@@ -56,11 +68,71 @@ export const GauntletPage: React.FC = () => {
       text: 'सात हज़ार रुपये आज ही ट्रांसफर कर दिए हैं।',
       entity: '7000',
       badge: 'Phonetic Sibilant Trap',
+      audioClean: '/audio/saat_saath.mp3',
+    },
+    {
+      id: 'tamil_15k',
+      label: '₹15,000 in Tamil (Pathinaindhaayiram)',
+      text: 'வணக்கம் மேடம், நான் பதினைந்தாயிரம் ரூபாய் நாளைக்கு செலுத்துகிறேன்.',
+      entity: '15000',
+      badge: 'Dravidian Codec Trap',
+      audioClean: '/audio/tamil_15k.mp3',
     },
   ];
 
+  // Active selected sample object
+  const currentSample = sampleSentences.find((s) => s.id === selectedPrompt) || sampleSentences[0];
+
   // Dynamic witness states based on selected sample & condition
   const getSimulatedWitnesses = (): WitnessData[] => {
+    if (selectedPrompt === 'tamil_15k') {
+      return [
+        {
+          id: 'W1',
+          name: 'PRISMA 3.0 · ITN',
+          model: 'prisma-v3.0',
+          transcript: 'வணக்கம் மேடம், நான் ₹15,000 நாளைக்கு செலுத்துகிறேன்',
+          highlightSpan: '₹15,000',
+          parsedValue: '₹15,000',
+          latencyMs: 620,
+          agreementStatus: 'consensus',
+          languageCode: 'ta-IN',
+        },
+        {
+          id: 'W4',
+          name: 'PRISMA 2.5 · DECORRELATED',
+          model: 'prisma-v2.5',
+          transcript: condition === 'CLEAN' ? 'வணக்கம் மேடம், நான் 15000 நாளைக்கு செலுத்துகிறேன்' : 'வணக்கம் மேடம், நான் 50000 நாளைக்கு செலுத்துகிறேன்',
+          highlightSpan: condition === 'CLEAN' ? '15000' : '50000',
+          parsedValue: condition === 'CLEAN' ? '₹15,000' : '₹50,000',
+          latencyMs: 680,
+          agreementStatus: condition === 'CLEAN' ? 'consensus' : 'disputed',
+          languageCode: 'ta-IN',
+        },
+        {
+          id: 'W2',
+          name: 'PRISMA 3.0 · TRANSLITERATE',
+          model: 'prisma-v3.0',
+          transcript: 'vanakkam madam, naan pathinaindhaayiram roobai naalaiku seluthugiren',
+          highlightSpan: 'pathinaindhaayiram',
+          parsedValue: '₹15,000',
+          latencyMs: 640,
+          agreementStatus: 'consensus',
+          languageCode: 'ta-IN',
+        },
+        {
+          id: 'W5',
+          name: 'PRISMA 3.0 · CONTEXT-INFORMED',
+          model: 'prisma-v3.0',
+          transcript: 'வணக்கம் மேடம், நான் ₹15,000 நாளைக்கு செலுத்துகிறேன்',
+          highlightSpan: '₹15,000',
+          parsedValue: '₹15,000',
+          latencyMs: 710,
+          agreementStatus: 'consensus',
+          languageCode: 'ta-IN',
+        },
+      ];
+    }
     if (selectedPrompt === 'pandrah_hazaar') {
       if (condition === 'CLEAN') {
         return [
@@ -288,13 +360,15 @@ export const GauntletPage: React.FC = () => {
     }
   };
 
-  // Handle Resolution Reply
+  // Handle Resolution Reply with caller affirmation audio
   const handleRecordReply = () => {
     setIsResolving(true);
+    const audio = new Audio('/audio/caller_affirm.mp3');
+    audio.play().catch(() => {});
     setTimeout(() => {
       setIsResolving(false);
       setResolvedDecision('RESOLVED_CONFIRMED: Caller affirmed ₹15,000.');
-    }, 1500);
+    }, 1800);
   };
 
   return (
@@ -532,8 +606,12 @@ export const GauntletPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Waveform Player */}
-          <WaveformPlayer hasDegradedVersion={condition !== 'CLEAN'} />
+          {/* Waveform Player with real playable audio assets */}
+          <WaveformPlayer
+            audioUrl={currentSample.audioClean}
+            degradedAudioUrl={currentSample.audioDegraded || currentSample.audioClean}
+            hasDegradedVersion={Boolean(currentSample.audioDegraded)}
+          />
 
           {/* The 4 Independent Witnesses Cards */}
           <div>
@@ -575,6 +653,7 @@ export const GauntletPage: React.FC = () => {
               <ReadbackBubble
                 text="मैंने पंद्रह हज़ार रुपये सुना। क्या यह सही है? हाँ बोलिए, या सही रकम बताइए।"
                 language="hi-IN"
+                audioUrl="/audio/readback_hi.mp3"
                 onRecordReply={handleRecordReply}
                 isResolving={isResolving}
               />

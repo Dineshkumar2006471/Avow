@@ -14,32 +14,46 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   hasDegradedVersion = false,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [activeMode, setActiveMode] = useState<'clean' | 'degraded'>('degraded');
+  const [activeMode, setActiveMode] = useState<'clean' | 'degraded'>(
+    hasDegradedVersion ? 'degraded' : 'clean'
+  );
   const [progress, setProgress] = useState(0); // 0.0 to 1.0
-  const [duration] = useState(4.2); // seconds simulated or real
+  const [duration, setDuration] = useState(3.8); // seconds simulated or real
   const [currentTime, setCurrentTime] = useState(0);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const currentSrc = activeMode === 'degraded' && degradedAudioUrl ? degradedAudioUrl : audioUrl;
+
+  // Handle source changes when user picks a preset or toggles clean/degraded
+  useEffect(() => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setProgress(0);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.load();
+    }
+  }, [currentSrc]);
+
   // Toggle Play/Pause
   const togglePlay = () => {
-    if (!audioRef.current) {
-      setIsPlaying((prev) => !prev);
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
       return;
     }
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
+    setIsPlaying((prev) => !prev);
   };
 
-  // Simulation timer if running without real file
+  // Fallback timer if running without audio tag
   useEffect(() => {
-    if (!audioUrl && isPlaying) {
+    if (!currentSrc && isPlaying) {
       const interval = setInterval(() => {
         setCurrentTime((prev) => {
           if (prev >= duration) {
@@ -51,10 +65,12 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
       }, 100);
       return () => clearInterval(interval);
     }
-  }, [isPlaying, audioUrl, duration]);
+  }, [isPlaying, currentSrc, duration]);
 
   useEffect(() => {
-    setProgress(currentTime / duration);
+    if (duration > 0) {
+      setProgress(Math.min(1, currentTime / duration));
+    }
   }, [currentTime, duration]);
 
   const restart = () => {
@@ -62,8 +78,7 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
     setProgress(0);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play();
-      setIsPlaying(true);
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
 
@@ -255,13 +270,24 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         </div>
       </div>
 
-      {/* Hidden native audio tag if real audio is provided */}
-      {audioUrl && (
+      {/* Native audio tag with event listeners */}
+      {currentSrc && (
         <audio
           ref={audioRef}
-          src={activeMode === 'degraded' && degradedAudioUrl ? degradedAudioUrl : audioUrl}
-          onEnded={() => setIsPlaying(false)}
+          src={currentSrc}
+          preload="metadata"
+          onLoadedMetadata={(e) => {
+            if (e.currentTarget.duration && !isNaN(e.currentTarget.duration)) {
+              setDuration(e.currentTarget.duration);
+            }
+          }}
+          onEnded={() => {
+            setIsPlaying(false);
+            setCurrentTime(0);
+          }}
           onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
         />
       )}
     </div>

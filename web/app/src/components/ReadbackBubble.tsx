@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Volume2, Play, Pause, Mic, CheckCircle2 } from 'lucide-react';
 import { Button } from './ui/Button';
 
@@ -13,12 +13,28 @@ interface ReadbackBubbleProps {
 export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
   text,
   language,
+  audioUrl,
   onRecordReply,
   isResolving = false,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const toggleSpeech = () => {
+    if (audioUrl) {
+      if (!audioRef.current) {
+        audioRef.current = new Audio(audioUrl);
+        audioRef.current.onended = () => setIsPlaying(false);
+      }
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+      return;
+    }
+
     if ('speechSynthesis' in window) {
       if (isPlaying) {
         window.speechSynthesis.cancel();
