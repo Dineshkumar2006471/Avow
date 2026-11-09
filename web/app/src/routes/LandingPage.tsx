@@ -569,7 +569,7 @@ export const LandingPage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
               gap: '24px',
               backgroundColor: 'var(--sky-50)',
               border: '1px solid var(--border-default)',
@@ -623,20 +623,41 @@ export const LandingPage: React.FC = () => {
             {/* Step 3: Single Bot Hallucination */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#B91C1C', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#DC2626', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
                   3
                 </span>
                 <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700 }}>
                   Single ASR Commits Error
                 </span>
               </div>
-              <div style={{ backgroundColor: '#FEF2F2', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1.5px solid #EF4444' }}>
-                <div style={{ fontSize: '12px', color: '#EF4444', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>DISASTER:</div>
+              <div style={{ backgroundColor: '#FEF2F2', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1.5px solid #FCA5A5' }}>
+                <div style={{ fontSize: '12px', color: '#DC2626', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>SILENT RECOGNITION:</div>
                 <div style={{ fontSize: '18px', fontWeight: 800, color: '#B91C1C', marginTop: '4px' }}>
-                  ₹50,000 debited instead!
+                  Bot hears "₹50,000"
                 </div>
                 <div style={{ fontSize: '12px', color: '#991B1B', marginTop: '4px' }}>
-                  ₹35,000 discrepancy causes chargebacks and customer churn.
+                  Single engine reports 98% false confidence, blind to phoneme overlap.
+                </div>
+              </div>
+            </div>
+
+            {/* Step 4: Irreversible Ledger Disaster */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#991B1B', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
+                  4
+                </span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '16px', fontWeight: 700 }}>
+                  Irreversible Financial Debit
+                </span>
+              </div>
+              <div style={{ backgroundColor: '#FEF2F2', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1.5px solid #EF4444' }}>
+                <div style={{ fontSize: '12px', color: '#EF4444', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>DISASTER:</div>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: '#991B1B', marginTop: '4px' }}>
+                  ₹50,000 debited instead!
+                </div>
+                <div style={{ fontSize: '12px', color: '#7F1D1D', marginTop: '4px' }}>
+                  ₹35,000 discrepancy causes chargebacks, RBI disputes, and customer churn.
                 </div>
               </div>
             </div>
@@ -867,7 +888,7 @@ export const LandingPage: React.FC = () => {
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
               <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
                   UNCORRECTED SILENT ERROR
@@ -902,6 +923,18 @@ export const LandingPage: React.FC = () => {
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
                   Only 18.5% of calls require readback clarification
+                </div>
+              </div>
+
+              <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
+                  AVERAGE JURY LATENCY
+                </span>
+                <div style={{ fontSize: '38px', fontWeight: 800, color: '#0F172A', marginTop: '6px' }}>
+                  1.82s
+                </div>
+                <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                  p95 multi-witness consensus across 2.6 calls/utt
                 </div>
               </div>
             </div>
