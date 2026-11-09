@@ -25,6 +25,19 @@ class SttResponse(BaseModel):
     truncated: bool = False
 
 
+def _detect_audio_meta(audio_bytes: bytes) -> tuple[str, str]:
+    """Detect filename and MIME type from audio magic bytes."""
+    if audio_bytes.startswith(b"ID3") or (len(audio_bytes) > 2 and audio_bytes[:2] in (b"\xff\xfb", b"\xff\xf3", b"\xff\xf2")):
+        return "audio.mp3", "audio/mpeg"
+    if audio_bytes.startswith(b"RIFF"):
+        return "audio.wav", "audio/wav"
+    if audio_bytes.startswith(b"\x1a\x45\xdf\xa3"):
+        return "audio.webm", "audio/webm"
+    if audio_bytes.startswith(b"OggS"):
+        return "audio.ogg", "audio/ogg"
+    return "audio.wav", "audio/wav"
+
+
 async def transcribe(
     audio_bytes: bytes,
     language_code: str = "hi-IN",
@@ -69,8 +82,9 @@ async def transcribe(
         if keyterms:
             data["keyterms"] = ",".join(keyterms[:200])
 
+        filename, mime = _detect_audio_meta(audio_bytes)
         files = {
-            "audio_file": ("audio.wav", audio_bytes, "audio/wav"),
+            "audio_file": (filename, audio_bytes, mime),
         }
 
         async with httpx.AsyncClient(timeout=10.0) as client:

@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
 import { ShieldCheck, CheckCircle2, RefreshCw, Lock } from 'lucide-react';
-
+import { API_BASE_URL } from '../config';
 
 export const CourtRecordPage: React.FC = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifiedSuccess, setVerifiedSuccess] = useState<boolean | null>(null);
+  const [liveRecords, setLiveRecords] = useState<any[]>([]);
 
-  const auditEvents = [
+  React.useEffect(() => {
+    const fetchRecords = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/v1/records`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.records && data.records.length > 0) {
+            setLiveRecords(data.records);
+          }
+        }
+      } catch (e) {
+        console.warn('Could not fetch live court records', e);
+      }
+    };
+    fetchRecords();
+  }, []);
+
+  const defaultEvents = [
     {
       id: 'EVT-904',
       time: '2026-11-08 19:14:02 IST',
@@ -44,6 +62,18 @@ export const CourtRecordPage: React.FC = () => {
       hash: '1a2b3c4d5e6f...',
     },
   ];
+
+  const auditEvents = liveRecords.length > 0
+    ? liveRecords.map((r, i) => ({
+        id: `EVT-${String(900 + i + 1)}`,
+        time: new Date(r.created_at).toLocaleString('en-IN'),
+        event: `VERDICT_${r.decision}`,
+        caseId: r.id.substring(0, 10).toUpperCase(),
+        details: r.reason || `Audited entity ${r.consensus_value || '₹15,000'} with risk ${r.risk_score * 100}%`,
+        prevHash: r.prev_hash ? `${r.prev_hash.substring(0, 12)}...` : '000000000000...',
+        hash: `${r.block_hash.substring(0, 12)}...`,
+      })).reverse()
+    : defaultEvents;
 
   const handleVerify = () => {
     setIsVerifying(true);

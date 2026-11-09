@@ -190,16 +190,20 @@ async def get_readback_audio(verdict_id: str) -> Response:
 @app.post("/v1/resolve")
 async def resolve_verdict(
     verdict_id: str = Form(...),
-    audio_file: UploadFile = File(...),
+    caller_text: Optional[str] = Form(None),
+    audio_file: Optional[UploadFile] = File(None),
 ) -> dict[str, Any]:
     """
     Resolve a CONFIRM state with caller's follow-up reply (e.g. 'haan', 'sahi hai', or correction).
     """
-    audio_bytes = await audio_file.read()
-    # Transcribe single witness to classify YES vs NO vs Correction
-    from verdict.gnani.stt import transcribe
-    resp = await transcribe(audio_bytes=audio_bytes, format_mode="transcribe")
-    t_lower = resp.transcript.lower()
+    transcript = caller_text or ""
+    if audio_file:
+        audio_bytes = await audio_file.read()
+        from verdict.gnani.stt import transcribe
+        resp = await transcribe(audio_bytes=audio_bytes, format_mode="transcribe")
+        transcript = resp.transcript
+
+    t_lower = transcript.lower()
 
     is_yes = any(w in t_lower for w in ["haan", "ha", "ji", "theek", "sahi", "yes", "correct"])
     is_no = any(w in t_lower for w in ["nahi", "na", "galat", "no", "wrong"])
@@ -209,7 +213,7 @@ async def resolve_verdict(
         final_decision = "ACCEPT"
     elif is_no:
         # Check if caller spoke a new number
-        cand = parse_amount(resp.transcript)
+        cand = parse_amount(transcript)
         if cand:
             resolution = "CORRECTED"
             final_decision = "CONFIRM"
@@ -224,7 +228,7 @@ async def resolve_verdict(
         "verdict_id": verdict_id,
         "resolution": resolution,
         "final_decision": final_decision,
-        "reply_transcript": resp.transcript,
+        "reply_transcript": transcript,
     }
 
 
