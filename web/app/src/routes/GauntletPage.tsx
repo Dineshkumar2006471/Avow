@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mic, MicOff, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Mic, MicOff, Play, RefreshCw, CheckCircle2, ShieldAlert } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { WitnessCard, WitnessData } from '../components/WitnessCard';
 import { EntityDiff, CandidateValue } from '../components/EntityDiff';
@@ -24,7 +24,7 @@ export const GauntletPage: React.FC = () => {
 
   // Step 4: Execution & State
   const [isRunning, setIsRunning] = useState(false);
-  const [hasResult, setHasResult] = useState(true); // default true for immediate visual wow
+  const [hasResult, setHasResult] = useState(false); // Initially false - only show results after clicking Run
   const [isResolving, setIsResolving] = useState(false);
   const [resolvedDecision, setResolvedDecision] = useState<string | null>(null);
   const [liveVerdict, setLiveVerdict] = useState<any | null>(null);
@@ -89,6 +89,8 @@ export const GauntletPage: React.FC = () => {
 
   // Dynamic witness states based on selected sample & condition
   const getSimulatedWitnesses = (): WitnessData[] => {
+    const isDegraded = condition !== 'CLEAN';
+
     if (selectedPrompt === 'tamil_15k') {
       return [
         {
@@ -106,11 +108,11 @@ export const GauntletPage: React.FC = () => {
           id: 'W4',
           name: 'PRISMA 2.5 · DECORRELATED',
           model: 'prisma-v2.5',
-          transcript: condition === 'CLEAN' ? 'வணக்கம் மேடம், நான் 15000 நாளைக்கு செலுத்துகிறேன்' : 'வணக்கம் மேடம், நான் 50000 நாளைக்கு செலுத்துகிறேன்',
-          highlightSpan: condition === 'CLEAN' ? '15000' : '50000',
-          parsedValue: condition === 'CLEAN' ? '₹15,000' : '₹50,000',
+          transcript: isDegraded ? 'வணக்கம் மேடம், நான் 50000 நாளைக்கு செலுத்துகிறேன்' : 'வணக்கம் மேடம், நான் 15000 நாளைக்கு செலுத்துகிறேன்',
+          highlightSpan: isDegraded ? '50000' : '15000',
+          parsedValue: isDegraded ? '₹50,000 (MISHEARD)' : '₹15,000',
           latencyMs: 680,
-          agreementStatus: condition === 'CLEAN' ? 'consensus' : 'disputed',
+          agreementStatus: isDegraded ? 'disputed' : 'consensus',
           languageCode: 'ta-IN',
         },
         {
@@ -137,103 +139,152 @@ export const GauntletPage: React.FC = () => {
         },
       ];
     }
+
     if (selectedPrompt === 'pandrah_hazaar') {
-      if (condition === 'CLEAN') {
-        return [
-          {
-            id: 'W1',
-            name: 'PRISMA 3.0 · ITN',
-            model: 'prisma-v3.0',
-            transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '₹15,000',
-            parsedValue: '₹15,000',
-            latencyMs: 580,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W4',
-            name: 'PRISMA 2.5 · DECORRELATED',
-            model: 'prisma-v2.5',
-            transcript: 'मैडम मैं 15000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '15000',
-            parsedValue: '₹15,000',
-            latencyMs: 640,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W2',
-            name: 'PRISMA 3.0 · TRANSLITERATE',
-            model: 'prisma-v3.0',
-            transcript: 'madam main pandrah hazaar agle somvaar tak jama kar dunga',
-            highlightSpan: 'pandrah hazaar',
-            parsedValue: '₹15,000',
-            latencyMs: 610,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W5',
-            name: 'PRISMA 3.0 · CONTEXT-INFORMED',
-            model: 'prisma-v3.0',
-            transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '₹15,000',
-            parsedValue: '₹15,000',
-            latencyMs: 690,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-        ];
-      } else {
-        // Degraded telephony condition: W4 mishears 50,000!
-        return [
-          {
-            id: 'W1',
-            name: 'PRISMA 3.0 · ITN',
-            model: 'prisma-v3.0',
-            transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '₹15,000',
-            parsedValue: '₹15,000',
-            latencyMs: 640,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W4',
-            name: 'PRISMA 2.5 · DECORRELATED',
-            model: 'prisma-v2.5',
-            transcript: 'मैडम मैं 50000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '50000',
-            parsedValue: '₹50,000 (MISHEARD)',
-            latencyMs: 710,
-            agreementStatus: 'disputed',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W2',
-            name: 'PRISMA 3.0 · TRANSLITERATE',
-            model: 'prisma-v3.0',
-            transcript: 'madam main pandrah hazaar agle somvaar tak jama kar dunga',
-            highlightSpan: 'pandrah hazaar',
-            parsedValue: '₹15,000',
-            latencyMs: 670,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-          {
-            id: 'W5',
-            name: 'PRISMA 3.0 · CONTEXT-INFORMED',
-            model: 'prisma-v3.0',
-            transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
-            highlightSpan: '₹15,000',
-            parsedValue: '₹15,000',
-            latencyMs: 730,
-            agreementStatus: 'consensus',
-            languageCode: 'hi-IN',
-          },
-        ];
-      }
+      return [
+        {
+          id: 'W1',
+          name: 'PRISMA 3.0 · ITN',
+          model: 'prisma-v3.0',
+          transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
+          highlightSpan: '₹15,000',
+          parsedValue: '₹15,000',
+          latencyMs: 580,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W4',
+          name: 'PRISMA 2.5 · DECORRELATED',
+          model: 'prisma-v2.5',
+          transcript: isDegraded ? 'मैडम मैं 50000 अगले सोमवार तक जमा कर दूंगा' : 'मैडम मैं 15000 अगले सोमवार तक जमा कर दूंगा',
+          highlightSpan: isDegraded ? '50000' : '15000',
+          parsedValue: isDegraded ? '₹50,000 (MISHEARD)' : '₹15,000',
+          latencyMs: 710,
+          agreementStatus: isDegraded ? 'disputed' : 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W2',
+          name: 'PRISMA 3.0 · TRANSLITERATE',
+          model: 'prisma-v3.0',
+          transcript: 'madam main pandrah hazaar agle somvaar tak jama kar dunga',
+          highlightSpan: 'pandrah hazaar',
+          parsedValue: '₹15,000',
+          latencyMs: 610,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W5',
+          name: 'PRISMA 3.0 · CONTEXT-INFORMED',
+          model: 'prisma-v3.0',
+          transcript: 'मैडम मैं ₹15,000 अगले सोमवार तक जमा कर दूंगा',
+          highlightSpan: '₹15,000',
+          parsedValue: '₹15,000',
+          latencyMs: 690,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+      ];
+    }
+
+    if (selectedPrompt === 'saat_saath') {
+      return [
+        {
+          id: 'W1',
+          name: 'PRISMA 3.0 · ITN',
+          model: 'prisma-v3.0',
+          transcript: 'सात हज़ार रुपये आज ही ट्रांसफर कर दिए हैं',
+          highlightSpan: 'सात हज़ार',
+          parsedValue: '₹7,000',
+          latencyMs: 590,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W4',
+          name: 'PRISMA 2.5 · DECORRELATED',
+          model: 'prisma-v2.5',
+          transcript: isDegraded ? 'साठ हज़ार रुपये आज ही ट्रांसफर कर दिए हैं' : '7000 रुपये आज ही ट्रांसफर कर दिए हैं',
+          highlightSpan: isDegraded ? 'साठ हज़ार' : '7000',
+          parsedValue: isDegraded ? '₹60,000 (MISHEARD)' : '₹7,000',
+          latencyMs: 650,
+          agreementStatus: isDegraded ? 'disputed' : 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W2',
+          name: 'PRISMA 3.0 · TRANSLITERATE',
+          model: 'prisma-v3.0',
+          transcript: 'saat hazaar rupaye aaj hi transfer kar diye hain',
+          highlightSpan: 'saat hazaar',
+          parsedValue: '₹7,000',
+          latencyMs: 610,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+        {
+          id: 'W5',
+          name: 'PRISMA 3.0 · CONTEXT-INFORMED',
+          model: 'prisma-v3.0',
+          transcript: 'सात हज़ार रुपये आज ही ट्रांसफर कर दिए हैं',
+          highlightSpan: 'सात हज़ार',
+          parsedValue: '₹7,000',
+          latencyMs: 690,
+          agreementStatus: 'consensus',
+          languageCode: 'hi-IN',
+        },
+      ];
+    }
+
+    if (selectedPrompt === 'double_nine') {
+      return [
+        {
+          id: 'W1',
+          name: 'PRISMA 3.0 · ITN',
+          model: 'prisma-v3.0',
+          transcript: 'My reference number is 990001234',
+          highlightSpan: '990001234',
+          parsedValue: '990001234',
+          latencyMs: 560,
+          agreementStatus: 'consensus',
+          languageCode: 'en-IN',
+        },
+        {
+          id: 'W4',
+          name: 'PRISMA 2.5 · DECORRELATED',
+          model: 'prisma-v2.5',
+          transcript: isDegraded ? 'Reference number is 99001234' : 'Reference number is 990001234',
+          highlightSpan: isDegraded ? '99001234' : '990001234',
+          parsedValue: isDegraded ? '99001234 (DROPPED ZERO)' : '990001234',
+          latencyMs: 620,
+          agreementStatus: isDegraded ? 'disputed' : 'consensus',
+          languageCode: 'en-IN',
+        },
+        {
+          id: 'W2',
+          name: 'PRISMA 3.0 · TRANSLITERATE',
+          model: 'prisma-v3.0',
+          transcript: 'my reference number is double nine triple zero one two three four',
+          highlightSpan: 'double nine triple zero',
+          parsedValue: '990001234',
+          latencyMs: 590,
+          agreementStatus: 'consensus',
+          languageCode: 'en-IN',
+        },
+        {
+          id: 'W5',
+          name: 'PRISMA 3.0 · CONTEXT-INFORMED',
+          model: 'prisma-v3.0',
+          transcript: 'Reference number is 990001234',
+          highlightSpan: '990001234',
+          parsedValue: '990001234',
+          latencyMs: 670,
+          agreementStatus: 'consensus',
+          languageCode: 'en-IN',
+        },
+      ];
     }
 
     if (selectedPrompt === 'dhai_lakh') {
@@ -320,7 +371,7 @@ export const GauntletPage: React.FC = () => {
           W5: 'PRISMA 3.0 · CONTEXT-INFORMED',
         };
         const consensusVal = liveVerdict.entities?.[0]?.consensus || currentSample.entity;
-        const parsedStr = `₹${Number(consensusVal).toLocaleString('en-IN')}`;
+        const parsedStr = typeof consensusVal === 'number' ? `₹${consensusVal.toLocaleString('en-IN')}` : String(consensusVal);
         return {
           id: w.id,
           name: nameMap[w.id] || w.model,
@@ -337,16 +388,35 @@ export const GauntletPage: React.FC = () => {
 
   // Candidates for EntityDiff
   const getCandidates = (): CandidateValue[] => {
-    if (selectedPrompt === 'pandrah_hazaar' && condition !== 'CLEAN') {
+    if (condition === 'CLEAN') {
+      const valStr = selectedPrompt === 'dhai_lakh' ? '₹2,50,000' : (selectedPrompt === 'saat_saath' ? '₹7,000' : (selectedPrompt === 'double_nine' ? '990001234' : '₹15,000'));
+      return [{ value: valStr, witnesses: ['W1', 'W4', 'W2', 'W5'], isMajority: true, status: 'consensus' }];
+    }
+    if (selectedPrompt === 'pandrah_hazaar') {
       return [
         { value: '₹15,000', witnesses: ['W1', 'W2', 'W5'], isMajority: true, status: 'consensus' },
         { value: '₹50,000', witnesses: ['W4'], isMajority: false, status: 'disputed' },
       ];
     }
-    if (selectedPrompt === 'dhai_lakh') {
-      return [{ value: '₹2,50,000', witnesses: ['W1', 'W4', 'W2', 'W5'], isMajority: true, status: 'consensus' }];
+    if (selectedPrompt === 'saat_saath') {
+      return [
+        { value: '₹7,000', witnesses: ['W1', 'W2', 'W5'], isMajority: true, status: 'consensus' },
+        { value: '₹60,000', witnesses: ['W4'], isMajority: false, status: 'disputed' },
+      ];
     }
-    return [{ value: '₹15,000', witnesses: ['W1', 'W4', 'W2', 'W5'], isMajority: true, status: 'consensus' }];
+    if (selectedPrompt === 'double_nine') {
+      return [
+        { value: '990001234', witnesses: ['W1', 'W2', 'W5'], isMajority: true, status: 'consensus' },
+        { value: '99001234', witnesses: ['W4'], isMajority: false, status: 'disputed' },
+      ];
+    }
+    if (selectedPrompt === 'tamil_15k') {
+      return [
+        { value: '₹15,000', witnesses: ['W1', 'W2', 'W5'], isMajority: true, status: 'consensus' },
+        { value: '₹50,000', witnesses: ['W4'], isMajority: false, status: 'disputed' },
+      ];
+    }
+    return [{ value: '₹2,50,000', witnesses: ['W1', 'W4', 'W2', 'W5'], isMajority: true, status: 'consensus' }];
   };
 
   const candidates: CandidateValue[] = liveVerdict?.entities?.[0]?.candidates?.length > 0
@@ -360,11 +430,82 @@ export const GauntletPage: React.FC = () => {
 
   // Verdict calculation
   const isClean = condition === 'CLEAN';
-  const hasDispute = selectedPrompt === 'pandrah_hazaar' && !isClean;
-  const currentVerdict: VerdictType = (liveVerdict?.decision as VerdictType) || (hasDispute ? 'CONFIRM' : 'ACCEPT');
-  const currentRisk = liveVerdict 
-    ? (liveVerdict.entities?.[0]?.risk ?? (liveVerdict.decision === 'CONFIRM' ? 0.62 : 0.04)) 
-    : (hasDispute ? 0.62 : 0.04);
+  const isDisputedPrompt = (
+    !isClean && (
+      selectedPrompt === 'pandrah_hazaar' ||
+      selectedPrompt === 'saat_saath' ||
+      selectedPrompt === 'double_nine' ||
+      selectedPrompt === 'tamil_15k'
+    )
+  );
+
+  const hasDispute = isDisputedPrompt || (liveVerdict?.decision === 'CONFIRM' || liveVerdict?.decision === 'ESCALATE');
+
+  const getPresetRisk = (): number => {
+    if (isClean) return 0.04;
+    if (selectedPrompt === 'pandrah_hazaar') return 0.62;
+    if (selectedPrompt === 'saat_saath') return 0.66;
+    if (selectedPrompt === 'double_nine') return 0.58;
+    if (selectedPrompt === 'tamil_15k') return 0.64;
+    if (selectedPrompt === 'dhai_lakh') return 0.11;
+    return 0.04;
+  };
+
+  const currentVerdict: VerdictType = liveVerdict?.decision 
+    ? (liveVerdict.decision as VerdictType)
+    : (isDisputedPrompt ? 'CONFIRM' : 'ACCEPT');
+
+  const currentRisk: number = liveVerdict?.entities?.[0]?.risk !== undefined
+    ? liveVerdict.entities[0].risk
+    : getPresetRisk();
+
+  const getVerdictReason = (): string => {
+    if (liveVerdict?.reason) return liveVerdict.reason;
+    if (isClean) return 'Unanimous consensus across all 4 independent configurations. Safe to commit.';
+    if (selectedPrompt === 'pandrah_hazaar') return 'PRISMA 2.5 heard ₹50,000 while PRISMA 3.0 & Transliterate heard ₹15,000. Risk: 62%.';
+    if (selectedPrompt === 'saat_saath') return 'PRISMA 2.5 misheard ₹60,000 (saath) while PRISMA 3.0 heard ₹7,000 (saat). Risk: 66%.';
+    if (selectedPrompt === 'double_nine') return 'PRISMA 2.5 dropped a zero (99001234) under telephony noise. Digit length mismatch. Risk: 58%.';
+    if (selectedPrompt === 'tamil_15k') return 'PRISMA 2.5 misheard ₹50,000 (ஐம்பதாயிரம்) instead of ₹15,000 over 8kHz telephony. Risk: 64%.';
+    return 'Fractional multiplier dhai lakh parsed and normalized to ₹2,50,000.';
+  };
+
+  const getReadbackText = (): string => {
+    if (liveVerdict?.readback?.text) return liveVerdict.readback.text;
+    if (selectedPrompt === 'saat_saath') return 'मैंने सात हज़ार रुपये सुना। क्या यह सही है? हाँ बोलिए, या सही रकम बताइए।';
+    if (selectedPrompt === 'double_nine') return 'I heard reference number double nine triple zero one two three four. Is that correct?';
+    if (selectedPrompt === 'tamil_15k') return 'நான் பதினைந்தாயிரம் ரூபாய் என்று கேட்டேன். இது சரியானதா? (I heard ₹15,000. Is that correct?)';
+    return 'मैंने पंद्रह हज़ार रुपये सुना। क्या यह सही है? हाँ बोलिए, या सही रकम बताइए।';
+  };
+
+  // Preset Selection Handler (Clears previous verdict)
+  const handleSelectPrompt = (sample: typeof sampleSentences[0]) => {
+    setSelectedPrompt(sample.id);
+    if (sample.id === 'tamil_15k') {
+      setSelectedLanguage('ta-IN');
+    } else if (sample.id === 'double_nine') {
+      setSelectedLanguage('en-IN');
+    } else {
+      setSelectedLanguage('hi-IN');
+    }
+    setHasResult(false);
+    setLiveVerdict(null);
+    setResolvedDecision(null);
+  };
+
+  // Noise Condition Handlers (Clears previous verdict)
+  const handleConditionChange = (cond: DegradationCondition) => {
+    setCondition(cond);
+    setHasResult(false);
+    setLiveVerdict(null);
+    setResolvedDecision(null);
+  };
+
+  const handleSnrChange = (val: number) => {
+    setSnrDb(val);
+    setHasResult(false);
+    setLiveVerdict(null);
+    setResolvedDecision(null);
+  };
 
   // Handle Run: Calls Real Gnani Backend via POST /v1/verdict
   const handleRunGauntlet = async () => {
@@ -592,7 +733,7 @@ export const GauntletPage: React.FC = () => {
                 <button
                   key={s.id}
                   type="button"
-                  onClick={() => setSelectedPrompt(s.id)}
+                  onClick={() => handleSelectPrompt(s)}
                   style={{
                     textAlign: 'left',
                     padding: '12px 16px',
@@ -654,9 +795,9 @@ export const GauntletPage: React.FC = () => {
         <div>
           <NoiseDial
             condition={condition}
-            onConditionChange={setCondition}
+            onConditionChange={handleConditionChange}
             snrDb={snrDb}
-            onSnrChange={setSnrDb}
+            onSnrChange={handleSnrChange}
           />
         </div>
       </div>
@@ -704,8 +845,112 @@ export const GauntletPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Results View */}
-      {hasResult && (
+      {/* 1. Unrun Empty State */}
+      {!hasResult && !isRunning && (
+        <div
+          style={{
+            backgroundColor: 'var(--surface-primary)',
+            border: '1.5px dashed var(--border-default)',
+            borderRadius: 'var(--radius-lg)',
+            padding: '48px 24px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            boxShadow: 'var(--shadow-sm)',
+            animation: 'fadeInUp 200ms var(--ease)',
+          }}
+        >
+          <div
+            style={{
+              width: '52px',
+              height: '52px',
+              borderRadius: '50%',
+              backgroundColor: '#F1F5F9',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-tertiary)',
+            }}
+          >
+            <ShieldAlert size={28} />
+          </div>
+          <div>
+            <h4
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '17px',
+                fontWeight: 700,
+                color: 'var(--text-primary)',
+                margin: 0,
+                letterSpacing: '0.01em',
+              }}
+            >
+              READY FOR JURY CROSS-EXAMINATION
+            </h4>
+            <p
+              style={{
+                fontSize: '13px',
+                color: 'var(--text-secondary)',
+                margin: '8px 0 0 0',
+                maxWidth: '520px',
+                lineHeight: 1.5,
+              }}
+            >
+              Select an adversarial speech preset or record via microphone above, choose telephony noise conditions, and click <strong>RUN THE GAUNTLET</strong> to adjudicate across 4 independent Gnani Prisma witnesses.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* 2. Cross-Examining In-Progress State */}
+      {isRunning && (
+        <div
+          style={{
+            backgroundColor: 'var(--surface-primary)',
+            border: '1.5px solid var(--color-primary-subtle)',
+            borderRadius: 'var(--radius-lg)',
+            padding: '52px 24px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '16px',
+            boxShadow: '0 4px 20px rgba(15, 82, 186, 0.08)',
+            animation: 'fadeInUp 200ms var(--ease)',
+          }}
+        >
+          <RefreshCw className="spin" size={36} color="var(--color-primary)" />
+          <div>
+            <h4
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '17px',
+                fontWeight: 700,
+                color: 'var(--color-primary)',
+                margin: 0,
+              }}
+            >
+              CROSS-EXAMINING INDEPENDENT PRISMA WITNESSES...
+            </h4>
+            <p
+              style={{
+                fontSize: '13px',
+                color: 'var(--text-secondary)',
+                margin: '8px 0 0 0',
+              }}
+            >
+              Evaluating acoustic decorrelation, entity candidates, and phonetic confusables in real-time.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* 3. Adjudicated Results View */}
+      {hasResult && !isRunning && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', animation: 'fadeInUp 280ms var(--ease)' }}>
           {/* Top Verdict Row */}
           <div
@@ -738,11 +983,7 @@ export const GauntletPage: React.FC = () => {
               </span>
               <VerdictStamp
                 verdict={currentVerdict}
-                reason={
-                  hasDispute
-                    ? 'PRISMA 2.5 heard ₹50,000 while PRISMA 3.0 & Transliterate heard ₹15,000. Risk: 62%.'
-                    : 'Unanimous consensus across all 4 independent configurations.'
-                }
+                reason={getVerdictReason()}
               />
             </div>
 
@@ -789,16 +1030,26 @@ export const GauntletPage: React.FC = () => {
           <EntityDiff
             entityType="AMOUNT"
             candidates={candidates}
-            consensusValue={liveVerdict?.entities?.[0]?.consensus ? `₹${Number(liveVerdict.entities[0].consensus).toLocaleString('en-IN')}` : '₹15,000'}
+            consensusValue={
+              liveVerdict?.entities?.[0]?.consensus
+                ? (typeof liveVerdict.entities[0].consensus === 'number'
+                    ? `₹${liveVerdict.entities[0].consensus.toLocaleString('en-IN')}`
+                    : String(liveVerdict.entities[0].consensus))
+                : (selectedPrompt === 'double_nine' ? '990001234' : (selectedPrompt === 'saat_saath' ? '₹7,000' : (selectedPrompt === 'dhai_lakh' ? '₹2,50,000' : '₹15,000')))
+            }
           />
 
           {/* Timbre Read-back Loop (if CONFIRM triggered) */}
           {(currentVerdict === 'CONFIRM' || hasDispute) && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <ReadbackBubble
-                text={liveVerdict?.readback?.text || "मैंने पंद्रह हज़ार रुपये सुना। क्या यह सही है? हाँ बोलिए, या सही रकम बताइए।"}
+                text={getReadbackText()}
                 language={selectedLanguage}
-                audioUrl={liveVerdict?.readback?.audio_url ? `${API_BASE_URL}${liveVerdict.readback.audio_url}` : "/audio/readback_hi.mp3"}
+                audioUrl={
+                  liveVerdict?.readback?.audio_url
+                    ? `${API_BASE_URL}${liveVerdict.readback.audio_url}`
+                    : (selectedPrompt === 'saat_saath' ? '/audio/readback_hi.mp3' : (selectedPrompt === 'tamil_15k' ? '/audio/readback_ta.mp3' : '/audio/readback_hi.mp3'))
+                }
                 onRecordReply={handleRecordReply}
                 isResolving={isResolving}
               />
