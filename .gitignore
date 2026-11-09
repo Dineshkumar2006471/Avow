@@ -55,13 +55,25 @@ htmlcov/
 # Build
 *.whl
 
-# Audio (keep only synthetic in data/)
+# Audio
 *.wav
 *.mp3
 *.ogg
 *.webm
+!web/app/public/audio/*.mp3
 !data/audio/*.wav
 !api/tests/fixtures/*.wav
+
+# Internal Planning & Design Docs (Do not push to public repo)
+AVOW-PRD.md
+AVOW-DESIGN.md
+AVOW.png
+
+# Database & SQLite files
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
 
 # Secrets
 *.pem

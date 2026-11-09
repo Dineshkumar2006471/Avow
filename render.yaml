@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: avow-api
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /healthz
+    envVars:
+      - key: GNANI_API_KEY
+        sync: false
