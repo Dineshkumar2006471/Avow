@@ -3,7 +3,7 @@ AVOW Verdict API — FastAPI Main Service.
 A runtime trust layer and benchmark for Indian language voice agents.
 """
 
-from typing import Any
+from typing import Any, Optional
 import json
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Header, Response, Request
 from fastapi.responses import JSONResponse
