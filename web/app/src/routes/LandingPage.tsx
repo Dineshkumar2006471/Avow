@@ -276,7 +276,7 @@ export const LandingPage: React.FC = () => {
           </p>
 
           {/* Primary CTA + Secondary Link */}
-          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
             <Button
               size="lg"
               variant="primary"
@@ -292,6 +292,24 @@ export const LandingPage: React.FC = () => {
               }}
             >
               Try The Gauntlet (Live Console)
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => navigate('/pitch')}
+              style={{
+                height: '52px',
+                padding: '0 22px',
+                fontSize: '15px',
+                borderRadius: 'var(--radius-full)',
+                maxWidth: '100%',
+                backgroundColor: '#EFF6FF',
+                color: '#1D4ED8',
+                borderColor: '#BFDBFE',
+                fontWeight: 700,
+              }}
+            >
+              📄 1-Page Solution Pitch
             </Button>
             <Button
               size="lg"
@@ -790,16 +808,16 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ─── SECTION 4: ARCHITECTURE & REQUEST FLOW (NARRATIVE DEEP DIVE) ─── */}
-      <section id="architecture" style={{ padding: 'clamp(48px, 6vw, 100px) clamp(16px, 4vw, 32px)', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)', overflowX: 'hidden' }}>
-        <div style={{ maxWidth: '1140px', margin: '0 auto', width: '100%' }}>
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 5vw, 64px)' }}>
+      <section id="architecture" style={{ padding: 'clamp(36px, 5vw, 80px) clamp(10px, 3vw, 24px)', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)', overflowX: 'hidden', boxSizing: 'border-box', width: '100%' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(28px, 4vw, 56px)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               TECHNICAL SPECIFICATION
             </span>
-            <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(24px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               System Architecture &amp; Data Pipeline
             </h2>
-            <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
+            <p style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
               How AVOW delivers deterministic runtime safety without generative LLM hallucination risks.
             </p>
           </div>
@@ -808,19 +826,19 @@ export const LandingPage: React.FC = () => {
           <div
             style={{
               backgroundColor: '#0B1629',
-              borderRadius: 'var(--radius-2xl)',
-              padding: 'clamp(16px, 3.5vw, 36px)',
+              borderRadius: 'clamp(14px, 3vw, 24px)',
+              padding: 'clamp(14px, 3vw, 32px)',
               color: '#FFFFFF',
-              boxShadow: 'var(--shadow-xl)',
+              boxShadow: '0 8px 32px rgba(11, 22, 41, 0.25)',
               width: '100%',
               maxWidth: '100%',
               boxSizing: 'border-box',
               overflow: 'hidden',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 210px), 1fr))', gap: '16px', width: '100%' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 230px), 1fr))', gap: '12px', width: '100%', boxSizing: 'border-box' }}>
               {/* Box 1 */}
-              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: 'clamp(14px, 3vw, 20px)', boxSizing: 'border-box' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#38BDF8' }}>
                   <Server size={18} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
@@ -833,7 +851,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Box 2 */}
-              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: 'clamp(14px, 3vw, 20px)', boxSizing: 'border-box' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#34D399' }}>
                   <Zap size={18} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
@@ -846,7 +864,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Box 3 */}
-              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: 'clamp(14px, 3vw, 20px)', boxSizing: 'border-box' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#FBBF24' }}>
                   <Cpu size={18} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>
@@ -859,7 +877,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Box 4 */}
-              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
+              <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: 'clamp(14px, 3vw, 20px)', boxSizing: 'border-box' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#A78BFA' }}>
                   <Lock size={18} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700 }}>

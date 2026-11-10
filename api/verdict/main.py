@@ -271,6 +271,7 @@ async def create_verdict(
         "verdict_id": verdict_id,
         "decision": panel_verdict.decision,
         "reason": panel_verdict.reason,
+        "risk_score": panel_verdict.risk_score,
         "entities": [
             {
                 "type": "AMOUNT",

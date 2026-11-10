@@ -181,7 +181,31 @@ export const Header: React.FC<HeaderProps> = ({
       )}
 
       {/* Right: Actions */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* 1-Page Pitch Link for Challenge Submission */}
+        <button
+          onClick={() => navigate('/pitch')}
+          style={{
+            backgroundColor: '#EFF6FF',
+            color: '#1D4ED8',
+            border: '1px solid #BFDBFE',
+            borderRadius: '9999px',
+            padding: '5px 12px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            whiteSpace: 'nowrap',
+            transition: 'all 120ms ease',
+          }}
+          title="Open the 1-Page Solution Pitch document for the Gnani.ai challenge"
+        >
+          <span>📄 1-Page Pitch</span>
+        </button>
+
         {isConsole && <CreditsMeter usedRuns={18} maxRuns={150} environment="LIVE" />}
 
         {/* Docs Link (desktop only) */}
