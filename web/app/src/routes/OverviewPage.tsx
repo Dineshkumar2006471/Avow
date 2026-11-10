@@ -229,7 +229,7 @@ export const OverviewPage: React.FC = () => {
       </div>
 
       {/* Two Column Layout: Calibration Curve & Recent Court Records */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '20px' }}>
         {/* Left: Calibration Chart */}
         <div
           style={{
@@ -237,7 +237,7 @@ export const OverviewPage: React.FC = () => {
             border: '1px solid var(--border-default)',
             borderRadius: 'var(--radius-lg)',
             boxShadow: 'var(--shadow-sm)',
-            padding: '24px',
+            padding: 'clamp(16px, 3vw, 24px)',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
@@ -351,6 +351,8 @@ export const OverviewPage: React.FC = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '8px',
                   backgroundColor: 'var(--sky-50)',
                   padding: '10px 14px',
                   borderRadius: 'var(--radius-md)',

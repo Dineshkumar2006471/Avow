@@ -75,7 +75,7 @@ export const NoiseDial: React.FC<NoiseDialProps> = ({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
           gap: '8px',
         }}
       >

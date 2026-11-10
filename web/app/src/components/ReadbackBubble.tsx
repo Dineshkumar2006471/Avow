@@ -124,6 +124,8 @@ export const ReadbackBubble: React.FC<ReadbackBubbleProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '10px',
           borderTop: '1px solid #FEF3C7',
           paddingTop: '12px',
         }}

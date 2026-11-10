@@ -156,7 +156,7 @@ export const BenchmarkPage: React.FC = () => {
           </span>
         </div>
 
-        <div style={{ overflowX: 'auto' }}>
+        <div className="table-scroll-wrapper">
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>
@@ -227,7 +227,7 @@ export const BenchmarkPage: React.FC = () => {
           Because Gnani API calls consume credits, every witness in the panel must prove its value against the silent error rate:
         </p>
 
-        <div style={{ overflowX: 'auto' }}>
+        <div className="table-scroll-wrapper">
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>

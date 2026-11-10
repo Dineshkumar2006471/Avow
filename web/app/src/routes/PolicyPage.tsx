@@ -46,7 +46,7 @@ export const PolicyPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#D97706', display: 'inline-block' }} />
@@ -91,13 +91,13 @@ export const PolicyPage: React.FC = () => {
           border: '1px solid var(--border-default)',
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--shadow-sm)',
-          padding: '28px',
+          padding: 'clamp(16px, 3.5vw, 28px)',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h3 style={{ fontSize: '20px', fontWeight: 700 }}>Risk Appetite Operating Point</h3>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '2px' }}>
@@ -134,7 +134,7 @@ export const PolicyPage: React.FC = () => {
           style={{ width: '100%', accentColor: 'var(--sapphire-600)', height: '8px', cursor: 'pointer' }}
         />
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}>
           <span>CONSERVATIVE (BFSI / PAYMENTS)</span>
           <span>BALANCED (COLLECTIONS)</span>
           <span>AGGRESSIVE (LOW-VALUE SURVEYS)</span>
@@ -194,13 +194,13 @@ export const PolicyPage: React.FC = () => {
           border: '1px solid var(--border-default)',
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--shadow-sm)',
-          padding: '28px',
+          padding: 'clamp(16px, 3.5vw, 28px)',
           display: 'flex',
           flexDirection: 'column',
           gap: '20px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
           <span style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)' }}>
             Forward-Deployed Business Guardrails
           </span>
@@ -223,7 +223,7 @@ export const PolicyPage: React.FC = () => {
           Even if all speech witnesses agree unanimously on a number, if it violates physical business reality (e.g. 10x the loan due), AVOW will override and doubt the number.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <label style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
               MAXIMUM ALLOWABLE AMOUNT (₹ INR)

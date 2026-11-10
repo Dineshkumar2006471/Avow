@@ -8,15 +8,24 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   ExternalLink,
+  Menu,
+  X,
 } from 'lucide-react';
 import { CreditsMeter } from './CreditsMeter';
 
 interface HeaderProps {
   sidebarCollapsed?: boolean;
   onToggleSidebar?: () => void;
+  onToggleMobileMenu?: () => void;
+  isMobileMenuOpen?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSidebar }) => {
+export const Header: React.FC<HeaderProps> = ({
+  sidebarCollapsed,
+  onToggleSidebar,
+  onToggleMobileMenu,
+  isMobileMenuOpen,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchFocused, setSearchFocused] = useState(false);
@@ -33,41 +42,55 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 24px',
+        padding: '0 16px',
         position: 'sticky',
         top: 0,
-        zIndex: 'var(--z-sticky)' as any,
+        zIndex: 100,
         boxShadow: 'var(--shadow-xs)',
       }}
     >
       {/* Left: Logo + Sidebar Toggle */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        {isConsole && onToggleSidebar && (
-          <button
-            onClick={onToggleSidebar}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '6px',
-              borderRadius: 'var(--radius-sm)',
-              color: 'var(--text-secondary)',
-              display: 'flex',
-              alignItems: 'center',
-              transition: 'all var(--dur-fast) var(--ease)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--sky-200)';
-              e.currentTarget.style.color = 'var(--text-primary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = 'var(--text-secondary)';
-            }}
-            aria-label="Toggle sidebar"
-          >
-            {sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
-          </button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {isConsole && (
+          <>
+            {/* Desktop toggle button */}
+            <button
+              onClick={onToggleSidebar}
+              className="desktop-only"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '6px',
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text-secondary)',
+                alignItems: 'center',
+                transition: 'all var(--dur-fast) var(--ease)',
+              }}
+              aria-label="Toggle sidebar desktop"
+            >
+              {sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
+            </button>
+
+            {/* Mobile hamburger button */}
+            <button
+              onClick={onToggleMobileMenu || onToggleSidebar}
+              className="mobile-only"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '6px',
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text-primary)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </>
         )}
 
         <button
@@ -75,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
@@ -87,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
             src="/avow-logo-dark.png"
             alt="AVOW Logo"
             style={{
-              height: '28px',
+              height: '24px',
               width: 'auto',
               display: 'block',
               objectFit: 'contain',
@@ -96,9 +119,10 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
         </button>
       </div>
 
-      {/* Center: Search (console only) */}
+      {/* Center: Search (desktop console only) */}
       {isConsole && (
         <div
+          className="desktop-only"
           style={{
             position: 'relative',
             width: '320px',
@@ -160,22 +184,26 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
         {isConsole && <CreditsMeter usedRuns={18} maxRuns={150} environment="LIVE" />}
 
-        {/* Docs Link */}
-        <HeaderIconButton
-          icon={<ExternalLink size={18} />}
-          label="API Docs"
-          onClick={() => navigate('/console/api')}
-        />
+        {/* Docs Link (desktop only) */}
+        <div className="desktop-only">
+          <HeaderIconButton
+            icon={<ExternalLink size={18} />}
+            label="API Docs"
+            onClick={() => navigate('/console/api')}
+          />
+        </div>
 
-        {/* Help */}
-        <HeaderIconButton
-          icon={<HelpCircle size={18} />}
-          label="Help"
-          onClick={() => {}}
-        />
+        {/* Help (desktop only) */}
+        <div className="desktop-only">
+          <HeaderIconButton
+            icon={<HelpCircle size={18} />}
+            label="Help"
+            onClick={() => {}}
+          />
+        </div>
 
-        {/* Notifications */}
-        <div style={{ position: 'relative' }}>
+        {/* Notifications (desktop only) */}
+        <div className="desktop-only" style={{ position: 'relative' }}>
           <HeaderIconButton
             icon={<Bell size={18} />}
             label="Notifications"
@@ -195,8 +223,9 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
           />
         </div>
 
-        {/* Divider */}
+        {/* Divider (desktop only) */}
         <div
+          className="desktop-only"
           style={{
             width: '1px',
             height: '28px',
@@ -211,65 +240,41 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSideba
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            padding: '4px 8px',
+            padding: '4px 6px',
             borderRadius: 'var(--radius-md)',
             transition: 'background var(--dur-fast) var(--ease)',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--sky-100)')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
         >
           <div
             style={{
               width: '32px',
               height: '32px',
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-full)',
               backgroundColor: '#0A0A0A',
+              color: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#FFF',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
               fontWeight: 700,
+              fontSize: '12px',
+              fontFamily: 'var(--font-mono)',
             }}
           >
             D
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '13px',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                lineHeight: '1.2',
-              }}
-            >
+          <div className="desktop-only" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#0A0A0A', lineHeight: '14px' }}>
               Dinesh
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                color: 'var(--text-tertiary)',
-                lineHeight: '1.2',
-              }}
-            >
+            <span style={{ fontSize: '10px', color: '#718096', lineHeight: '12px' }}>
               Operator
             </span>
           </div>
-          <ChevronDown
-            size={14}
-            style={{
-              color: 'var(--text-tertiary)',
-              transform: profileOpen ? 'rotate(180deg)' : 'rotate(0)',
-              transition: 'transform var(--dur-fast) var(--ease)',
-            }}
-          />
+          <ChevronDown size={14} color="#718096" />
         </button>
       </div>
     </header>

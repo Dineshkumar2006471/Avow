@@ -9,6 +9,7 @@ import {
   History,
   Terminal,
   Cpu,
+  X,
 } from 'lucide-react';
 
 export type NavTab =
@@ -23,9 +24,15 @@ export type NavTab =
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  collapsed,
+  mobileOpen = false,
+  onCloseMobile,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -62,25 +69,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     },
   ];
 
-  return (
-    <aside
-      style={{
-        width: collapsed ? '68px' : '252px',
-        backgroundColor: 'var(--surface-primary)',
-        borderRight: '1px solid var(--border-default)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        transition: 'width var(--dur-moderate) var(--ease-in-out)',
-        overflow: 'hidden',
-        flexShrink: 0,
-      }}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '16px 12px', gap: '4px', overflowY: 'auto' }}>
+  const handleNavClick = (tabId: NavTab) => {
+    navigate(`/console/${tabId}`);
+    if (onCloseMobile) {
+      onCloseMobile();
+    }
+  };
+
+  const renderNavContent = (isMobileView: boolean) => (
+    <>
+      <div style={{ display: 'flex', flexDirection: 'column', padding: '16px 12px', gap: '4px', overflowY: 'auto', flex: 1 }}>
         {navSections.map((section, sIdx) => (
           <div key={sIdx} style={{ marginBottom: '8px' }}>
-            {/* Section title */}
-            {!collapsed && (
+            {(!collapsed || isMobileView) && (
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -98,18 +99,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
             {section.items.map((item) => {
               const isActive = currentTab === item.id;
+              const showLabels = !collapsed || isMobileView;
               return (
                 <button
                   key={item.id}
-                  onClick={() => navigate(`/console/${item.id}`)}
-                  title={collapsed ? item.label : undefined}
+                  onClick={() => handleNavClick(item.id)}
+                  title={!showLabels ? item.label : undefined}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
                     width: '100%',
-                    padding: collapsed ? '10px 0' : '10px 16px',
-                    justifyContent: collapsed ? 'center' : 'flex-start',
+                    padding: !showLabels ? '10px 0' : '10px 16px',
+                    justifyContent: !showLabels ? 'center' : 'flex-start',
                     backgroundColor: isActive ? '#0A0A0A' : 'transparent',
                     border: 'none',
                     borderRadius: '9999px',
@@ -121,6 +123,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     textAlign: 'left',
                     transition: 'all 120ms ease',
                     marginBottom: '4px',
+                    minHeight: '42px',
                     boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.14)' : 'none',
                   }}
                   onMouseEnter={(e) => {
@@ -136,16 +139,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     }
                   }}
                 >
-                  <span style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: isActive ? '#FFFFFF' : 'inherit',
-                    flexShrink: 0,
-                  }}>
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      color: isActive ? '#FFFFFF' : 'inherit',
+                      flexShrink: 0,
+                    }}
+                  >
                     {item.icon}
                   </span>
 
-                  {!collapsed && (
+                  {showLabels && (
                     <>
                       <span style={{ whiteSpace: 'nowrap' }}>{item.label}</span>
                       {item.badge && (
@@ -177,14 +182,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       {/* Footer: Models Connected + Sign Out */}
       <div
         style={{
-          padding: collapsed ? '12px 8px' : '16px',
+          padding: !collapsed || isMobileView ? '16px' : '12px 8px',
           borderTop: '1px solid #E5E5E0',
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
+          backgroundColor: 'var(--surface-primary)',
         }}
       >
-        {!collapsed && (
+        {(!collapsed || isMobileView) && (
           <>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <div
@@ -244,7 +250,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
             {/* Deal Forge Style Exit Button */}
             <button
-              onClick={() => navigate('/')}
+              onClick={() => {
+                navigate('/');
+                if (onCloseMobile) onCloseMobile();
+              }}
               style={{
                 width: '100%',
                 padding: '9px 14px',
@@ -262,6 +271,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 justifyContent: 'center',
                 gap: '8px',
                 transition: 'all 120ms ease',
+                minHeight: '40px',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#0A0A0A';
@@ -277,12 +287,121 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           </>
         )}
 
-        {collapsed && (
+        {collapsed && !isMobileView && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Cpu size={16} style={{ color: 'var(--text-tertiary)' }} />
           </div>
         )}
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className="console-sidebar-desktop"
+        style={{
+          width: collapsed ? '68px' : '252px',
+          backgroundColor: 'var(--surface-primary)',
+          borderRight: '1px solid var(--border-default)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          transition: 'width var(--dur-moderate) var(--ease-in-out)',
+          overflow: 'hidden',
+          flexShrink: 0,
+        }}
+      >
+        {renderNavContent(false)}
+      </aside>
+
+      {/* Mobile Drawer (visible on < 768px via CSS) */}
+      <div className="console-sidebar-mobile">
+        {mobileOpen && (
+          <div
+            className="sidebar-backdrop"
+            onClick={onCloseMobile}
+            aria-label="Close navigation overlay"
+          />
+        )}
+        <aside
+          className={`sidebar-drawer ${mobileOpen ? 'open' : ''}`}
+          aria-hidden={!mobileOpen}
+        >
+          {/* Mobile drawer header */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px',
+              borderBottom: '1px solid var(--border-default)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                style={{
+                  width: '26px',
+                  height: '26px',
+                  borderRadius: '6px',
+                  backgroundColor: 'var(--sapphire-600)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: 800,
+                  fontSize: '13px',
+                }}
+              >
+                A
+              </div>
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontWeight: 800,
+                  fontSize: '16px',
+                  letterSpacing: '-0.02em',
+                  color: 'var(--text-primary)',
+                }}
+              >
+                AVOW
+              </span>
+              <span
+                style={{
+                  fontSize: '10px',
+                  fontFamily: 'var(--font-mono)',
+                  color: 'var(--text-tertiary)',
+                  padding: '2px 6px',
+                  background: 'var(--surface-secondary)',
+                  borderRadius: '4px',
+                }}
+              >
+                CONSOLE
+              </span>
+            </div>
+            <button
+              onClick={onCloseMobile}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '6px',
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text-secondary)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-label="Close navigation drawer"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {renderNavContent(true)}
+        </aside>
+      </div>
+    </>
   );
 };

@@ -68,3 +68,4 @@ Generic foreign speech APIs fail because Indian languages have unique dialectal 
 - **Live Backend API (FastAPI on Render):** https://avow.onrender.com/healthz
 - **GitHub Open-Source Repository:** https://github.com/Dineshkumar2006471/Avow
 - **API Documentation & Court Record:** https://avow-steel.vercel.app/console/records
+

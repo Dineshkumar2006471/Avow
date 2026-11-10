@@ -51,7 +51,7 @@ export const LandingPage: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 40px',
+          padding: '0 clamp(16px, 4vw, 40px)',
         }}
       >
         {/* Top-Left: Official AVOW Logo Adjusted for Light Background */}
@@ -70,6 +70,7 @@ export const LandingPage: React.FC = () => {
             }}
           />
           <span
+            className="desktop-only"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
@@ -88,6 +89,7 @@ export const LandingPage: React.FC = () => {
 
         {/* Center-Middle: Navigation Items Strictly Centered */}
         <div
+          className="desktop-only"
           style={{
             position: 'absolute',
             left: '50%',
@@ -165,8 +167,8 @@ export const LandingPage: React.FC = () => {
         </div>
 
         {/* Top-Right: CTAs */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Button variant="ghost" size="compact" onClick={() => navigate('/console/api')}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Button variant="ghost" size="compact" className="desktop-only" onClick={() => navigate('/console/api')}>
             API Docs
           </Button>
           <Button
@@ -176,10 +178,11 @@ export const LandingPage: React.FC = () => {
             icon={<Flame size={16} />}
             style={{
               borderRadius: 'var(--radius-full)',
-              padding: '0 18px',
+              padding: '0 clamp(12px, 3vw, 18px)',
+              whiteSpace: 'nowrap',
             }}
           >
-            Launch The Gauntlet
+            Launch Gauntlet
           </Button>
         </div>
       </nav>
@@ -189,7 +192,7 @@ export const LandingPage: React.FC = () => {
         id="hero"
         style={{
           position: 'relative',
-          padding: '80px 32px 100px',
+          padding: 'clamp(48px, 8vw, 80px) clamp(16px, 4vw, 32px) clamp(60px, 10vw, 100px)',
           background: 'linear-gradient(180deg, #EDF4FF 0%, #F8FAFD 45%, #FFFFFF 100%)',
           borderBottom: '1px solid var(--border-default)',
           overflow: 'hidden',
@@ -232,13 +235,14 @@ export const LandingPage: React.FC = () => {
               border: '1.5px solid var(--sapphire-200)',
               borderRadius: 'var(--radius-full)',
               padding: '6px 18px',
-              marginBottom: '24px',
+              marginBottom: '20px',
               boxShadow: '0 2px 8px rgba(15, 82, 186, 0.08)',
+              maxWidth: '100%',
             }}
           >
-            <ShieldCheck size={16} color="var(--sapphire-600)" />
+            <ShieldCheck size={16} color="var(--sapphire-600)" style={{ flexShrink: 0 }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)', letterSpacing: '0.04em' }}>
-              RUNTIME TRUST LAYER FOR INDIAN LANGUAGE VOICE AGENTS
+              RUNTIME TRUST LAYER FOR VOICE AGENTS
             </span>
           </div>
 
@@ -246,7 +250,7 @@ export const LandingPage: React.FC = () => {
           <h1
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: '56px',
+              fontSize: 'clamp(28px, 6vw, 56px)',
               fontWeight: 800,
               lineHeight: 1.15,
               letterSpacing: '-0.03em',
@@ -261,8 +265,8 @@ export const LandingPage: React.FC = () => {
           {/* Subheadline (1 line of context) */}
           <p
             style={{
-              fontSize: '20px',
-              lineHeight: '32px',
+              fontSize: 'clamp(15px, 2.5vw, 20px)',
+              lineHeight: 'clamp(22px, 3.5vw, 32px)',
               color: 'var(--text-secondary)',
               maxWidth: '780px',
               marginBottom: '36px',
@@ -272,21 +276,22 @@ export const LandingPage: React.FC = () => {
           </p>
 
           {/* Primary CTA + Secondary Link */}
-          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
             <Button
               size="lg"
               variant="primary"
               onClick={() => navigate('/console/gauntlet')}
               icon={<Play size={18} />}
               style={{
-                height: '54px',
-                padding: '0 32px',
-                fontSize: '16px',
+                height: '52px',
+                padding: '0 28px',
+                fontSize: '15px',
                 borderRadius: 'var(--radius-full)',
                 boxShadow: '0 8px 24px rgba(15, 82, 186, 0.3)',
+                maxWidth: '100%',
               }}
             >
-              Try The Gauntlet (Live Interactive Console)
+              Try The Gauntlet (Live Console)
             </Button>
             <Button
               size="lg"
@@ -294,10 +299,11 @@ export const LandingPage: React.FC = () => {
               onClick={() => navigate('/console/benchmark')}
               icon={<ArrowRight size={18} />}
               style={{
-                height: '54px',
-                padding: '0 28px',
-                fontSize: '16px',
+                height: '52px',
+                padding: '0 24px',
+                fontSize: '15px',
                 borderRadius: 'var(--radius-full)',
+                maxWidth: '100%',
               }}
             >
               Explore Benchmark Data
@@ -308,19 +314,19 @@ export const LandingPage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))',
+              gap: '20px',
               width: '100%',
               maxWidth: '980px',
               backgroundColor: '#FFFFFF',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-xl)',
-              padding: '28px 32px',
+              padding: 'clamp(18px, 4vw, 32px)',
               boxShadow: 'var(--shadow-md)',
             }}
           >
             <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#065F46' }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 5vw, 38px)', fontWeight: 800, color: '#065F46' }}>
                 −80.3%
               </div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
@@ -331,8 +337,8 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: 'var(--sapphire-600)' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 5vw, 38px)', fontWeight: 800, color: 'var(--sapphire-600)' }}>
                 &lt; 1.82s
               </div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
@@ -343,8 +349,8 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#D97706' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 5vw, 38px)', fontWeight: 800, color: '#D97706' }}>
                 192
               </div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
@@ -355,8 +361,8 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '38px', fontWeight: 800, color: '#0F172A' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 5vw, 38px)', fontWeight: 800, color: '#0F172A' }}>
                 100%
               </div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
@@ -415,9 +421,9 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Simulated Live Gauntlet Stream */}
-            <div style={{ padding: '32px 36px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ padding: 'clamp(16px, 4vw, 36px)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Spoken Utterance row */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'var(--sky-50)', padding: '16px 20px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px', backgroundColor: 'var(--sky-50)', padding: '16px 20px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <button
                     onClick={simulateSpeech}
@@ -434,6 +440,7 @@ export const LandingPage: React.FC = () => {
                       justifyContent: 'center',
                       boxShadow: isPlayingAudio ? '0 0 16px rgba(16, 185, 129, 0.6)' : '0 2px 8px rgba(15, 82, 186, 0.3)',
                       transition: 'all var(--dur-fast) var(--ease)',
+                      flexShrink: 0,
                     }}
                     title="Click to hear speech synthesis"
                   >
@@ -443,7 +450,7 @@ export const LandingPage: React.FC = () => {
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
                       INCOMING CALLER AUDIO (8 kHz TELEPHONY)
                     </span>
-                    <div style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                    <div style={{ fontSize: 'clamp(15px, 3vw, 18px)', fontWeight: 600, color: 'var(--text-primary)' }}>
                       "मैडम, मैं <span style={{ color: 'var(--sapphire-700)', textDecoration: 'underline' }}>पंद्रह हज़ार</span> रुपये जमा कर दूंगा"
                     </div>
                   </div>
@@ -460,7 +467,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Witnesses Cross-Examination Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '14px' }}>
                 <div style={{ backgroundColor: '#F8FAFD', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-700)' }}>W1 · PRISMA 3.0 ITN</span>
@@ -512,15 +519,17 @@ export const LandingPage: React.FC = () => {
                   backgroundColor: '#FFFBEB',
                   border: '1.5px solid #FDE68A',
                   borderRadius: 'var(--radius-lg)',
-                  padding: '18px 24px',
+                  padding: '16px 20px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '12px',
                   boxShadow: '0 2px 8px rgba(245, 158, 11, 0.08)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', textAlign: 'left' }}>
-                  <AlertTriangle size={24} color="#D97706" />
+                  <AlertTriangle size={24} color="#D97706" style={{ flexShrink: 0 }} />
                   <div>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#92400E' }}>
                       DISPUTE CAUGHT (RISK: 62% · PANDRAH VS PACHAAS CONFUSABLE)
@@ -540,6 +549,7 @@ export const LandingPage: React.FC = () => {
                     color: '#FFF',
                     padding: '6px 16px',
                     borderRadius: 'var(--radius-full)',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   VERDICT: CONFIRM
@@ -551,16 +561,16 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ─── SECTION 2: THE PROBLEM (STORYTELLING VECTOR DIAGRAM) ─── */}
-      <section id="problem" style={{ padding: '100px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
+      <section id="problem" style={{ padding: 'clamp(48px, 8vw, 100px) clamp(16px, 4vw, 32px)', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
         <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 6vw, 64px)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: '#DC2626', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               THE INDIAN TELEPHONY BLINDSPOT
             </span>
-            <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               A ₹35,000 Mistake in One Syllable
             </h2>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '720px', margin: '12px auto 0' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '720px', margin: '12px auto 0' }}>
               Over 8 kHz narrowband telephony lines with Mumbai traffic or ambient chatter, single speech recognition engines silently confuse Indian numerals.
             </p>
           </div>
@@ -569,12 +579,12 @@ export const LandingPage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+              gap: '20px',
               backgroundColor: 'var(--sky-50)',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-2xl)',
-              padding: '36px',
+              padding: 'clamp(16px, 4vw, 36px)',
               marginBottom: '36px',
             }}
           >
@@ -664,8 +674,8 @@ export const LandingPage: React.FC = () => {
           </div>
 
           {/* Interactive Toggle: Compare Before vs After */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '24px' }}>
-            <div style={{ backgroundColor: '#FEF2F2', border: '1.5px solid #FECACA', borderRadius: 'var(--radius-xl)', padding: '28px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
+            <div style={{ backgroundColor: '#FEF2F2', border: '1.5px solid #FECACA', borderRadius: 'var(--radius-xl)', padding: 'clamp(18px, 4vw, 28px)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#991B1B' }}>
@@ -680,7 +690,7 @@ export const LandingPage: React.FC = () => {
               </ul>
             </div>
 
-            <div style={{ backgroundColor: '#ECFDF5', border: '1.5px solid #A7F3D0', borderRadius: 'var(--radius-xl)', padding: '28px' }}>
+            <div style={{ backgroundColor: '#ECFDF5', border: '1.5px solid #A7F3D0', borderRadius: 'var(--radius-xl)', padding: 'clamp(18px, 4vw, 28px)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                 <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10B981' }} />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: '#065F46' }}>

@@ -272,7 +272,8 @@ export const CaseFilesPage: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="table-scroll-wrapper">
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr style={{ backgroundColor: 'var(--sky-100)', borderBottom: '1px solid var(--border-default)' }}>
               <th style={{ padding: '12px 18px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>CASE ID</th>
@@ -337,6 +338,7 @@ export const CaseFilesPage: React.FC = () => {
             })}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Case Detail Modal / Drawer */}
@@ -351,7 +353,7 @@ export const CaseFilesPage: React.FC = () => {
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: '24px',
+            padding: '16px',
           }}
           onClick={() => setSelectedCase(null)}
         >
@@ -365,7 +367,7 @@ export const CaseFilesPage: React.FC = () => {
               maxWidth: '820px',
               maxHeight: '90vh',
               overflowY: 'auto',
-              padding: '28px',
+              padding: 'clamp(16px, 4vw, 28px)',
               display: 'flex',
               flexDirection: 'column',
               gap: '20px',

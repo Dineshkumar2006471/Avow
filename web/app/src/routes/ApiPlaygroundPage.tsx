@@ -142,12 +142,14 @@ print("Readback Speech:", verdict["readback"]["text"])`;
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '10px',
             backgroundColor: 'var(--sky-100)',
             borderBottom: '1px solid var(--border-default)',
-            padding: '0 16px',
+            padding: '8px 16px',
           }}
         >
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <button
               onClick={() => setActiveTab('curl')}
               style={{
@@ -155,7 +157,7 @@ print("Readback Speech:", verdict["readback"]["text"])`;
                 color: activeTab === 'curl' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
                 border: 'none',
                 borderBottom: activeTab === 'curl' ? '2px solid var(--sapphire-500)' : '2px solid transparent',
-                padding: '12px 18px',
+                padding: '10px 14px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '12px',
                 fontWeight: 600,
@@ -172,7 +174,7 @@ print("Readback Speech:", verdict["readback"]["text"])`;
                 color: activeTab === 'python' ? 'var(--sapphire-700)' : 'var(--text-secondary)',
                 border: 'none',
                 borderBottom: activeTab === 'python' ? '2px solid var(--sapphire-500)' : '2px solid transparent',
-                padding: '12px 18px',
+                padding: '10px 14px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '12px',
                 fontWeight: 600,
@@ -184,7 +186,7 @@ print("Readback Speech:", verdict["readback"]["text"])`;
             </button>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <Button size="compact" variant="ghost" onClick={handleCopy} icon={copied ? <Check size={14} /> : <Copy size={14} />}>
               {copied ? 'COPIED' : 'COPY'}
             </Button>

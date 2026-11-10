@@ -682,7 +682,7 @@ export const GauntletPage: React.FC = () => {
       </div>
 
       {/* Two Column Grid: Spoken Input & Noise Condition */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '20px' }}>
         {/* Panel 1: Spoken Audio Sample */}
         <div
           style={{
@@ -690,7 +690,7 @@ export const GauntletPage: React.FC = () => {
             border: '1px solid #E5E5E0',
             borderRadius: '16px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-            padding: '24px',
+            padding: 'clamp(16px, 3vw, 24px)',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
@@ -963,7 +963,7 @@ export const GauntletPage: React.FC = () => {
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-lg)',
               boxShadow: 'var(--shadow-sm)',
-              padding: '20px 24px',
+              padding: 'clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)',
               gap: '20px',
             }}
           >
@@ -987,7 +987,7 @@ export const GauntletPage: React.FC = () => {
               />
             </div>
 
-            <div style={{ minWidth: '320px', flex: 1, maxWidth: '440px' }}>
+            <div style={{ minWidth: 'min(100%, 280px)', width: '100%', flex: 1, maxWidth: '440px' }}>
               <RiskMeter riskScore={currentRisk} />
             </div>
           </div>

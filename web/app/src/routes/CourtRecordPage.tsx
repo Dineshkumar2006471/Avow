@@ -87,7 +87,7 @@ export const CourtRecordPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
       {/* Title */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
@@ -160,7 +160,7 @@ export const CourtRecordPage: React.FC = () => {
           border: '1px solid var(--border-default)',
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--shadow-sm)',
-          padding: '28px',
+          padding: 'clamp(14px, 3vw, 28px)',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -171,7 +171,7 @@ export const CourtRecordPage: React.FC = () => {
             key={item.id}
             style={{
               display: 'flex',
-              gap: '20px',
+              gap: 'clamp(10px, 2.5vw, 20px)',
               position: 'relative',
             }}
           >
@@ -213,16 +213,17 @@ export const CourtRecordPage: React.FC = () => {
                 backgroundColor: 'var(--sky-50)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: 'var(--radius-md)',
-                padding: '18px 20px',
+                padding: 'clamp(12px, 2.5vw, 20px)',
                 flex: 1,
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '8px',
                 transition: 'background-color var(--dur-fast) var(--ease)',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>
                     {item.event}
                   </span>
@@ -236,14 +237,15 @@ export const CourtRecordPage: React.FC = () => {
                 </span>
               </div>
 
-              <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: '14px', color: 'var(--text-secondary)', wordBreak: 'break-word' }}>
                 {item.details}
               </div>
 
               <div
                 style={{
                   display: 'flex',
-                  gap: '16px',
+                  gap: '12px',
+                  flexWrap: 'wrap',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '11px',
                   color: 'var(--text-tertiary)',

@@ -112,6 +112,8 @@ export const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '8px',
           borderBottom: '1px solid var(--border-subtle)',
           paddingBottom: '10px',
         }}

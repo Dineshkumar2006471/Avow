@@ -37,6 +37,8 @@ export const EntityDiff: React.FC<EntityDiffProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '8px',
           borderBottom: '1px solid var(--border-subtle)',
           paddingBottom: '10px',
         }}
@@ -100,6 +102,8 @@ export const EntityDiff: React.FC<EntityDiffProps> = ({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '10px',
                 backgroundColor: bgColor,
                 border: '1px solid var(--border-default)',
                 borderLeft: `4px solid ${borderColor}`,
