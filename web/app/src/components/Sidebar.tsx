@@ -9,7 +9,6 @@ import {
   History,
   Terminal,
   Cpu,
-  FileText,
   X,
 } from 'lucide-react';
 
@@ -20,8 +19,7 @@ export type NavTab =
   | 'benchmark'
   | 'policy'
   | 'court'
-  | 'api'
-  | 'pitch';
+  | 'api';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -64,10 +62,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ],
     },
     {
-      title: 'DEVELOPER & SUBMISSION',
+      title: 'DEVELOPER',
       items: [
         { id: 'api' as NavTab, label: 'API Playground', icon: <Terminal size={18} /> },
-        { id: 'pitch' as NavTab, label: '1-Page Solution Pitch', icon: <FileText size={18} />, badge: 'DOC' },
       ],
     },
   ];

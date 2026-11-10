@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LandingPage } from './routes/LandingPage';
-import { SolutionPitchPage } from './routes/SolutionPitchPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { GauntletPage } from './routes/GauntletPage';
 import { OverviewPage } from './routes/OverviewPage';
@@ -17,15 +16,11 @@ export const App: React.FC = () => {
       <Routes>
         {/* Public landing page */}
         <Route path="/" element={<LandingPage />} />
-        
-        {/* 1-Page Solution Pitch document for competition evaluation */}
-        <Route path="/pitch" element={<SolutionPitchPage />} />
 
         {/* Dashboard (console) routes */}
         <Route path="/console" element={<DashboardLayout />}>
           <Route index element={<Navigate to="gauntlet" replace />} />
           <Route path="gauntlet" element={<GauntletPage />} />
-          <Route path="pitch" element={<SolutionPitchPage />} />
           <Route path="overview" element={<OverviewPage />} />
           <Route path="cases" element={<CaseFilesPage />} />
           <Route path="benchmark" element={<BenchmarkPage />} />

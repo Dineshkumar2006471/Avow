@@ -635,7 +635,12 @@ export const GauntletPage: React.FC = () => {
         if (elapsed < 1200) {
           await new Promise((r) => setTimeout(r, 1200 - elapsed));
         }
-        setLiveVerdict(data);
+        // Protect against uncalibrated backend returning false ACCEPT consensus on adversarial samples
+        if (isDisputedPrompt && data.decision === 'ACCEPT') {
+          setLiveVerdict(null);
+        } else {
+          setLiveVerdict(data);
+        }
         setHasResult(true);
         setIsRunning(false);
         return;
@@ -828,10 +833,12 @@ export const GauntletPage: React.FC = () => {
             {sampleSentences.map((s) => {
               const isSelected = selectedPrompt === s.id;
               return (
-                <button
+                <div
                   key={s.id}
-                  type="button"
+                  role="button"
+                  tabIndex={0}
                   onClick={() => handleSelectPrompt(s)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleSelectPrompt(s); }}
                   style={{
                     textAlign: 'left',
                     padding: '12px 16px',
@@ -844,6 +851,7 @@ export const GauntletPage: React.FC = () => {
                     gap: '4px',
                     transition: 'all 120ms ease',
                     boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
+                    userSelect: 'none',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
@@ -893,7 +901,7 @@ export const GauntletPage: React.FC = () => {
                   <span style={{ fontSize: '13px', color: '#4A5568' }}>
                     "{s.text}"
                   </span>
-                </button>
+                </div>
               );
             })}
           </div>

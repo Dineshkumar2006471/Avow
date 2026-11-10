@@ -276,7 +276,7 @@ export const LandingPage: React.FC = () => {
           </p>
 
           {/* Primary CTA + Secondary Link */}
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
             <Button
               size="lg"
               variant="primary"
@@ -292,24 +292,6 @@ export const LandingPage: React.FC = () => {
               }}
             >
               Try The Gauntlet (Live Console)
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => navigate('/pitch')}
-              style={{
-                height: '52px',
-                padding: '0 22px',
-                fontSize: '15px',
-                borderRadius: 'var(--radius-full)',
-                maxWidth: '100%',
-                backgroundColor: '#EFF6FF',
-                color: '#1D4ED8',
-                borderColor: '#BFDBFE',
-                fontWeight: 700,
-              }}
-            >
-              📄 1-Page Solution Pitch
             </Button>
             <Button
               size="lg"
