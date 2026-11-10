@@ -20,6 +20,9 @@ export const DashboardLayout: React.FC = () => {
         flexDirection: 'column',
         minHeight: '100vh',
         backgroundColor: 'var(--sky-100)',
+        width: '100%',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
       }}
     >
       <Header
@@ -28,7 +31,7 @@ export const DashboardLayout: React.FC = () => {
         onToggleMobileMenu={() => setMobileMenuOpen((prev) => !prev)}
         isMobileMenuOpen={mobileMenuOpen}
       />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative', width: '100%', maxWidth: '100vw' }}>
         <Sidebar
           collapsed={sidebarCollapsed}
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -41,10 +44,13 @@ export const DashboardLayout: React.FC = () => {
             flex: 1,
             padding: '28px 32px',
             overflowY: 'auto',
+            overflowX: 'hidden',
             maxHeight: 'calc(100vh - 64px)',
             backgroundColor: 'var(--sky-100)',
             width: '100%',
+            maxWidth: '100%',
             minWidth: 0,
+            boxSizing: 'border-box',
           }}
         >
           <Outlet />

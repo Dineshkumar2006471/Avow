@@ -709,21 +709,21 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ─── SECTION 3: THE 4-STEP PROCESS (HOW IT WORKS) ─── */}
-      <section id="how-it-works" style={{ padding: '100px 32px', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+      <section id="how-it-works" style={{ padding: 'clamp(48px, 6vw, 100px) clamp(16px, 4vw, 32px)', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)', overflowX: 'hidden' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 5vw, 64px)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               HOW AVOW WORKS
             </span>
-            <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               Four Steps to Zero Hallucinated Rupees
             </h2>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '640px', margin: '12px auto 0' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '640px', margin: '12px auto 0' }}>
               A battle-tested runtime pipeline built exclusively on Gnani Prisma STT and Timbre TTS.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '20px', width: '100%' }}>
             {[
               {
                 step: '01',
@@ -790,16 +790,16 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ─── SECTION 4: ARCHITECTURE & REQUEST FLOW (NARRATIVE DEEP DIVE) ─── */}
-      <section id="architecture" style={{ padding: '100px 32px', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+      <section id="architecture" style={{ padding: 'clamp(48px, 6vw, 100px) clamp(16px, 4vw, 32px)', backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--border-default)', overflowX: 'hidden' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 5vw, 64px)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               TECHNICAL SPECIFICATION
             </span>
-            <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               System Architecture &amp; Data Pipeline
             </h2>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
               How AVOW delivers deterministic runtime safety without generative LLM hallucination risks.
             </p>
           </div>
@@ -809,12 +809,16 @@ export const LandingPage: React.FC = () => {
             style={{
               backgroundColor: '#0B1629',
               borderRadius: 'var(--radius-2xl)',
-              padding: '40px',
+              padding: 'clamp(16px, 3.5vw, 36px)',
               color: '#FFFFFF',
               boxShadow: 'var(--shadow-xl)',
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
+              overflow: 'hidden',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 210px), 1fr))', gap: '16px', width: '100%' }}>
               {/* Box 1 */}
               <div style={{ backgroundColor: '#111D33', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-lg)', padding: '20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#38BDF8' }}>
@@ -872,16 +876,16 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ─── SECTION 5: BENCHMARKS ─── */}
-      <section id="benchmark" style={{ padding: '100px 32px', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+      <section id="benchmark" style={{ padding: 'clamp(48px, 6vw, 100px) clamp(16px, 4vw, 32px)', backgroundColor: 'var(--sky-50)', borderBottom: '1px solid var(--border-default)', overflowX: 'hidden' }}>
+        <div style={{ maxWidth: '1140px', margin: '0 auto', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 5vw, 64px)' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--sapphire-600)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               SCIENTIFIC INTEGRITY
             </span>
-            <h2 style={{ fontSize: '42px', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, marginTop: '8px', color: '#0F172A' }}>
               Empirical Held-Out Benchmark Results
             </h2>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', color: 'var(--text-secondary)', maxWidth: '680px', margin: '12px auto 0' }}>
               Zero fabricated metrics. All figures come from 192 held-out telephony audio evaluations with bootstrap 95% confidence intervals.
             </p>
           </div>
@@ -891,14 +895,16 @@ export const LandingPage: React.FC = () => {
               backgroundColor: '#FFFFFF',
               border: '1px solid var(--border-default)',
               borderRadius: 'var(--radius-2xl)',
-              padding: '36px',
+              padding: 'clamp(16px, 3.5vw, 36px)',
               display: 'flex',
               flexDirection: 'column',
               gap: '24px',
               boxShadow: 'var(--shadow-sm)',
+              width: '100%',
+              boxSizing: 'border-box',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px', width: '100%' }}>
               <div style={{ backgroundColor: 'var(--sky-50)', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--text-tertiary)' }}>
                   UNCORRECTED SILENT ERROR
@@ -961,11 +967,12 @@ export const LandingPage: React.FC = () => {
       {/* ─── SECTION 6: FINAL CTA (THE CONVERSION ZONE) ─── */}
       <section
         style={{
-          padding: '100px 32px',
+          padding: 'clamp(48px, 6vw, 100px) clamp(16px, 4vw, 32px)',
           background: 'linear-gradient(135deg, #041B3F 0%, #0F52BA 60%, #2979F2 100%)',
           color: '#FFFFFF',
           textAlign: 'center',
           position: 'relative',
+          overflowX: 'hidden',
         }}
       >
         <div style={{ maxWidth: '820px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -1024,8 +1031,11 @@ export const LandingPage: React.FC = () => {
         style={{
           backgroundColor: '#070F1F',
           color: 'var(--text-tertiary)',
-          padding: '64px 40px 36px',
+          padding: 'clamp(40px, 6vw, 64px) clamp(16px, 4vw, 40px) 36px',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          overflowX: 'hidden',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
       >
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
